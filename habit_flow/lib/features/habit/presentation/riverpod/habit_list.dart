@@ -1,10 +1,9 @@
-import 'package:fpdart/src/either.dart';
-import 'package:habit_flow/core/error/failure.dart';
 import 'package:habit_flow/features/habit/domain/usecases/add_habit_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../data/repositories/habit_repository_impl.dart';
 import '../../domain/entities/habit.dart';
-import '../../domain/repositories/habit_repository.dart';
+import 'habit_providers.dart';
 
 part 'habit_list.g.dart';
 
@@ -43,7 +42,9 @@ class HabitList extends _$HabitList {
 
     state = const AsyncValue.loading();
 
-    final useCase = AddHabitUseCase(FakeHabitRepository());
+    final useCase = AddHabitUseCase(HabitRepositoryImpl(
+      ref.watch(habitLocalDataSourceProvider),
+    ));
 
     final result = await useCase.execute(title);
 
@@ -51,31 +52,5 @@ class HabitList extends _$HabitList {
       (failure) => state = AsyncValue.error(failure, StackTrace.current),
       (habit) => state = AsyncValue.data([...state.valueOrNull ?? [], habit]),
     );
-  }
-}
-
-final class FakeHabitRepository implements HabitRepository {
-  @override
-  Future<Either<Failure, Habit>> addHabit(Habit habit) {
-    // TODO: implement addHabit
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, void>> deleteHabit(String id) {
-    // TODO: implement deleteHabit
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, List<Habit>>> getHabits() {
-    // TODO: implement getHabits
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, Habit>> updateHabit(Habit habit) {
-    // TODO: implement updateHabit
-    throw UnimplementedError();
   }
 }
