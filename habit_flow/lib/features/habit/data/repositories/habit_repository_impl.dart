@@ -15,7 +15,9 @@ class HabitRepositoryImpl implements HabitRepository {
   Future<Either<Failure, Habit>> addHabit(Habit habit) async {
     try {
       final habitModel = HabitModel.fromEntity(habit);
+
       await _localDataSource.cacheHabit(habitModel);
+
       return right(habit);
     } catch (e) {
       return left(CacheFailure(e.toString()));
@@ -26,6 +28,7 @@ class HabitRepositoryImpl implements HabitRepository {
   Future<Either<Failure, void>> deleteHabit(String id) async {
     try {
       await _localDataSource.deleteHabit(id);
+
       return right(null);
     } catch (e) {
       return left(CacheFailure(e.toString()));
@@ -39,12 +42,29 @@ class HabitRepositoryImpl implements HabitRepository {
     // 2. Map List<HabitModel> to List<Habit> using .toEntity()
     // 3. Return Right(list)
     // 4. Wrap in try-catch to return Left(CacheFailure) on error
-    throw UnimplementedError();
+
+    try {
+      final habits = await _localDataSource.getHabits();
+
+      final habits$Entity = habits.map((e) => e.toEntity()).toList();
+
+      return right(habits$Entity);
+    } catch (e) {
+      return left(CacheFailure(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, Habit>> updateHabit(Habit habit) {
+  Future<Either<Failure, Habit>> updateHabit(Habit habit) async {
     // TODO: Implement updateHabit if you want
-    throw UnimplementedError();
+    final habitModel = HabitModel.fromEntity(habit);
+
+    try {
+      await _localDataSource.cacheHabit(habitModel);
+
+      return right(habit);
+    } catch (e) {
+      return left(CacheFailure(e.toString()));
+    }
   }
 }
