@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/habit/presentation/pages/habit_list_screen.dart';
 import 'features/habit/presentation/riverpod/habit_providers.dart';
 
 void main() async {
@@ -9,11 +10,7 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
 
-  runApp(
-    ProviderScope(overrides: [
-      sharedPreferencesProvider.overrideWithValue(prefs),
-    ], child: const HabitFlowApp()),
-  );
+  runApp(ProviderScope(overrides: [sharedPreferencesProvider.overrideWithValue(prefs)], child: const HabitFlowApp()));
 }
 
 class HabitFlowApp extends StatelessWidget {
@@ -36,7 +33,7 @@ class HabitFlowApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
-      home: const Scaffold(body: Center(child: Text('Let\'s flow!'))),
+      home: const HabitListScreen(),
     );
   }
 }
