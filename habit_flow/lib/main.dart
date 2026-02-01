@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_flow/core/router/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,8 +26,9 @@ class HabitFlowApp extends ConsumerWidget {
       title: 'Habit Flow',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.outfitTextTheme(),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6750A4), // Deep Purple
+          seedColor: Colors.lightGreen,
           brightness: Brightness.light,
         ),
         useMaterial3: true,

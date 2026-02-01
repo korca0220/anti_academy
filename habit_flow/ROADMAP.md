@@ -14,24 +14,30 @@
 - [x] **Repository**: `runCatching` 패턴과 `Either`를 활용한 에러 핸들링
 - [x] **Testing**: 리포지토리 유닛 테스트 (Pending - Skip for now as per code review)
 
-## 📱 Phase 5: UI 구현 및 연결 (Local MVP) (진행 중)
-- [ ] **Routing 101**: GoRouter 기초 잡기
+## 📱 Phase 5: UI 구현 및 연결 (Local MVP) (완료)
+- [x] **Routing 101**: GoRouter 기초 잡기
     - [x] **Dependency**: `go_router` 패키지 추가
     - [x] **Configuration**: `AppRouter` 프로바이더 스캐폴딩 설정
     - [x] **Route Definition**: 루트(`/`) 경로 및 `HabitListScreen` 연결
     - [x] **Injection**: `main.dart`에 `MaterialApp.router` 연결
-- [ ] **Routing 102**: 네비게이션 액션
+- [x] **Routing 102**: 네비게이션 액션
     - [x] **New Screen**: `AddHabitScreen` 스캐폴딩 생성
     - [x] **Route Add**: `/add` 경로 추가
     - [x] **Push**: FAB 클릭 시 `/add`로 이동 (`context.push`)
-- [ ] **State Management 101**: 화면 간 데이터 전달
-    - [ ] **UI Implementation**: `AddHabitScreen`에 `TextField`와 `ElevatedButton` 구현
-    - [ ] **Logic Integration**: 버튼 클릭 시 `habitListProvider` 호출하여 데이터 추가
-    - [ ] **Pop**: 추가 후 `context.pop()`으로 이전 화면 복귀
+- [x] **State Management 101**: 화면 간 데이터 전달
+    - [x] **UI Implementation**: `AddHabitScreen`에 `TextField`와 `ElevatedButton` 구현
+    - [x] **Logic Integration**: 버튼 클릭 시 `habitListProvider` 호출하여 데이터 추가
+    - [x] **Pop**: 추가 후 `context.pop()`으로 이전 화면 복귀
 - [x] **Screen**: 실제 동작하는 리스트 화면 구현
 - [x] **Integration**: Notifier - Repository - View 연결 (완전한 오프라인 앱 완성)
 
-## 🎨 Phase 6: 고급 UI/UX (Visual Polish)
+## 🎨 Phase 6: 고급 UI/UX (Visual Polish) (진행 중)
+- [ ] **Design System**: 프리미엄 룩앤필
+    - [x] **Type & Color**: 구글 폰트 및 커스텀 컬러 팔레트 적용
+    - [ ] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
+        - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
+        - [x] **PrimaryButton**: `ElevatedButton` 대체할 커스텀 버튼
+        - [ ] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
 - [ ] **Micro-Interactions**: 히어로 애니메이션, 폭죽 효과 등
 - [ ] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
 - [ ] **Reordering**: 드래그 앤 드롭으로 우선순위 변경
