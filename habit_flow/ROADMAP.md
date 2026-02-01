@@ -15,7 +15,19 @@
 - [x] **Testing**: 리포지토리 유닛 테스트 (Pending - Skip for now as per code review)
 
 ## 📱 Phase 5: UI 구현 및 연결 (Local MVP) (진행 중)
-- [ ] **Routing**: 화면 이동 구조 잡기 (GoRouter 도입 필요)
+- [ ] **Routing 101**: GoRouter 기초 잡기
+    - [x] **Dependency**: `go_router` 패키지 추가
+    - [x] **Configuration**: `AppRouter` 프로바이더 스캐폴딩 설정
+    - [x] **Route Definition**: 루트(`/`) 경로 및 `HabitListScreen` 연결
+    - [x] **Injection**: `main.dart`에 `MaterialApp.router` 연결
+- [ ] **Routing 102**: 네비게이션 액션
+    - [x] **New Screen**: `AddHabitScreen` 스캐폴딩 생성
+    - [x] **Route Add**: `/add` 경로 추가
+    - [x] **Push**: FAB 클릭 시 `/add`로 이동 (`context.push`)
+- [ ] **State Management 101**: 화면 간 데이터 전달
+    - [ ] **UI Implementation**: `AddHabitScreen`에 `TextField`와 `ElevatedButton` 구현
+    - [ ] **Logic Integration**: 버튼 클릭 시 `habitListProvider` 호출하여 데이터 추가
+    - [ ] **Pop**: 추가 후 `context.pop()`으로 이전 화면 복귀
 - [x] **Screen**: 실제 동작하는 리스트 화면 구현
 - [x] **Integration**: Notifier - Repository - View 연결 (완전한 오프라인 앱 완성)
 

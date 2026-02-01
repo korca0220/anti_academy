@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_flow/core/router/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'features/habit/presentation/pages/habit_list_screen.dart';
 import 'features/habit/presentation/riverpod/habit_providers.dart';
 
 void main() async {
@@ -13,12 +13,15 @@ void main() async {
   runApp(ProviderScope(overrides: [sharedPreferencesProvider.overrideWithValue(prefs)], child: const HabitFlowApp()));
 }
 
-class HabitFlowApp extends StatelessWidget {
+class HabitFlowApp extends ConsumerWidget {
   const HabitFlowApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(goRouterProvider);
+
+    return MaterialApp.router(
+      routerConfig: goRouter,
       title: 'Habit Flow',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -33,7 +36,6 @@ class HabitFlowApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
-      home: const HabitListScreen(),
     );
   }
 }

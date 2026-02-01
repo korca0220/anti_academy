@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../riverpod/habit_list.dart';
 
@@ -10,22 +11,9 @@ class HabitListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => TextField(
-              decoration: const InputDecoration(
-                hintText: 'Add a new habit',
-              ),
-              onSubmitted: (value) async {
-                await ref.read(habitListProvider.notifier).addHabit(value);
-
-                if (context.mounted) {
-                  Navigator.pop(context);
-                }
-              },
-            ),
-          );
+          context.push('/add');
         },
       ),
       body: Consumer(
@@ -37,6 +25,7 @@ class HabitListScreen extends ConsumerWidget {
             error: (err, stackTrace) => Text(err.toString()),
             data: (habits) {
               return ListView.builder(
+                itemCount: habits.length,
                 itemBuilder: (context, index) {
                   final habit = habits[index];
 
