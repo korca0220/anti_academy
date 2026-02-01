@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:habit_flow/features/habit/presentation/riverpod/habit_list.dart';
 import 'package:habit_flow/features/habit/presentation/widgets/primary_button.dart';
 
+import '../widgets/custom_text_field.dart';
+
 class AddHabitScreen extends ConsumerStatefulWidget {
   const AddHabitScreen({super.key});
 
@@ -31,17 +33,16 @@ class _AddHabitScreenState extends ConsumerState<AddHabitScreen> {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            TextField(
+            CustomTextField(
               controller: _titleController,
-              decoration: const InputDecoration(
-                hintText: 'Enter a new habit',
-              ),
+              hintText: 'Enter a new habit',
             ),
             const SizedBox(height: 24),
             PrimaryButton(
               text: 'Save',
               onPressed: () {
                 ref.read(habitListProvider.notifier).addHabit(_titleController.text);
+
                 context.pop();
               },
             ),

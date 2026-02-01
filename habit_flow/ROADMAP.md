@@ -34,10 +34,10 @@
 ## 🎨 Phase 6: 고급 UI/UX (Visual Polish) (진행 중)
 - [ ] **Design System**: 프리미엄 룩앤필
     - [x] **Type & Color**: 구글 폰트 및 커스텀 컬러 팔레트 적용
-    - [ ] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
+    - [x] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
         - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
         - [x] **PrimaryButton**: `ElevatedButton` 대체할 커스텀 버튼
-        - [ ] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
+        - [x] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
 - [ ] **Micro-Interactions**: 히어로 애니메이션, 폭죽 효과 등
 - [ ] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
 - [ ] **Reordering**: 드래그 앤 드롭으로 우선순위 변경

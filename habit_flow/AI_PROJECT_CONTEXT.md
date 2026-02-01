@@ -11,7 +11,10 @@
 - **Language**: Dart
 - **Architecture**: Clean Architecture (Feature-first or Layer-first)
 - **State Management**: Riverpod (현재 선택된 도구, Bloc 등으로 대체 가능)
-- **Navigation**: GoRouter
+- **Navigation**: GoRouter (Implemented)
+- **UI/Design**:
+  - Font: Google Fonts (Outfit)
+  - Components: Custom Premium Widgets (`HabitCard`, `PrimaryButton`, `CustomTextField`)
 - **Functional Programming**: fpdart (Either, Option, TaskEither)
 - **Data Class**: Freezed (Manual implementation for Models)
 - **Local DB**: SharedPreferences (MVP) -> Hive/Isar (Planned)
