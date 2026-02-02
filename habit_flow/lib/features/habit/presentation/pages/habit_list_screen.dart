@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:habit_flow/features/habit/presentation/widgets/habit_card.dart';
 
 import '../riverpod/habit_list.dart';
+import '../widgets/habit_progress_card.dart';
 
 class HabitListScreen extends ConsumerWidget {
   const HabitListScreen({super.key});
@@ -26,7 +27,17 @@ class HabitListScreen extends ConsumerWidget {
               loading: () => const CircularProgressIndicator(),
               error: (err, stackTrace) => Text(err.toString()),
               data: (habits) {
+                final totalHabits = habits.length;
+                final completedHabits = habits.where((habit) => habit.isCompleted).length;
+
                 return ReorderableListView.builder(
+                  header: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: HabitProgressCard(
+                      totalHabits: totalHabits,
+                      completedHabits: completedHabits,
+                    ),
+                  ),
                   onReorder: (oldIndex, newIndex) {
                     ref.read(habitListProvider.notifier).reorder(oldIndex, newIndex);
                   },
