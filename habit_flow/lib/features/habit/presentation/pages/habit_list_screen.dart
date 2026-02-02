@@ -17,26 +17,46 @@ class HabitListScreen extends ConsumerWidget {
           context.push('/add');
         },
       ),
-      body: Consumer(
-        builder: (context, ref, child) {
-          final habits = ref.watch(habitListProvider);
+      body: SafeArea(
+        child: Consumer(
+          builder: (context, ref, child) {
+            final habits = ref.watch(habitListProvider);
 
-          return habits.when(
-            loading: () => const CircularProgressIndicator(),
-            error: (err, stackTrace) => Text(err.toString()),
-            data: (habits) {
-              return ListView.separated(
-                itemCount: habits.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  final habit = habits[index];
+            return habits.when(
+              loading: () => const CircularProgressIndicator(),
+              error: (err, stackTrace) => Text(err.toString()),
+              data: (habits) {
+                return ReorderableListView.builder(
+                  onReorder: (oldIndex, newIndex) {
+                    ref.read(habitListProvider.notifier).reorder(oldIndex, newIndex);
+                  },
+                  proxyDecorator: (child, index, animation) {
+                    return AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) {
+                        return HabitCard(
+                          id: habits[index].id,
+                          title: habits[index].title,
+                          isHeroEnabled: false,
+                        );
+                      },
+                    );
+                  },
+                  itemCount: habits.length,
+                  itemBuilder: (context, index) {
+                    final habit = habits[index];
 
-                  return HabitCard(id: habit.id, title: habit.title);
-                },
-              );
-            },
-          );
-        },
+                    return HabitCard(
+                      key: ValueKey(habit.id),
+                      id: habit.id,
+                      title: habit.title,
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

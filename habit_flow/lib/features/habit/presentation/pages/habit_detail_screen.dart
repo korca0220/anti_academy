@@ -21,8 +21,6 @@ class HabitDetailScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // TODO: Wrap this Text with a Hero widget
-            // The tag MUST match the tag used in HabitCard (e.g., 'habit_title_$habitId')
             Hero(
               tag: 'habit_title_$habitId',
               child: Material(

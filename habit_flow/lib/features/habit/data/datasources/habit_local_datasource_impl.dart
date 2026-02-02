@@ -14,20 +14,23 @@ class HabitLocalDataSourceImpl implements HabitLocalDataSource {
 
   @override
   Future<void> cacheHabit(HabitModel habit) async {
-    // TODO: 1. Get existing habits from SharedPreferences
     final habits = await getHabits();
-    // TODO: 2. Add the new habit to the list
-    habits.add(habit);
-    // TODO: 3. Encode the List<HabitModel> to JSON String
+
+    final index = habits.indexWhere((element) => element.id == habit.id);
+
+    if (index >= 0) {
+      habits[index] = habit;
+    } else {
+      habits.add(habit);
+    }
+
     final jsonString = json.encode(habits);
 
-    // TODO: 4. Save to SharedPreferences using _sharedPreferences.setString
     await _sharedPreferences.setString(cachedHabitsKey, jsonString);
   }
 
   @override
   Future<void> deleteHabit(String id) async {
-    // TODO: Optional Assignment
     final habits = await getHabits();
 
     final habit = habits.firstWhere((e) => e.id == id);
@@ -41,14 +44,10 @@ class HabitLocalDataSourceImpl implements HabitLocalDataSource {
 
   @override
   Future<List<HabitModel>> getHabits() async {
-    // TODO: 1. Get the JSON String from SharedPreferences
     final habitString = _sharedPreferences.getString(cachedHabitsKey);
-    // TODO: 2. If null, return empty list
     if (habitString == null || habitString.isEmpty) return [];
 
-    // TODO: 3. content decoding: List<dynamic> jsonList = json.decode(jsonString);
     final jsonList = json.decode(habitString) as List<dynamic>;
-    // TODO: 4. map to HabitModel: jsonList.map((j) => HabitModel.fromJson(j)).toList();
 
     final habits = jsonList.map((e) => HabitModel.fromJson(e)).toList();
 

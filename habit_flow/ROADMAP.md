@@ -38,9 +38,9 @@
         - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
         - [x] **PrimaryButton**: `ElevatedButton` 대체할 커스텀 버튼
         - [x] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
-- [ ] **Micro-Interactions**: 히어로 애니메이션, 폭죽 효과 등
+- [x] **Micro-Interactions**: 히어로 애니메이션, Scale Button 적용 완료
+- [x] **Reordering**: 드래그 앤 드롭으로 우선순위 변경
 - [ ] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
-- [ ] **Reordering**: 드래그 앤 드롭으로 우선순위 변경
 - [ ] **Theme System**: 다크/라이트 모드 영구 저장 시스템
 
 ## ☁️ Phase 7: 백엔드 & 오프라인 퍼스트 (Architecture)

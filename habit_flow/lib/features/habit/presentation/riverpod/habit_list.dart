@@ -42,4 +42,28 @@ class HabitList extends _$HabitList {
       state = AsyncValue.data([...previousState, habit]);
     });
   }
+
+  Future<void> reorder(int oldIndex, int newIndex) async {
+    final currentHabits = state.valueOrNull ?? [];
+
+    if (currentHabits.isEmpty) return;
+    final items = List<Habit>.from(currentHabits);
+
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+
+    final item = items.removeAt(oldIndex);
+    items.insert(newIndex, item);
+
+    final reorderedItems = items.asMap().entries.map((e) {
+      return e.value.copyWith(orderIndex: e.key);
+    }).toList();
+
+    state = AsyncValue.data(reorderedItems);
+
+    final repository = ref.read(habitRepositoryProvider);
+
+    repository.updateHabitOrder(reorderedItems);
+  }
 }

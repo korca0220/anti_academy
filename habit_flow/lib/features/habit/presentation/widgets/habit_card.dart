@@ -7,10 +7,12 @@ class HabitCard extends StatelessWidget {
     super.key,
     required this.id,
     required this.title,
+    this.isHeroEnabled = true,
   });
 
   final String id;
   final String title;
+  final bool isHeroEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,16 @@ class HabitCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Hero(
-                tag: 'habit_title_$id',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Text(title),
+              if (isHeroEnabled) ...{
+                Hero(
+                  tag: 'habit_title_$id',
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: Text(title),
+                  ),
                 ),
-              ),
+              } else
+                Text(title),
             ],
           ),
         ),

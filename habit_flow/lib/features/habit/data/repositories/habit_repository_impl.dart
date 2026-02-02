@@ -37,16 +37,13 @@ class HabitRepositoryImpl implements HabitRepository {
 
   @override
   Future<Either<Failure, List<Habit>>> getHabits() async {
-    // TODO: Implement getHabits using _localDataSource
-    // 1. Call getHabits() from datasource
-    // 2. Map List<HabitModel> to List<Habit> using .toEntity()
-    // 3. Return Right(list)
-    // 4. Wrap in try-catch to return Left(CacheFailure) on error
-
     try {
       final habits = await _localDataSource.getHabits();
 
       final habits$Entity = habits.map((e) => e.toEntity()).toList();
+
+      // Sort by orderIndex
+      habits$Entity.sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
 
       return right(habits$Entity);
     } catch (e) {
@@ -56,13 +53,26 @@ class HabitRepositoryImpl implements HabitRepository {
 
   @override
   Future<Either<Failure, Habit>> updateHabit(Habit habit) async {
-    // TODO: Implement updateHabit if you want
     final habitModel = HabitModel.fromEntity(habit);
 
     try {
       await _localDataSource.cacheHabit(habitModel);
 
       return right(habit);
+    } catch (e) {
+      return left(CacheFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateHabitOrder(List<Habit> habits) async {
+    try {
+      for (final habit in habits) {
+        final habitModel = HabitModel.fromEntity(habit);
+
+        await _localDataSource.cacheHabit(habitModel);
+      }
+      return right(null);
     } catch (e) {
       return left(CacheFailure(e.toString()));
     }

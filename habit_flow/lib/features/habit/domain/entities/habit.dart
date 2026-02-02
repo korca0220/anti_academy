@@ -9,6 +9,7 @@ abstract class Habit with _$Habit {
     required String id,
     required String title,
     @Default(false) bool isCompleted,
+    @Default(0) int orderIndex,
     required DateTime createdAt,
   }) = _Habit;
 
