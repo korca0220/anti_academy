@@ -48,7 +48,11 @@ class HabitListScreen extends ConsumerWidget {
                         return HabitCard(
                           id: habits[index].id,
                           title: habits[index].title,
+                          isCompleted: habits[index].isCompleted,
                           isHeroEnabled: false,
+                          onToggle: (id) {
+                            ref.read(habitListProvider.notifier).toggleHabit(id);
+                          },
                         );
                       },
                     );
@@ -61,6 +65,10 @@ class HabitListScreen extends ConsumerWidget {
                       key: ValueKey(habit.id),
                       id: habit.id,
                       title: habit.title,
+                      isCompleted: habit.isCompleted,
+                      onToggle: (id) {
+                        ref.read(habitListProvider.notifier).toggleHabit(id);
+                      },
                     );
                   },
                 );

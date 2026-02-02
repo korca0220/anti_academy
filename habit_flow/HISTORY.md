@@ -35,6 +35,7 @@
     -   **Hero Animation**: `HabitCard`와 `HabitDetailScreen` 간의 자연스러운 화면 전환.
     -   **ScaleButton**: 터치 시 쫀득한 반응을 주는 래퍼 위젯 구현.
     -   **Reordering**: `ReorderableListView`와 `orderIndex` 필드를 이용한 드래그 앤 드롭 정렬.
+    -   **Custom Painters**: `CustomPainter` API를 사용하여 외부 라이브러리 없이 원형 차트 구현.
 
 ### 📝 주요 의사결정 및 배운 점 (Key Learnings)
 -   **Scaffolding First**: AI는 정답 코드를 주는 대신, `TODO`가 포함된 스캐폴딩 파일을 제공하여 사용자가 직접 빈칸을 채우도록 유도함.

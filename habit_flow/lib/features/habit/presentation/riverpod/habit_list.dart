@@ -3,6 +3,7 @@ import 'package:habit_flow/features/habit/domain/usecases/get_habits_usecase.dar
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/entities/habit.dart';
+import '../../domain/usecases/update_habit_usecase.dart';
 import 'habit_providers.dart';
 
 part 'habit_list.g.dart';
@@ -65,5 +66,33 @@ class HabitList extends _$HabitList {
     final repository = ref.read(habitRepositoryProvider);
 
     repository.updateHabitOrder(reorderedItems);
+  }
+
+  Future<void> toggleHabit(String id) async {
+    final currentHabits = state.valueOrNull ?? [];
+
+    if (currentHabits.isEmpty) return;
+    final items = List<Habit>.from(currentHabits);
+
+    final item = items.firstWhere((element) => element.id == id);
+    final updatedItem = item.copyWith(isCompleted: !item.isCompleted);
+
+    final repository = ref.read(habitRepositoryProvider);
+    final useCase = UpdateHabitUseCase(repository);
+
+    final result = await useCase.execute(updatedItem);
+
+    result.fold(
+      (failure) {
+        state = AsyncValue.error(failure, StackTrace.current);
+      },
+      (habit) {
+        final previousState = state.valueOrNull ?? [];
+
+        final updatedState = previousState.map((e) => e.id == id ? habit : e).toList();
+
+        state = AsyncValue.data(updatedState);
+      },
+    );
   }
 }

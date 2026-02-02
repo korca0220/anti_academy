@@ -7,12 +7,16 @@ class HabitCard extends StatelessWidget {
     super.key,
     required this.id,
     required this.title,
+    required this.onToggle,
+    required this.isCompleted,
     this.isHeroEnabled = true,
   });
 
   final String id;
   final String title;
+  final bool isCompleted;
   final bool isHeroEnabled;
+  final ValueChanged<String> onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,10 @@ class HabitCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
+              Checkbox(
+                value: isCompleted,
+                onChanged: (value) => onToggle(id),
+              ),
               if (isHeroEnabled) ...{
                 Hero(
                   tag: 'habit_title_$id',
