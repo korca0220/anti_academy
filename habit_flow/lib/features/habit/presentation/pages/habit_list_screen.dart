@@ -50,9 +50,6 @@ class HabitListScreen extends ConsumerWidget {
                           title: habits[index].title,
                           isCompleted: habits[index].isCompleted,
                           isHeroEnabled: false,
-                          onToggle: (id) {
-                            ref.read(habitListProvider.notifier).toggleHabit(id);
-                          },
                         );
                       },
                     );

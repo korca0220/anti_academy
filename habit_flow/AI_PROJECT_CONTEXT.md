@@ -47,3 +47,21 @@ lib/
 1.  **Mapper Pattern**: `Entity`(Domain)와 `Model`(Data)을 분리하고 `toEntity()`/`fromEntity()`로 변환.
 2.  **Repository Pattern**: 도메인은 인터페이스만 정의, 데이터 계층이 구현 (의존성 역전).
 3.  **Result Object Pattern**: `fpdart::Either<Failure, T>`를 사용하여 명시적인 에러 처리.
+
+## 📏 프로젝트 규칙 (Project Rules)
+
+### 1. 협업 방식 (Collaboration)
+-   **Scaffolding First**: AI는 정답 코드를 바로 주는 대신, `TODO`가 포함된 스캐폴딩(뼈대) 파일을 제공하여 사용자가 직접 빈칸을 채우도록 유도한다. (학습 효과 극대화)
+-   **Context Update**: 매 세션이 끝날 때마다 변경 사항을 `AI_PROJECT_CONTEXT.md`, `HISTORY.md`에 반영하여 컨텍스트를 최신화한다.
+-   **Session Wrap-up Protocol**: 세션을 마칠 때는 반드시 다음 절차를 따른다.
+    1.  **Rule Update**: 이번 세션에서 새로 생긴 규칙이나 AI 행동 지침을 `AI_PROJECT_CONTEXT.md`에 기록한다.
+    2.  **History Log**: 작업 내용과 Key Learnings를 `HISTORY.md`에 남긴다.
+    3.  **Next Planning**: `task.md`와 `ROADMAP.md`를 업데이트하여 다음 작업을 명시한다.
+
+### 2. UI/UX 가이드라인 (Design Specs)
+-   **Explicit Specs**: "예쁘게 해주세요" 대신 구체적인 수치(Radius: 16, Blur: 10, Color: Primary with 0.1 opacity)를 제시한다.
+-   **Premium Feel**: 단순한 기능 구현을 넘어, Hero Animation, Scale Button 등 Micro-interaction을 적극 도입한다.
+
+### 3. 개발 원칙 (Development Principles)
+-   **Full Stack Vertical Slice**: 기능 추가 시 화면만 수정하는 것이 아니라, Domain(Entity) -> Data(Model) -> Repository -> Presentation(Screen) 순으로 전 계층을 수직적으로 통합 구현한다.
+-   **State Management**: 상태 관리는 Riverpod을 사용하며, UI 로직과 비즈니스 로직을 철저히 분리한다.
