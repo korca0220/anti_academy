@@ -5,6 +5,7 @@ import 'package:habit_flow/features/habit/presentation/pages/habit_list_screen.d
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/habit/presentation/pages/add_habit_screen.dart';
+import '../../features/habit/presentation/pages/habit_detail_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -29,6 +30,14 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: '/add',
         builder: (context, state) => const AddHabitScreen(),
+      ),
+
+      GoRoute(
+        path: '/habit/:id',
+        builder: (context, state) => HabitDetailScreen(
+          habitId: state.pathParameters['id']!,
+          habitTitle: state.extra as String,
+        ),
       ),
     ],
   );
