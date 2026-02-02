@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habit_flow/features/habit/presentation/widgets/scale_button.dart';
 
 class HabitCard extends StatelessWidget {
   const HabitCard({
@@ -13,8 +14,8 @@ class HabitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    return ScaleButton(
+      onPressed: () {
         context.push('/habit/$id', extra: title);
       },
       child: Container(
@@ -36,7 +37,10 @@ class HabitCard extends StatelessWidget {
             children: [
               Hero(
                 tag: 'habit_title_$id',
-                child: Text(title),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Text(title),
+                ),
               ),
             ],
           ),

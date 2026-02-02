@@ -25,9 +25,12 @@ class HabitDetailScreen extends ConsumerWidget {
             // The tag MUST match the tag used in HabitCard (e.g., 'habit_title_$habitId')
             Hero(
               tag: 'habit_title_$habitId',
-              child: Text(
-                habitTitle,
-                style: Theme.of(context).textTheme.headlineLarge,
+              child: Material(
+                type: MaterialType.transparency,
+                child: Text(
+                  habitTitle,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
               ),
             ),
             const SizedBox(height: 20),

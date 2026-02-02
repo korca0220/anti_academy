@@ -31,7 +31,7 @@ class HabitListScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final habit = habits[index];
 
-                  return HabitCard(title: habit.title);
+                  return HabitCard(id: habit.id, title: habit.title);
                 },
               );
             },
