@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_flow/core/config/supabase_config.dart';
 import 'package:habit_flow/core/router/app_router.dart';
+import 'package:habit_flow/features/habit/presentation/riverpod/habit_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'features/habit/presentation/riverpod/habit_providers.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: SupabaseConfig.url,
+    anonKey: SupabaseConfig.anonKey,
+  );
 
   final prefs = await SharedPreferences.getInstance();
 
