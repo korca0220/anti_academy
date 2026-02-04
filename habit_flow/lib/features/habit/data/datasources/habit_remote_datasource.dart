@@ -16,7 +16,11 @@ class HabitRemoteDataSourceImpl implements HabitRemoteDataSource {
 
   @override
   Future<HabitModel> createHabit(HabitModel habit) async {
-    final result = await _supabase.from('habits').insert(habit.toJson()).select().single();
+    final json = habit.toJson();
+
+    json['user_id'] = _supabase.auth.currentUser!.id;
+
+    final result = await _supabase.from('habits').insert(json).select().single();
 
     return HabitModel.fromJson(result);
   }
@@ -35,7 +39,7 @@ class HabitRemoteDataSourceImpl implements HabitRemoteDataSource {
 
   @override
   Future<HabitModel> updateHabit(HabitModel habit) async {
-    final result = await _supabase.from('habits').update(habit.toJson()).eq('id', habit.id).select().single();
+    final result = await _supabase.from('habits').upsert(habit.toJson()).eq('id', habit.id).select().single();
 
     return HabitModel.fromJson(result);
   }

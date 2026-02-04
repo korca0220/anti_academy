@@ -52,6 +52,7 @@ class HabitRepositoryImpl implements HabitRepository {
   @override
   Future<Either<Failure, List<Habit>>> getHabits() async {
     try {
+      
       // TODO: 3. Sync Strategy (One way: Remote -> Local)
       // 1) Remote에서 최신 데이터를 가져온다. (_remoteDataSource.getHabits())
       // 2) 가져온 데이터를 Local에 캐싱한다. (Loop & _localDataSource.cacheHabit())

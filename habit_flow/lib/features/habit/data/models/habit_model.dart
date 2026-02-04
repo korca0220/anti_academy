@@ -19,9 +19,9 @@ class HabitModel {
     return HabitModel(
       id: json['id'] as String,
       title: json['title'] as String,
-      isCompleted: json['isCompleted'] as bool? ?? false,
-      orderIndex: json['orderIndex'] as int? ?? 0,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      isCompleted: json['is_completed'] as bool? ?? false,
+      orderIndex: json['order_index'] as int? ?? 0,
+      createdAt: DateTime.parse(json['created_at'] as String),
     );
   }
 
@@ -29,9 +29,9 @@ class HabitModel {
     return {
       'id': id,
       'title': title,
-      'isCompleted': isCompleted,
-      'orderIndex': orderIndex,
-      'createdAt': createdAt.toIso8601String(),
+      'is_completed': isCompleted,
+      'order_index': orderIndex,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 
