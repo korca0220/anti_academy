@@ -4,6 +4,7 @@ import '../../../../core/error/failure.dart';
 import '../../domain/entities/habit.dart';
 import '../../domain/repositories/habit_repository.dart';
 import '../datasources/habit_local_datasource.dart';
+import '../datasources/habit_remote_datasource.dart';
 import '../models/habit_model.dart';
 
 class HabitRepositoryImpl implements HabitRepository {
@@ -24,6 +25,8 @@ class HabitRepositoryImpl implements HabitRepository {
       // 안정성을 위해 await를 사용하고, 실패 시 에러를 반환하는 것이 좋습니다.
       // 코드를 작성해서 _remoteDataSource.createHabit()을 호출하세요.
 
+      await _remoteDataSource.createHabit(habitModel);
+
       return right(habit);
     } catch (e) {
       return left(CacheFailure(e.toString()));
@@ -38,6 +41,8 @@ class HabitRepositoryImpl implements HabitRepository {
       // TODO: 2. Remote 삭제
       // _remoteDataSource.deleteHabit()을 호출하세요.
 
+      await _remoteDataSource.deleteHabit(id);
+
       return right(null);
     } catch (e) {
       return left(CacheFailure(e.toString()));
@@ -51,6 +56,12 @@ class HabitRepositoryImpl implements HabitRepository {
       // 1) Remote에서 최신 데이터를 가져온다. (_remoteDataSource.getHabits())
       // 2) 가져온 데이터를 Local에 캐싱한다. (Loop & _localDataSource.cacheHabit())
       // 3) Local에서 다시 읽어서 반환한다. (이미 구현됨)
+
+      final remoteHabits = await _remoteDataSource.getHabits();
+
+      await Future.wait(
+        remoteHabits.map((e) => _localDataSource.cacheHabit(e)),
+      );
 
       // 지금은 Local만 읽고 있습니다. 위 로직을 추가해보세요.
       final habits = await _localDataSource.getHabits();
@@ -78,6 +89,8 @@ class HabitRepositoryImpl implements HabitRepository {
       // TODO: 4. Remote 업데이트
       // _remoteDataSource.updateHabit()을 호출하세요.
 
+      await _remoteDataSource.updateHabit(habitModel);
+
       return right(habit);
     } catch (e) {
       return left(CacheFailure(e.toString()));
@@ -89,12 +102,16 @@ class HabitRepositoryImpl implements HabitRepository {
     try {
       for (final habit in habits) {
         final habitModel = HabitModel.fromEntity(habit);
+
         await _localDataSource.cacheHabit(habitModel);
 
         // TODO: 5. (Advanced) Remote 순서 업데이트
         // 성능 이슈로 인해 개별 업데이트보다는 Batch Update가 좋지만,
         // 일단은 반복문 안에서 _remoteDataSource.updateHabit()을 호출해도 됩니다.
+
+        await _remoteDataSource.updateHabit(habitModel);
       }
+
       return right(null);
     } catch (e) {
       return left(CacheFailure(e.toString()));

@@ -19,6 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       final user = response.user;
+      
       if (user == null) {
         return left(const AuthFailure('User not found after sign in'));
       }

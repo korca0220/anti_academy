@@ -65,3 +65,6 @@ lib/
 ### 3. 개발 원칙 (Development Principles)
 -   **Full Stack Vertical Slice**: 기능 추가 시 화면만 수정하는 것이 아니라, Domain(Entity) -> Data(Model) -> Repository -> Presentation(Screen) 순으로 전 계층을 수직적으로 통합 구현한다.
 -   **State Management**: 상태 관리는 Riverpod을 사용하며, UI 로직과 비즈니스 로직을 철저히 분리한다.
+
+### 4. 보안 규칙 (Security)
+-   **Environment Variables**: API Key 등 민감 정보는 절대 소스 코드에 하드코딩하지 않는다. `.env` 파일을 사용하고 `.gitignore`에 추가한다.

@@ -43,10 +43,10 @@
 - [x] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
 - [ ] **Theme System**: 다크/라이트 모드 영구 저장 시스템
 
-## ☁️ Phase 7: 백엔드 & 오프라인 퍼스트 (Architecture)
-- [ ] **Supabase Integration**: 인증(Auth) & 데이터베이스
-- [ ] **Optimistic UI**: 서버 응답 전 UI 즉시 업데이트
-- [ ] **Sync Strategy**: 오프라인 상태에서의 변경 사항 동기화 전략
+## ☁️ Phase 7: 백엔드 & 오프라인 퍼스트 (Architecture) (완료)
+- [x] **Supabase Integration**: 인증(Auth) & 데이터베이스
+- [x] **Optimistic UI**: 서버 응답 전 UI 즉시 업데이트 (Repository에서 Local 우선 저장으로 구현)
+- [x] **Sync Strategy**: 오프라인 상태에서의 변경 사항 동기화 전략 (Backup 방식)
 
 ## 🛡️ Phase 8: 품질 보증 및 최적화 (Engineering)
 - [ ] **Riverpod Observer**: 상태 변경 로깅

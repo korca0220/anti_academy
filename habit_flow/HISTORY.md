@@ -49,3 +49,33 @@
     -   **Micro-Interactions**: Hero Animation, AnimatedContainer 등 적용.
     -   **Reordering**: `ReorderableListView` 구현.
 -   **Phase 7 (Backend)**: Supabase 연동 준비.
+
+## 📅 Session 2: Phase 7 (2026-02-04)
+
+### 🎯 목표 (Goal)
+- **Phase 7 (Backend & Offline First)**: Supabase 연동, 인증(Auth) 구현, 그리고 오프라인 우선(Offline First) 데이터 동기화.
+
+### ✅ 달성한 작업 (Accomplishments)
+1.  **Supabase Integration**
+    -   `supabase_flutter` 패키지 설치 및 프로젝트 초기화.
+    -   **Database**: `habits` 테이블 생성 (RLS 정책 포함: `auth.uid() = user_id`).
+    -   **Authentication**: `AuthRepository` 구현 (로그인, 회원가입, 로그아웃) 및 `LoginScreen` UI 제작.
+    -   **Guards**: `AppRouter`에 리다이렉트 로직 추가 (비로그인 시 로그인 화면으로 강제 이동).
+
+2.  **Remote Data Source & Integration**
+    -   **Scaffolding**: `HabitRemoteDataSource`의 인터페이스와 TODO 스캐폴딩 제공.
+    -   **User Implementation**: 사용자가 직접 Supabase 쿼리(`insert`, `select`, `update`, `delete`)를 작성하여 구현 완료.
+    -   **Repository Sync**: `HabitRepositoryImpl`에서 로컬(`SharedPreferences`)과 리모트(`Supabase`)를 동시에 업데이트하는 로직 구현.
+    -   **Offline Resilience**: 네트워크 실패 시에도 로컬 데이터를 보여주도록 `getHabits` 로직 개선 (Offline First).
+
+3.  **Security**
+    -   **Environment Variables**: API 키를 소스 코드(`SupabaseConfig.dart`)에서 제거하고, `.env` 파일로 이동 (`flutter_dotenv`).
+
+### 📝 주요 의사결정 및 배운 점 (Key Learnings)
+-   **Remote as Backup**: 현재 동기화 전략은 "로컬에 먼저 저장하고, 리모트에 백업"하는 방식. 복잡한 충돌 해결보다는 데이터 안전성과 반응 속도를 우선시함.
+-   **Security First**: Public Key라도 깃허브에 올리는 것은 나쁜 습관. `.env` 도입으로 보안 모범 사례 준수.
+-   **Scaffolding Importance**: AI가 모든 코드를 작성해버리면 사용자의 학습 기회가 사라짐. 중요 로직(`RemoteDataSource`)은 뼈대만 주고 사용자가 채우게 하는 방식이 유효했음.
+
+### 🚀 다음 단계 (Next Steps)
+-   **Phase 8 (Quality Assurance)**: 테스트 코드 작성 및 버그 헌팅.
+-   **Phase 9 (Release)**: 스토어 출시 준비 (아이콘, 스플래시 등).

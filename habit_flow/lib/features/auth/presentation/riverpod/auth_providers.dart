@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:habit_flow/core/error/failure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,12 +11,12 @@ import '../../domain/repositories/auth_repository.dart';
 part 'auth_providers.g.dart';
 
 @Riverpod(keepAlive: true)
-AuthRepository authRepository(AuthRepositoryRef ref) {
+AuthRepository authRepository(Ref ref) {
   return AuthRepositoryImpl(Supabase.instance.client);
 }
 
 @Riverpod(keepAlive: true)
-Stream<User?> authStateChanges(AuthStateChangesRef ref) {
+Stream<User?> authStateChanges(Ref ref) {
   final repository = ref.watch(authRepositoryProvider);
   return repository.authStateChanges;
 }
