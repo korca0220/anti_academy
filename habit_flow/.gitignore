@@ -46,4 +46,10 @@ android/local.properties
 *.freezed.dart
 *.g.dart
 coverage/
+coverage/
 test/coverage_helper_test.dart
+
+# Environment Variables
+.env
+.env.dev
+.env.prod
