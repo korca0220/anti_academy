@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_flow/core/observer/app_observer.dart';
 import 'package:habit_flow/core/router/app_router.dart';
 import 'package:habit_flow/core/theme/theme_provider.dart';
 import 'package:habit_flow/features/habit/presentation/riverpod/habit_providers.dart';
@@ -22,6 +23,7 @@ void main() async {
 
   runApp(
     ProviderScope(
+      observers: [AppObserver()],
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
       ],
