@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_flow/core/router/app_router.dart';
+import 'package:habit_flow/core/theme/theme_provider.dart';
 import 'package:habit_flow/features/habit/presentation/riverpod/habit_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,11 +36,14 @@ class HabitFlowApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
+    final themeMode = ref.watch(themeNotifierProvider);
+    // TODO: 4. 여기서 themeNotifierProvider를 watch하세요.
 
     return MaterialApp.router(
       routerConfig: goRouter,
       title: 'Habit Flow',
       debugShowCheckedModeBanner: false,
+      // TODO: 5. 여기에 themeMode: ... 를 추가하세요.
       theme: ThemeData(
         textTheme: GoogleFonts.outfitTextTheme(),
         colorScheme: ColorScheme.fromSeed(
@@ -52,7 +56,7 @@ class HabitFlowApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFD0BCFF), brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: themeMode,
     );
   }
 }

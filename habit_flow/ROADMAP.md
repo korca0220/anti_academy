@@ -31,8 +31,8 @@
 - [x] **Screen**: 실제 동작하는 리스트 화면 구현
 - [x] **Integration**: Notifier - Repository - View 연결 (완전한 오프라인 앱 완성)
 
-## 🎨 Phase 6: 고급 UI/UX (Visual Polish) (진행 중)
-- [ ] **Design System**: 프리미엄 룩앤필
+## 🎨 Phase 6: 고급 UI/UX (Visual Polish) (완료)
+- [x] **Design System**: 프리미엄 룩앤필
     - [x] **Type & Color**: 구글 폰트 및 커스텀 컬러 팔레트 적용
     - [x] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
         - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
@@ -41,7 +41,7 @@
 - [x] **Micro-Interactions**: 히어로 애니메이션, Scale Button 적용 완료
 - [x] **Reordering**: 드래그 앤 드롭으로 우선순위 변경
 - [x] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
-- [ ] **Theme System**: 다크/라이트 모드 영구 저장 시스템
+- [x] **Theme System**: 다크/라이트 모드 영구 저장 시스템
 
 ## ☁️ Phase 7: 백엔드 & 오프라인 퍼스트 (Architecture) (완료)
 - [x] **Supabase Integration**: 인증(Auth) & 데이터베이스
