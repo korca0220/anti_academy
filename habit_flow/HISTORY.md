@@ -79,3 +79,29 @@
 ### 🚀 다음 단계 (Next Steps)
 -   **Phase 8 (Quality Assurance)**: 테스트 코드 작성 및 버그 헌팅.
 -   **Phase 9 (Release)**: 스토어 출시 준비 (아이콘, 스플래시 등).
+
+## 📅 Session 3: Phase 6 & 8 (2026-02-05)
+
+### 🎯 목표 (Goal)
+- **Phase 6 Completion**: 테마 시스템(Theme System) 완성.
+- **Phase 8 (Engineering)**: 앱의 기술적 완성도(Quality Assurance) 높이기.
+
+### ✅ 달성한 작업 (Accomplishments)
+1.  **Theme System (Phase 6 Final)**
+    -   `ThemeNotifier`: `SharedPreferences`를 이용한 테마(Dark/Light/System) 영구 저장 구현.
+    -   **Toggle UI**: 앱바에 직관적인 아이콘 토글 버튼 추가.
+    -   **Strict Step-by-Step**: AI가 코드를 작성해주지 않고, 사용자가 직접 구현하도록 가이드함.
+
+2.  **Engineering Quality (Phase 8)**
+    -   **Riverpod Observer**: `AppObserver`를 구현하여 앱의 모든 상태 변화를 콘솔 로그로 추적.
+    -   **Environment Config**: `.env.dev` / `.env.prod` 분리 및 `launch.json` 설정을 통해 개발/운영 환경 스위칭 구축.
+    -   **Unit Testing**: `mocktail`을 도입하여 `HabitRepository`의 핵심 비즈니스 로직(Remote -> Local Sync)을 테스트하는 코드 작성.
+
+### 📝 주요 의사결정 및 배운 점 (Key Learnings)
+-   **User-Driven Implementation**: AI가 코드를 다 짜주는 것보다, 스캐폴딩과 가이드만 제공하고 사용자가 직접 타이핑했을 때 학습 효과가 극대화됨을 재확인.
+-   **Observability**: 로그(Observer)가 있으면 버그 추적이 훨씬 쉬워짐.
+-   **Testing with Mocks**: 리모트 DB 없이 로직을 검증하기 위해 `Mock` 객체와 `registerFallbackValue`가 필요함을 학습.
+
+### 🚀 다음 단계 (Next Steps)
+-   **Project Completed**: 사용자의 결정에 따라 배포(Phase 9) 단계는 생략하고 프로젝트를 마무리함.
+-   **Review**: 전체 코드를 복기하며 Clean Architecture 패턴 체화하기.

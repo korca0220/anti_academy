@@ -3,52 +3,58 @@
 **목표**: 고급 패턴을 적용한 **상용 수준(Production-Grade)** 의 플러터 앱 구축.
 
 ## 🏁 Phase 1-3: 핵심 코어 (완료)
+
 - [x] Clean Architecture 셋업
 - [x] 도메인 계층 규칙 정의 (Entities, UseCases)
 - [x] 프레젠테이션 계층 골격 (Riverpod Notifiers)
 - [x] 수동 DTO 구현 (CodeGen 의존성 제거 및 아키텍처 분리)
 
 ## 💾 Phase 4: 데이터 계층 심화 (완료)
+
 - [x] **Mapper 패턴**: Model과 Entity 분리
 - [x] **Data Source**: 견고한 `SharedPreferences` 핸들링 구현
 - [x] **Repository**: `runCatching` 패턴과 `Either`를 활용한 에러 핸들링
 - [x] **Testing**: 리포지토리 유닛 테스트 (Pending - Skip for now as per code review)
 
 ## 📱 Phase 5: UI 구현 및 연결 (Local MVP) (완료)
+
 - [x] **Routing 101**: GoRouter 기초 잡기
-    - [x] **Dependency**: `go_router` 패키지 추가
-    - [x] **Configuration**: `AppRouter` 프로바이더 스캐폴딩 설정
-    - [x] **Route Definition**: 루트(`/`) 경로 및 `HabitListScreen` 연결
-    - [x] **Injection**: `main.dart`에 `MaterialApp.router` 연결
+  - [x] **Dependency**: `go_router` 패키지 추가
+  - [x] **Configuration**: `AppRouter` 프로바이더 스캐폴딩 설정
+  - [x] **Route Definition**: 루트(`/`) 경로 및 `HabitListScreen` 연결
+  - [x] **Injection**: `main.dart`에 `MaterialApp.router` 연결
 - [x] **Routing 102**: 네비게이션 액션
-    - [x] **New Screen**: `AddHabitScreen` 스캐폴딩 생성
-    - [x] **Route Add**: `/add` 경로 추가
-    - [x] **Push**: FAB 클릭 시 `/add`로 이동 (`context.push`)
+  - [x] **New Screen**: `AddHabitScreen` 스캐폴딩 생성
+  - [x] **Route Add**: `/add` 경로 추가
+  - [x] **Push**: FAB 클릭 시 `/add`로 이동 (`context.push`)
 - [x] **State Management 101**: 화면 간 데이터 전달
-    - [x] **UI Implementation**: `AddHabitScreen`에 `TextField`와 `ElevatedButton` 구현
-    - [x] **Logic Integration**: 버튼 클릭 시 `habitListProvider` 호출하여 데이터 추가
-    - [x] **Pop**: 추가 후 `context.pop()`으로 이전 화면 복귀
+  - [x] **UI Implementation**: `AddHabitScreen`에 `TextField`와 `ElevatedButton` 구현
+  - [x] **Logic Integration**: 버튼 클릭 시 `habitListProvider` 호출하여 데이터 추가
+  - [x] **Pop**: 추가 후 `context.pop()`으로 이전 화면 복귀
 - [x] **Screen**: 실제 동작하는 리스트 화면 구현
 - [x] **Integration**: Notifier - Repository - View 연결 (완전한 오프라인 앱 완성)
 
 ## 🎨 Phase 6: 고급 UI/UX (Visual Polish) (완료)
+
 - [x] **Design System**: 프리미엄 룩앤필
-    - [x] **Type & Color**: 구글 폰트 및 커스텀 컬러 팔레트 적용
-    - [x] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
-        - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
-        - [x] **PrimaryButton**: `ElevatedButton` 대체할 커스텀 버튼
-        - [x] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
+  - [x] **Type & Color**: 구글 폰트 및 커스텀 컬러 팔레트 적용
+  - [x] **Components**: 버튼, 입력 필드 등 커스텀 위젯화
+    - [x] **HabitCard**: `ListTile` 대체할 프리미엄 카드 위젯
+    - [x] **PrimaryButton**: `ElevatedButton` 대체할 커스텀 버튼
+    - [x] **CustomTextField**: `TextField` 대체할 커스텀 입력 필드
 - [x] **Micro-Interactions**: 히어로 애니메이션, Scale Button 적용 완료
 - [x] **Reordering**: 드래그 앤 드롭으로 우선순위 변경
 - [x] **Custom Painters**: 라이브러리 없이 직접 그리는 차트/그래프
 - [x] **Theme System**: 다크/라이트 모드 영구 저장 시스템
 
 ## ☁️ Phase 7: 백엔드 & 오프라인 퍼스트 (Architecture) (완료)
+
 - [x] **Supabase Integration**: 인증(Auth) & 데이터베이스
 - [x] **Optimistic UI**: 서버 응답 전 UI 즉시 업데이트 (Repository에서 Local 우선 저장으로 구현)
 - [x] **Sync Strategy**: 오프라인 상태에서의 변경 사항 동기화 전략 (Backup 방식)
 
-## 🛡️ Phase 8: 품질 보증 및 최적화 (Engineering)
-- [ ] **Riverpod Observer**: 상태 변경 로깅
-- [ ] **Environment Config**: 개발(Dev) / 운영(Prod) 환경 분리
-- [ ] **Widget Tests**: UI 흐름 자동화 테스트
+## 🛡️ Phase 8: 품질 보증 및 최적화 (Engineering) (완료)
+
+- [x] **Riverpod Observer**: 상태 변경 로깅
+- [x] **Environment Config**: 개발(Dev) / 운영(Prod) 환경 분리
+- [x] **Widget Tests**: UI 흐름 자동화 테스트 (Unit Test for Repository 대체)
