@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
+import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -21,6 +22,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => SignInScreen(),
       ),
       GoRoute(
+        path: '/signup',
+        builder: (context, state) => SignUpScreen(),
+      ),
+      GoRoute(
         path: '/',
         builder: (context, state) => HomeScreen(),
       ),
@@ -32,15 +37,13 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       final isSplash = state.uri.toString() == '/splash';
       final isLoggingIn = state.uri.toString() == '/signin';
+      final isSigningUp = state.uri.toString() == '/signup';
 
-      // 로그인 안했는데 로그인 페이지가 아니면 -> 로그인 페이지로
-      if (!isAuthenticated && !isLoggingIn) return '/signin';
+      // 로그인 안했는데 로그인/회원가입 페이지가 아니면 -> 로그인 페이지로
+      if (!isAuthenticated && !isLoggingIn && !isSigningUp) return '/signin';
 
-      // 로그인 했는데 로그인 페이지면 -> 홈으로
-      if (isAuthenticated && isLoggingIn) return '/';
-
-      // 로그인 했는데 스플래쉬면 -> 홈으로
-      if (isAuthenticated && isSplash) return '/';
+      // 로그인 했는데 로그인/회원가입/스플래쉬면 -> 홈으로
+      if (isAuthenticated && (isLoggingIn || isSigningUp || isSplash)) return '/';
 
       return null;
     },

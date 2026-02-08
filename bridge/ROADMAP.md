@@ -3,11 +3,12 @@
 **목표**: Supabase의 기능을 120% 활용한 **Realtime Social Platform** 구축.
 
 ## 🏁 Phase 1: 기반 구축 (Setup & Auth)
-- [ ] **Project Setup**: 기본 구조 세팅 (Riverpod, GoRouter, Freezed)
-- [ ] **Design System**: 컬러 팔레트, 타이포그래피, 기본 위젯(Button, Input) 구현
-- [ ] **Supabase Init**: 프로젝트 생성 및 연결
-- [ ] **Auth Feature**:
-    - [ ] Sign Up / Sign In (Email & Password)
+- [x] **Project Setup**: 기본 구조 세팅 (Riverpod, GoRouter, Theme)
+- [x] **Supabase Init**: 프로젝트 연동 및 Config 설정
+- [x] **Auth Domain**: Entity & Repository Interface
+- [x] **Auth Implementation**: Supabase Auth (Sign In/Up/Out)
+- [x] **Auth UI**: Login Screen & Auto-Redirect Logic
+gn Up / Sign In (Email & Password)
     - [ ] **Profile Setup**: 닉네임, 관심사, 위치 설정 (users 테이블 연동)
     - [ ] Auth State 관리 (Splash Screen 분기 처리)
 

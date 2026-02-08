@@ -1,34 +1,33 @@
-import 'package:bridge/features/auth/presentation/providers/sign_in_controller.dart';
+import 'package:bridge/features/auth/presentation/providers/sign_up_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-class SignInScreen extends ConsumerStatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends ConsumerStatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  ConsumerState<SignInScreen> createState() => _SignInScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends ConsumerState<SignInScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nicknameController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nicknameController.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(signInControllerProvider);
+    final state = ref.watch(signUpControllerProvider);
 
-    /// build가 여러 번 실행되어도 알아서 중복 구독을 방지함. 필요할 때만 리스너를 실행
-    /// build 안에서 프로바이더의 상태를 구독해야함
-    ref.listen(signInControllerProvider, (previous, next) {
+    ref.listen(signUpControllerProvider, (previous, next) {
       if (next.hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.error.toString())),
@@ -37,39 +36,35 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     });
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Sign Up')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
             controller: emailController,
-            decoration: InputDecoration(
-              labelText: 'Email',
-            ),
+            decoration: InputDecoration(labelText: 'Email'),
           ),
           TextFormField(
             controller: passwordController,
-            decoration: InputDecoration(
-              labelText: 'Password',
-            ),
+            decoration: InputDecoration(labelText: 'Password'),
+          ),
+          TextFormField(
+            controller: nicknameController,
+            decoration: InputDecoration(labelText: 'Nickname'),
           ),
           ElevatedButton(
             onPressed: state.isLoading
                 ? null
                 : () {
-                    ref.read(signInControllerProvider.notifier).signIn(
+                    ref.read(signUpControllerProvider.notifier).signUp(
                           email: emailController.text,
                           password: passwordController.text,
+                          nickname: nicknameController.text,
                         );
                   },
             child: state.isLoading //
                 ? const CircularProgressIndicator()
-                : const Text('Sign in'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.push('/signup');
-            },
-            child: Text('Sign up'),
+                : const Text('Sign Up'),
           ),
         ],
       ),
