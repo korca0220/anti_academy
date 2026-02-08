@@ -64,3 +64,6 @@ lib/
 1.  **Strict Linting**: `flutter_lints`보다 엄격한 룰 적용.
 2.  **No Magic Strings**: 모든 문자열, 색상, 스타일은 상수로 관리.
 3.  **Offline First**: 네트워크가 끊겨도 앱이 멈추지 않아야 함 (Optimistic UI는 선택적 적용).
+4.  **Controller Pattern**:
+    *   UI 로직은 `ConsumerWidget`이 아닌 **Controller (AsyncNotifier)** 위임합니다.
+    *   `isLoading`, `error` 상태 관리를 `AsyncValue`로 통일하여 안전하게 처리합니다.

@@ -7,10 +7,9 @@
 - [x] **Supabase Init**: 프로젝트 연동 및 Config 설정
 - [x] **Auth Domain**: Entity & Repository Interface
 - [x] **Auth Implementation**: Supabase Auth (Sign In/Up/Out)
-- [x] **Auth UI**: Login Screen & Auto-Redirect Logic
-gn Up / Sign In (Email & Password)
-    - [ ] **Profile Setup**: 닉네임, 관심사, 위치 설정 (users 테이블 연동)
-    - [ ] Auth State 관리 (Splash Screen 분기 처리)
+- [x] **Auth UI**: Login/SignUp Screens
+- [x] **Auth State**: Splash Screen & Auto-Redirect Logic
+- [x] **Profile Setup (DB)**: `profiles` Table Schema & Auto-create Trigger
 
 ## 📡 Phase 2: 게시글 & 피드 (Feed & Posts)
 - [ ] **Database Schema**: `posts` 테이블 설계 (Request/Offer 타입 구분)
