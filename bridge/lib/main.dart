@@ -1,3 +1,5 @@
+import 'package:bridge/app/router/app_router.dart';
+import 'package:bridge/app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // TODO: 1. Import AppRouter
@@ -11,7 +13,9 @@ void main() async {
   // TODO: Initialize Supabase (Next Step!)
 
   // TODO: 3. Wrap the app with ProviderScope
-  runApp(const ProviderScope(child: BridgeApp()));
+  runApp(
+    const ProviderScope(child: BridgeApp()),
+  );
 }
 
 class BridgeApp extends ConsumerWidget {
@@ -19,15 +23,13 @@ class BridgeApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: 4. Watch the router provider
-    // final router = ref.watch(routerProvider);
+    final router = ref.watch(routerProvider);
 
-    // TODO: 5. Return MaterialApp.router
     return MaterialApp.router(
       title: 'Bridge',
-      // routerConfig: router,
-      // theme: AppTheme.light,
+      theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }
