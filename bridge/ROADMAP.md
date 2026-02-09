@@ -12,8 +12,9 @@
 - [x] **Profile Setup (DB)**: `profiles` Table Schema & Auto-create Trigger
 
 ## 📡 Phase 2: 게시글 & 피드 (Feed & Posts)
-- [ ] **Database Schema**: `posts` 테이블 설계 (Request/Offer 타입 구분)
-- [ ] **Feed UI**: 메인 리스트 화면 (SliverScrollView)
+- [x] **Database Schema**: `posts` 테이블 설계 (Request/Offer 타입 구분)
+- [x] **Domain Layer**: Post Entity & Repository 구현
+- [/] **Feed UI**: 메인 리스트 구현 (Basic List 완료)
 - [ ] **Create Post**: 글쓰기 화면 및 로직 (Floating Action Button)
 - [ ] **Filtering**: 요청(Help) vs 제공(Offer) 필터링
 - [ ] **Post Detail**: 상세 화면 구현

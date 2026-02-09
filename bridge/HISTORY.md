@@ -24,6 +24,24 @@
 -   **Controller vs ViewModel**: Riverpod의 Notifier는 MVVM의 ViewModel과 동일한 역할을 수행함.
 -   **Auth Redirection**: `GoRouter`의 `redirect`에서 로그인 상태와 현재 경로를 정교하게 체크해야 무한 루프나 잘못된 이동을 방지할 수 있음.
 -   **Supabase Triggers**: Auth(회원가입)와 DB(프로필 생성)를 서버 사이드(SQL)에서 원자적으로 연결하는 패턴 학습.
+-   **Supabase Triggers**: Auth(회원가입)와 DB(프로필 생성)를 서버 사이드(SQL)에서 원자적으로 연결하는 패턴 학습.
+
+## 2026-02-10: Phase 2 - Feed & Posts Initiation
+
+### ✅ Accomplishments
+1.  **Database Design**:
+    -   `posts` 테이블 설계 (Request/Offer 타입, 상태 관리, `image_urls`).
+    -   RLS 정책 설정 (읽기 전용 / 본인만 쓰기).
+    -   Realtime Replication 활성화.
+
+2.  **Domain Layer (Feed)**:
+    -   `Post` Entity (Immutable with `freezed`).
+    -   `PostRepository` Interface & `SupabasePostRepository` Implementation.
+    -   **Tech Debt Fixed**: `Map.remove()`가 값을 리턴하는 문제 -> Cascade Operator (`..remove`)로 해결.
+
+3.  **UI Implementation**:
+    -   `HomeScreen` 기초 구현 (Riverpod StreamProvider 연동).
+    -   `build_runner`를 통한 JSON Mapping 에러 해결 (@JsonKey).
 
 ### 🔜 Next Steps
 -   **Phase 2: Feed & Posts** (Supabase Database & Realtime)
