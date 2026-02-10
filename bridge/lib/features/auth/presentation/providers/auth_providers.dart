@@ -14,3 +14,9 @@ final authStateChangesProvider = StreamProvider((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges;
 });
+
+final currentUserIdProvider = Provider<String?>((ref) {
+  final supabase = ref.watch(supabaseClientProvider);
+
+  return supabase.auth.currentUser?.id;
+});
