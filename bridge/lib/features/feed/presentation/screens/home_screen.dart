@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../providers/post_providers.dart';
+import '../widgets/feed_item.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -27,13 +29,14 @@ class HomeScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final post = posts[index];
 
-              return ListTile(
-                title: Text(post.title),
-                subtitle: Text(post.content),
-              );
+              return FeedItem(post: post);
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.push('/create-post'),
+        child: const Icon(Icons.add),
       ),
     );
   }

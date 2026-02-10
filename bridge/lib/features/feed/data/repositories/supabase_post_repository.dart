@@ -28,21 +28,15 @@ class SupabasePostRepository implements PostRepository {
 
   @override
   Future<void> createPost(Post post) async {
-    // TODO: Implement createPost
-    // Tip: use _supabase.from('posts').insert(post.toJson())
-    final result = await _supabase.from('posts').insert(post.toJson()..remove('id'));
+    final postJson = post.toJson()..remove('id');
 
-    if (result.error != null) {
-      throw Exception(result.error?.message);
-    }
+    await _supabase.from('posts').insert(postJson);
   }
 
   @override
   Future<void> updatePost(Post post) async {
-    final result = await _supabase.from('posts').update(post.toJson()..remove('id')).eq('id', post.id);
+    final postJson = post.toJson()..remove('id');
 
-    if (result.error != null) {
-      throw Exception(result.error?.message);
-    }
+    await _supabase.from('posts').update(postJson).eq('id', post.id);
   }
 }

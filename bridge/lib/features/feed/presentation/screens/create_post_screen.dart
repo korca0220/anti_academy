@@ -1,6 +1,7 @@
 import 'package:bridge/features/feed/presentation/providers/post_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../auth/presentation/providers/auth_providers.dart';
@@ -42,7 +43,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
             decoration: InputDecoration(labelText: 'Content'),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               final newPost = Post(
                 id: const Uuid().v4(),
                 authorId: ref.read(currentUserIdProvider) ?? '',
@@ -54,7 +55,26 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                 createdAt: DateTime.now(),
               );
 
-              ref.read(postRepositoryProvider).createPost(newPost);
+              try {
+                await ref.read(postRepositoryProvider).createPost(newPost);
+
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Post created successfully')),
+                  );
+
+                  context.pop();
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Failed to create post'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }
             },
             child: Text('Submit'),
           ),

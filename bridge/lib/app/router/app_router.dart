@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
+import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -28,6 +29,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         builder: (context, state) => HomeScreen(),
+      ),
+      GoRoute(
+        path: '/create-post',
+        builder: (context, state) => CreatePostScreen(),
       ),
     ],
     redirect: (context, state) {
