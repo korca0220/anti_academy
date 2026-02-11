@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
+import '../../features/feed/domain/entities/post.dart';
 import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
+import '../../features/feed/presentation/screens/post_detail_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -33,6 +35,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/create-post',
         builder: (context, state) => CreatePostScreen(),
+      ),
+      GoRoute(
+        path: '/post-detail',
+        builder: (context, state) {
+          final post = state.extra as Post;
+          return PostDetailScreen(post: post);
+        },
       ),
     ],
     redirect: (context, state) {
