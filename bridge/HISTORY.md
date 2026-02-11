@@ -56,3 +56,23 @@
 ### 🔜 Next Steps
 
 - **Phase 2: Feed & Posts** (Filtering, Post Detail)
+
+## 2026-02-11: Feed Filtering & Post Detail View
+
+### ✅ Accomplishments
+
+1.  **Feed Filtering**:
+    -   **UI**: `SegmentedButton` in `HomeScreen` for 'Request' vs 'Offer'.
+    -   **State**: `feedFilterProvider` (StateProvider).
+    -   **Logic**: Conditional query chaining in `SupabasePostRepository` (`.eq()` only when filter active).
+    -   **Test**: Attempted TDD for repository but skipped due to Mockito/Supabase complexity.
+
+2.  **Post Detail View**:
+    -   **Navigation**: Added `/post-detail` route passing `Post` object via `extra`.
+    -   **UI**: `PostDetailScreen` displaying Title, Content, Author ID, Date, and Type Badge.
+    -   **UX**: Solved text overflow issue for long User IDs using `Expanded`.
+
+### 🔜 Next Steps
+
+-   **User Profile**: Fetch and display author's name/avatar instead of raw ID.
+-   **Chat**: Implement "Contact Author" button functionality.
