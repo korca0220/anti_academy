@@ -10,20 +10,23 @@ class SupabasePostRepository implements PostRepository {
   final SupabaseClient _supabase;
 
   @override
-  Stream<List<Post>> getPosts() {
-    // TODO: Implement getPosts
-    // Tip: use _supabase.from('posts').stream(primaryKey: ['id'])
-    // Don't forget to order by created_at desc
+  Stream<List<Post>> getPosts({PostType? type}) {
+    // TODO: Implement filtering logic
+    // If [type] is provided, filter by that type.
+    // Otherwise, return all posts.
 
-    final posts = _supabase.from('posts').stream(primaryKey: ['id']).order('created_at');
+    // Create query
+    final builder = _supabase.from('posts').stream(primaryKey: ['id']);
 
-    final result = posts.map(
-      (event) => event.map((e) {
-        return Post.fromJson(e);
-      }).toList(),
-    );
+    if (type != null) {
+      return builder.eq('type', type.name).order('created_at', ascending: false).map(
+            (event) => event.map((e) => Post.fromJson(e)).toList(),
+          );
+    }
 
-    return result;
+    return builder.order('created_at', ascending: false).map(
+          (event) => event.map((e) => Post.fromJson(e)).toList(),
+        );
   }
 
   @override

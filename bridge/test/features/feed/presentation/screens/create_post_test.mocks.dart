@@ -33,10 +33,12 @@ class MockPostRepository extends _i1.Mock implements _i2.PostRepository {
   }
 
   @override
-  _i3.Stream<List<_i4.Post>> getPosts() => (super.noSuchMethod(
+  _i3.Stream<List<_i4.Post>> getPosts({_i4.PostType? type}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getPosts,
           [],
+          {#type: type},
         ),
         returnValue: _i3.Stream<List<_i4.Post>>.empty(),
       ) as _i3.Stream<List<_i4.Post>>);

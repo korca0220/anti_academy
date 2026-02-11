@@ -6,7 +6,7 @@ abstract class PostRepository {
   // 2. Create post
   // 3. Update status (optional for now)
 
-  Stream<List<Post>> getPosts();
+  Stream<List<Post>> getPosts({PostType? type});
   Future<void> createPost(Post post);
   Future<void> updatePost(Post post);
 }
