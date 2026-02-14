@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../app/theme/app_colors.dart';
+
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
 
@@ -52,18 +54,36 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               labelText: 'Password',
             ),
           ),
-          ElevatedButton(
-            onPressed: state.isLoading
-                ? null
-                : () {
-                    ref.read(signInControllerProvider.notifier).signIn(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                  },
-            child: state.isLoading //
-                ? const CircularProgressIndicator()
-                : const Text('Sign in'),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            width: 100,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: GestureDetector(
+              onTap: state.isLoading
+                  ? null
+                  : () {
+                      ref.read(signInControllerProvider.notifier).signIn(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                    },
+              child: Center(
+                child: state.isLoading //
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        'Sign in',
+                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () {

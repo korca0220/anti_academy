@@ -2,6 +2,8 @@ import 'package:bridge/features/auth/presentation/providers/sign_up_controller.d
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/theme/app_colors.dart';
+
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
 
@@ -52,19 +54,39 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             controller: nicknameController,
             decoration: InputDecoration(labelText: 'Nickname'),
           ),
-          ElevatedButton(
-            onPressed: state.isLoading
-                ? null
-                : () {
-                    ref.read(signUpControllerProvider.notifier).signUp(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          nickname: nicknameController.text,
-                        );
-                  },
-            child: state.isLoading //
-                ? const CircularProgressIndicator()
-                : const Text('Sign Up'),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            width: 100,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: GestureDetector(
+              onTap: state.isLoading
+                  ? null
+                  : () {
+                      ref.read(signUpControllerProvider.notifier).signUp(
+                            email: emailController.text,
+                            password: passwordController.text,
+                            nickname: nicknameController.text,
+                          );
+                    },
+              child: state.isLoading //
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+            ),
           ),
         ],
       ),
