@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../chat/presentation/providers/chat_providers.dart';
 import '../../../profile/presentation/providers/profile_providers.dart';
 import '../../domain/entities/post.dart';
 
@@ -78,16 +81,21 @@ class PostDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
               ),
               const SizedBox(height: 48),
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  onPressed: () {
-                    // TODO: Chat Feature
-                  },
-                  icon: const Icon(Icons.chat_bubble_outline),
-                  label: const Text('Contact Author'),
+              if (post.authorId != ref.read(currentUserIdProvider))
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: () async {
+                      final chatRoomId = await ref.read(chatRepositoryProvider).createOrGetChatRoom(post.authorId);
+
+                      if (context.mounted) {
+                        context.push('/chats/$chatRoomId');
+                      }
+                    },
+                    icon: const Icon(Icons.chat_bubble_outline),
+                    label: const Text('Contact Author'),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

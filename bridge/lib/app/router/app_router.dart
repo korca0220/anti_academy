@@ -1,5 +1,7 @@
 import 'package:bridge/features/auth/presentation/providers/auth_providers.dart';
 import 'package:bridge/features/auth/presentation/screens/splash_screen.dart';
+import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
+import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,17 +34,30 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         builder: (context, state) => HomeScreen(),
+        routes: [
+          GoRoute(
+            path: 'create',
+            builder: (context, state) => const CreatePostScreen(),
+          ),
+          GoRoute(
+            path: 'post/:postId',
+            builder: (context, state) {
+              final post = state.extra as Post;
+
+              return PostDetailScreen(post: post);
+            },
+          ),
+        ],
       ),
       GoRoute(
-        path: '/create-post',
-        builder: (context, state) => CreatePostScreen(),
-      ),
-      GoRoute(
-        path: '/post-detail',
-        builder: (context, state) {
-          final post = state.extra as Post;
-          return PostDetailScreen(post: post);
-        },
+        path: '/chats',
+        builder: (context, state) => const ChatRoomListScreen(),
+        routes: [
+          GoRoute(
+            path: ':roomId',
+            builder: (context, state) => ChatScreen(roomId: state.pathParameters['roomId']!),
+          ),
+        ],
       ),
       GoRoute(
         path: '/profile',

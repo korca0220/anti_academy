@@ -19,7 +19,7 @@ class FeedItem extends ConsumerWidget {
 
     return ListTile(
       onTap: () {
-        context.push('/post-detail', extra: post);
+        context.push('/post/${post.id}', extra: post);
       },
       title: Text(
         post.title,

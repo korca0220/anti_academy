@@ -16,15 +16,20 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Feed'),
+        title: const Text('Bridge'),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.person,
-              size: 24,
-            ),
-            onPressed: () => context.push('/profile'),
+            onPressed: () => context.push('/chats'),
+            icon: const Icon(Icons.mail_outline_rounded),
           ),
+          IconButton(
+            onPressed: () => context.push('/profile'),
+            icon: const CircleAvatar(
+              radius: 14,
+              child: Icon(Icons.person, size: 18),
+            ),
+          ),
+          const SizedBox(width: 16),
         ],
       ),
       body: Column(
@@ -66,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push('/create-post'),
+        onPressed: () => context.push('/create'),
         child: const Icon(Icons.add),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../domain/entities/chat_room.dart';
 import '../providers/chat_providers.dart';
@@ -26,8 +28,7 @@ class ChatRoomListScreen extends ConsumerWidget {
             itemCount: rooms.length,
             itemBuilder: (context, index) {
               final room = rooms[index];
-              // TODO: Logic to find 'other' participant
-              // For now, just show ID or first participant
+
               return _ChatRoomItem(room: room);
             },
           );
@@ -46,13 +47,25 @@ class _ChatRoomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myUserId = Supabase.instance.client.auth.currentUser?.id;
+
+    // 상대방 찾기: 내 ID가 아닌 첫 번째 참가자
+    final partner = room.participants.firstWhere(
+      (p) => p.id != myUserId,
+      orElse: () => room.participants.first, // Fallback (나와 나와의 채팅?)
+    );
+
     return ListTile(
-      title: Text(room.id), // Placeholder
-      subtitle: Text('Last message placeholder'),
+      leading: CircleAvatar(
+        backgroundImage: partner.avatarUrl != null ? NetworkImage(partner.avatarUrl!) : null,
+        child: partner.avatarUrl == null ? Text(partner.nickname[0]) : null,
+      ),
+      title: Text(partner.nickname),
+      subtitle: Text('Last message placeholder'), // 나중에 '마지막 메시지'도 가져와야 함
       onTap: () {
-        // TODO: Navigate to ChatScreen
-        // context.push('/chat/${room.id}');
+        context.push('/chats/${room.id}');
       },
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     );
   }
 }

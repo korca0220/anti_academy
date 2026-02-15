@@ -88,7 +88,7 @@ begin
   select r.id into room_id_found
   from chat_rooms r
   join chat_participants p1 on r.id = p1.room_id
-  join chat_participants p2 on r.id = p2.room_id
+join chat_participants p2 on r.id = p2.room_id
   where p1.user_id = current_user_id
   and p2.user_id = other_user_id;
 
