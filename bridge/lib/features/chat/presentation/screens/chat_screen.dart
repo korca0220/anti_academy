@@ -14,7 +14,21 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
-  final _messageController = TextEditingController();
+  late final TextEditingController _messageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _messageController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+
+    super.dispose();
+  }
 
   void _sendMessage() {
     final content = _messageController.text.trim();
@@ -39,11 +53,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 if (messages.isEmpty) {
                   return const Center(child: Text('No messages yet'));
                 }
+
+                // Realtime stream might not guarantee immediate sort after insert if multiple clients
+                // But .order() on stream usually works.
+                // Let's ensure consistency:
+                // If repository returns Descending (Newest First) -> [Newest, ..., Oldest]
+                // ListView reverse: true -> Index 0 (Newest) is at Bottom. Correct.
+
                 return ListView.builder(
-                  reverse: true, // Start from bottom
+                  reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
-                    final message = messages[index]; // Note: verify order if reverse is needed
+                    final message = messages[index];
                     final isMyMessage = message.senderId == myUserId;
 
                     return Align(

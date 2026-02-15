@@ -63,11 +63,12 @@ class SupabaseChatRepository implements ChatRepository {
     // 3. Order by created_at
     // 4. Map to List<ChatMessage>
     try {
+      log('Getting chat messages for room: $roomId');
       final response = _supabase
           .from('chat_messages')
           .stream(primaryKey: ['id'])
           .eq('room_id', roomId)
-          .order('created_at', ascending: true)
+          .order('created_at', ascending: false) // Change to false
           .map(
             (event) => event
                 .map(
