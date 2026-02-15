@@ -17,8 +17,16 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Feed'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.person,
+              size: 24,
+            ),
+            onPressed: () => context.push('/profile'),
+          ),
+        ],
       ),
-      // TODO: Add Column with SegmentedButton for filtering
       body: Column(
         children: [
           SegmentedButton(

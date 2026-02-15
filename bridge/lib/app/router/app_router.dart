@@ -9,6 +9,7 @@ import '../../features/feed/domain/entities/post.dart';
 import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 import '../../features/feed/presentation/screens/post_detail_screen.dart';
+import '../../features/profile/presentation/screens/profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -42,6 +43,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           final post = state.extra as Post;
           return PostDetailScreen(post: post);
         },
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => const ProfileScreen(),
       ),
     ],
     redirect: (context, state) {

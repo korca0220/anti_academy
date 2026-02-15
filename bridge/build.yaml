@@ -1,0 +1,9 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # JSON 키를 자동으로 snake_case로 변환 (camelCase -> snake_case)
+          field_rename: snake
+          # 명시적인 toJson 호출 없이도 직렬화 지원 (선택사항)
+          explicit_to_json: true

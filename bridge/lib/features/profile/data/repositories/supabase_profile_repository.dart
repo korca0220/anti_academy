@@ -24,4 +24,21 @@ class SupabaseProfileRepository implements ProfileRepository {
       throw Exception('Failed to get profile: $e');
     }
   }
+
+  @override
+  Future<void> updateProfile(Profile profile) async {
+    // TODO: Implement updating profile to Supabase
+    // 1. Use .from('profiles').upsert(...) or .update(...)
+    // 2. Match by 'id'
+
+    try {
+      final profileJson = profile.toJson();
+
+      await supabaseClient.from('profiles').update(profileJson).eq('id', profile.id);
+    } catch (e) {
+      log('Failed to update profile: $e');
+
+      throw Exception('Failed to update profile: $e');
+    }
+  }
 }
