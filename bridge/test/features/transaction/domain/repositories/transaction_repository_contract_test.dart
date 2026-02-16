@@ -18,7 +18,17 @@ void main() {
     const roomId = 'room-001';
     const actorId = 'user-actor-001';
 
-    test('watchTransactionByRoom() should be callable with roomId', () async {
+    test('getByRoomId() should be callable with roomId', () async {
+      when(repository.getByRoomId(roomId)).thenAnswer((_) async => null);
+
+      final result = repository.getByRoomId(roomId);
+
+      expect(await result, isNull);
+
+      verify(repository.getByRoomId(roomId)).called(1);
+    });
+
+    test('watchByRoomId() should be callable with roomId', () async {
       final tx = Transaction(
         id: 'tx-001',
         roomId: roomId,
@@ -38,7 +48,7 @@ void main() {
       expect(await result.first, equals(tx));
       verify(repository.watchByRoomId(roomId)).called(1);
     });
-    test('createTransaction() should accept Transaction entity', () async {
+    test('upsert() should accept Transaction entity', () async {
       final tx = Transaction(
         id: 'tx-002',
         roomId: roomId,
@@ -56,7 +66,7 @@ void main() {
       await repository.upsert(tx);
       verify(repository.upsert(tx)).called(1);
     });
-    test('transitionStatus() should pass roomId/status/actorId (and optional reason)', () async {
+    test('updateStatus() should pass roomId/status/actorId (and optional reason)', () async {
       when(repository.updateStatus(
               roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null))
           .thenAnswer((_) async {});
@@ -69,7 +79,7 @@ void main() {
             roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null),
       ).called(1);
     });
-    test('transitionStatus() with canceled should carry cancel reason parameter', () async {
+    test('updateStatus() with canceled should carry cancel reason parameter', () async {
       when(repository.updateStatus(
               roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason'))
           .thenAnswer((_) async {});
