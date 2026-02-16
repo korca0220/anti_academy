@@ -11,6 +11,22 @@ enum TransactionStatus {
   canceled,
 }
 
+bool canTransition(TransactionStatus from, TransactionStatus to) {
+  if (from == TransactionStatus.proposed) {
+    return to == TransactionStatus.accepted || to == TransactionStatus.canceled;
+  }
+
+  if (from == TransactionStatus.accepted) {
+    return to == TransactionStatus.in_progress || to == TransactionStatus.canceled;
+  }
+
+  if (from == TransactionStatus.in_progress) {
+    return to == TransactionStatus.completed || to == TransactionStatus.canceled;
+  }
+
+  return false;
+}
+
 @freezed
 class Transaction with _$Transaction {
   const factory Transaction({
