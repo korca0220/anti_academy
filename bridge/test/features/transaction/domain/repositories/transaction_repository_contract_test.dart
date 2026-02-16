@@ -12,7 +12,6 @@ void main() {
     late MockTransactionRepository repository;
 
     setUp(() {
-      // TODO: repository = MockTransactionRepository();
       repository = MockTransactionRepository();
     });
 
@@ -20,7 +19,6 @@ void main() {
     const actorId = 'user-actor-001';
 
     test('watchTransactionByRoom() should be callable with roomId', () async {
-      // TODO: create sample transaction and a fake stream
       final tx = Transaction(
         id: 'tx-001',
         roomId: roomId,
@@ -34,18 +32,13 @@ void main() {
         updatedAt: DateTime(2026, 1, 1),
         closedAt: null,
       );
-      // TODO: when(repository.watchTransactionByRoom(roomId)).thenAnswer((_) => Stream.value(tx));
-      when(repository.watchByRoomId(roomId)).thenAnswer((_) => Stream.value(tx));
-      // TODO: final result = repository.watchTransactionByRoom(roomId);
-      final result = repository.watchByRoomId(roomId);
-      // TODO: expect(await result.first, equals(tx));
-      expect(await result.first, equals(tx));
 
-      // TODO: verify(repository.watchTransactionByRoom(roomId)).called(1);
+      when(repository.watchByRoomId(roomId)).thenAnswer((_) => Stream.value(tx));
+      final result = repository.watchByRoomId(roomId);
+      expect(await result.first, equals(tx));
       verify(repository.watchByRoomId(roomId)).called(1);
     });
     test('createTransaction() should accept Transaction entity', () async {
-      // TODO: create tx fixture
       final tx = Transaction(
         id: 'tx-002',
         roomId: roomId,
@@ -59,16 +52,11 @@ void main() {
         updatedAt: DateTime(2026, 1, 1),
         closedAt: null,
       );
-      // TODO: when(repository.createTransaction(any)).thenAnswer((_) async {});
       when(repository.upsert(tx)).thenAnswer((_) async {});
-      // TODO: await repository.createTransaction(tx);
       await repository.upsert(tx);
-      // TODO: verify(repository.createTransaction(tx)).called(1);
       verify(repository.upsert(tx)).called(1);
     });
     test('transitionStatus() should pass roomId/status/actorId (and optional reason)', () async {
-      // TODO: define newStatus/cancelReason
-
       when(repository.updateStatus(
               roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null))
           .thenAnswer((_) async {});
@@ -82,14 +70,11 @@ void main() {
       ).called(1);
     });
     test('transitionStatus() with canceled should carry cancel reason parameter', () async {
-      // TODO: stub updateStatus(...) as async {}
       when(repository.updateStatus(
               roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason'))
           .thenAnswer((_) async {});
-      // TODO: call with TransactionStatus.canceled + reason text
       await repository.updateStatus(
           roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason');
-      // TODO: verify cancel reason passed correctly
       verify(
         repository.updateStatus(
             roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason'),
