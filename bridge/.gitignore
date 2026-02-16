@@ -51,3 +51,4 @@ supabase_config.dart
 # generated files
 **/*.g.dart
 **/*.freezed.dart
+**/*.mocks.dart
