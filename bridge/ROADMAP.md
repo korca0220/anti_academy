@@ -16,15 +16,15 @@
 - [x] **Domain Layer**: Post Entity & Repository 구현
 - [x] **Feed UI**: 메인 리스트 구현 (Basic List 완료)
 - [x] **Create Post**: 글쓰기 화면 및 로직 (Floating Action Button + TDD)
-- [ ] **Filtering**: 요청(Help) vs 제공(Offer) 필터링
-- [ ] **Post Detail**: 상세 화면 구현
+- [x] **Filtering**: 요청(Help) vs 제공(Offer) 필터링
+- [x] **Post Detail**: 상세 화면 구현
 
 ## 💬 Phase 3: 실시간 채팅 (Realtime Chat) - **CORE**
-- [ ] **Database Schema**: `rooms`, `messages` 테이블 설계
-- [ ] **RLS Policies**: 내 채팅방만 볼 수 있도록 보안 설정
-- [ ] **Chat List**: 나의 채팅방 목록 (Realtime stream)
-- [ ] **Chat Room**: 1:1 채팅 화면 구현
-- [ ] **Realtime Messaging**: 메시지 전송 및 즉시 수신 (Optimistic UI)
+- [x] **Database Schema**: `rooms`, `messages` 테이블 설계
+- [x] **RLS Policies**: 내 채팅방만 볼 수 있도록 보안 설정
+- [x] **Chat List**: 나의 채팅방 목록 (Realtime stream)
+- [x] **Chat Room**: 1:1 채팅 화면 구현
+- [x] **Realtime Messaging**: 메시지 전송 및 즉시 수신 (Optimistic UI)
 
 ## 🤝 Phase 4: 거래 시스템 (Transactions)
 - [ ] **State Machine**: 거래 상태 설계 (Proposed -> Accepted -> Completed -> Canceled)
