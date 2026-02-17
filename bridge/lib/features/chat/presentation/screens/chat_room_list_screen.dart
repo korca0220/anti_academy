@@ -63,7 +63,7 @@ class _ChatRoomItem extends StatelessWidget {
       title: Text(partner.nickname),
       subtitle: Text('Last message placeholder'), // 나중에 '마지막 메시지'도 가져와야 함
       onTap: () {
-        context.push('/chats/${room.id}');
+        context.push('/chats/${room.id}', extra: room);
       },
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     );

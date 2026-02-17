@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../transaction/presentation/widgets/transaction_status_widget.dart';
+import '../../domain/entities/chat_room.dart';
 import '../providers/chat_providers.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
-  const ChatScreen({super.key, required this.roomId});
+  const ChatScreen({super.key, required this.room});
 
-  final String roomId;
+  final ChatRoom room;
 
   @override
   ConsumerState<ChatScreen> createState() => _ChatScreenState();
@@ -34,19 +36,20 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final content = _messageController.text.trim();
     if (content.isEmpty) return;
 
-    ref.read(chatRepositoryProvider).sendMessage(widget.roomId, content);
+    ref.read(chatRepositoryProvider).sendMessage(widget.room.id, content);
     _messageController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    final messagesAsync = ref.watch(chatMessagesStreamProvider(widget.roomId));
+    final messagesAsync = ref.watch(chatMessagesStreamProvider(widget.room.id));
     final myUserId = Supabase.instance.client.auth.currentUser?.id;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Chat')),
       body: Column(
         children: [
+          TransactionStatusWidget(roomId: widget.room.id, room: widget.room),
           Expanded(
             child: messagesAsync.when(
               data: (messages) {

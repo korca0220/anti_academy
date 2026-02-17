@@ -83,21 +83,18 @@ BEGIN
       (OLD.status = 'proposed'   AND NEW.status IN ('accepted', 'canceled')) OR
       (OLD.status = 'accepted'   AND NEW.status IN ('in_progress', 'canceled')) OR
       (OLD.status = 'in_progress' AND NEW.status IN ('completed', 'canceled')) OR
+      (OLD.status IN ('completed', 'canceled') AND NEW.status = 'proposed') OR -- Allow re-opening
       (NEW.status IN ('completed', 'canceled')) -- 방어적 중복 방지
     ) THEN
       RAISE EXCEPTION 'Invalid transaction status transition: % -> %', OLD.status, NEW.status
         USING ERRCODE = 'check_violation';
     END IF;
-    -- 종료 상태에서 재변경 금지
-    IF OLD.status IN ('completed', 'canceled') AND NEW.status IS DISTINCT FROM OLD.status THEN
-      RAISE EXCEPTION 'Cannot change status after transaction is closed.'
-        USING ERRCODE = 'check_violation';
-    END IF;
+    -- 종료 상태에서 재변경 금지 로직 제거 (재거래 허용을 위해)
+    -- IF OLD.status IN ('completed', 'canceled') AND NEW.status IS DISTINCT FROM OLD.status THEN
+    --   RAISE EXCEPTION 'Cannot change status after transaction is closed.'
+    --     USING ERRCODE = 'check_violation';
+    -- END IF;
   END IF;
-  -- 방 참여자 검증(서비스 계층/Policy와 중복 방어)
-  IF NOT public.is_chat_participant(NEW.room_id) THEN
-    RAISE EXCEPTION 'User is not a participant of this chat room.'
-      USING ERRCODE = 'insufficient_privilege';
   END IF;
   RETURN NEW;
 END;

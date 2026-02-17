@@ -1,5 +1,6 @@
 import 'package:bridge/features/auth/presentation/providers/auth_providers.dart';
 import 'package:bridge/features/auth/presentation/screens/splash_screen.dart';
+import 'package:bridge/features/chat/domain/entities/chat_room.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,9 +55,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ChatRoomListScreen(),
         routes: [
           GoRoute(
-            path: ':roomId',
-            builder: (context, state) => ChatScreen(roomId: state.pathParameters['roomId']!),
-          ),
+              path: ':roomId',
+              builder: (context, state) {
+                final room = state.extra as ChatRoom;
+
+                return ChatScreen(
+                  room: room,
+                );
+              }),
         ],
       ),
       GoRoute(
