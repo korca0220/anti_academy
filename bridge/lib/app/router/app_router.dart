@@ -3,6 +3,7 @@ import 'package:bridge/features/auth/presentation/screens/splash_screen.dart';
 import 'package:bridge/features/chat/domain/entities/chat_room.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
+import 'package:bridge/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,7 +13,6 @@ import '../../features/feed/domain/entities/post.dart';
 import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 import '../../features/feed/presentation/screens/post_detail_screen.dart';
-import '../../features/profile/presentation/screens/profile_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);

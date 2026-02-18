@@ -1,4 +1,5 @@
 import 'dart:developer' show log;
+import 'dart:io';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,18 +28,37 @@ class SupabaseProfileRepository implements ProfileRepository {
 
   @override
   Future<void> updateProfile(Profile profile) async {
-    // TODO: Implement updating profile to Supabase
-    // 1. Use .from('profiles').upsert(...) or .update(...)
-    // 2. Match by 'id'
-
     try {
-      final profileJson = profile.toJson();
-
-      await supabaseClient.from('profiles').update(profileJson).eq('id', profile.id);
+      await supabaseClient.from('profiles').update(profile.toJson()).eq('id', profile.id);
     } catch (e) {
       log('Failed to update profile: $e');
 
       throw Exception('Failed to update profile: $e');
+    }
+  }
+
+  @override
+  Future<void> updateAvatar(File imageFile, String userId) async {
+    try {
+      final path = '$userId/avatar.png';
+
+      await supabaseClient.storage.from('avatars').uploadBinary(
+            path,
+            imageFile.readAsBytesSync(),
+            fileOptions: FileOptions(
+              upsert: true,
+            ),
+          );
+
+      final avatarUrl = supabaseClient.storage.from('avatars').getPublicUrl(path);
+
+      await supabaseClient.from('profiles').update({
+        'avatar_url': avatarUrl,
+      }).eq('id', userId);
+    } catch (e) {
+      log('Failed to update avatar: $e');
+
+      rethrow;
     }
   }
 }

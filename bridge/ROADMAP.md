@@ -27,8 +27,8 @@
 - [x] **Domain Test**: `TransactionStatus` 전이 규칙 테스트
 - [x] **Entity Test**: 거래 엔티티 불변성/복사/nullable 동작 검증
 - [x] **Repository Contract**: `getByRoomId`, `watchByRoomId`, `upsert`, `updateStatus` 계약 테스트 완료
-- [ ] **Transaction UI**: 채팅방 내 거래 상태 표시 (System Message)
-- [ ] **Transaction Actions**: 버튼 기반 상태 전이 액션 (수락/진행/완료/취소)
+- [x] **Transaction UI**: 채팅방 내 거래 상태 표시 (System Message)
+- [x] **Transaction Actions**: 버튼 기반 상태 전이 액션 (수락/진행/완료/취소)
 - [ ] **Review System**: 거래 완료 후 상호 평가 및 별점
       🔍 Phase 5: 탐색 및 프로필 (Discover)
 - [ ] **Profile View**: 상대방 프로필 및 매너온도(Reputation) 확인

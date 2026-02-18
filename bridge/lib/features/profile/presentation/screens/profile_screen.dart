@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../domain/entities/profile.dart';
 import '../providers/profile_providers.dart';
+import '../widgets/avatar_picker_widget.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -78,6 +79,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               key: _formKey,
               child: Column(
                 children: [
+                  const AvatarPickerWidget(),
+                  const SizedBox(height: 24),
                   TextFormField(
                     controller: _nicknameController,
                     decoration: InputDecoration(labelText: 'Nickname'),

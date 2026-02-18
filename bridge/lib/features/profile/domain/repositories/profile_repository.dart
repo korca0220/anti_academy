@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../entities/profile.dart';
 
 abstract interface class ProfileRepository {
@@ -7,4 +9,7 @@ abstract interface class ProfileRepository {
 
   /// 프로필 정보를 업데이트합니다.
   Future<void> updateProfile(Profile profile);
+
+  /// 프로필 이미지를 업로드하고 URL을 업데이트합니다.
+  Future<void> updateAvatar(File imageFile, String userId);
 }
