@@ -10,6 +10,7 @@ enum PostType {
 
 enum PostStatus {
   open,
+  // ignore: constant_identifier_names
   in_progress,
   completed,
 }

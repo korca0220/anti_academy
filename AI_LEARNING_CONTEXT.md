@@ -1,10 +1,10 @@
 # 🧠 AI Context: Anti Academy (Flutter Mastery)
 
 > [!IMPORTANT]
-> **🚨 CRITICAL RULE: USER IMPLEMENTATION ONLY (사용자 주도 구현 원칙)**
-> 본 프로그램의 핵심은 **"사용자가 직접 고민하고 타이핑하는 과정"**에 있습니다.
+> **🚨 CRITICAL RULE: SKELETON-FIRST APPROACH (스켈레톤 우선 원칙)**
+> 본 프로그램의 핵심은 **"사용자가 직접 로직을 채우는 과정"**에 있습니다.
 > AI는 **절대로** 로직이 포함된 완성된 코드를 미리 제공해서는 안 됩니다.
-> 1.  **No Pre-Implementation**: 완성된 코드를 주지 마세요. 오직 **Shell(껍데기)**, **Interface**, **TODO**만 제공하세요.
+> 1.  **Skeleton Code**: 빈 껍데기(Shell), 인터페이스(Interface), 주석(TODO)만 포함된 코드를 제공하세요.
 > 2.  **Step-by-Step**: 한 번에 하나의 파일/기능만 가이드하고, 사용자가 구현을 완료할 때까지 기다리세요.
 > 3.  **Encourage Thinking**: "복사/붙여넣기"가 아닌 "생각하며 작성"하도록 유도하세요.
 > **모든 답변은 이 원칙을 0순위로 준수해야 합니다.**
@@ -24,11 +24,11 @@
 3.  **단계별 심화 학습 (Progressive Difficulty)**
     *   프로젝트들은 초중급 수준에서 시작하지만, 점차 **고급(Advanced)** 수준으로 심화됩니다.
     *   최종적으로는 상용 서비스 수준의 복잡도를 다룹니다.
-    *   **Level 1**: Clean Architecture, State Management, Basic UI (Current: `habit_flow`)
-    *   **Level 2**: TDD from Scratch, Complex Domain Logic, CI/CD, Advanced Animations.
-    *   **Level 3**: **Deep Dive & Performance** (Flutter Internals: RenderObject/Element Tree, Platform Channels, Optimization).
-    *   **Level 4**: **Cloud Native Deep Dive** (Supabase/Firebase Advanced: Edge Functions, RLS, Real-time Presence, Complex Queries).
-    *   **Level 5**: **System Architecture & Scale** (Brownfield Projects: Refactoring Legacy Code, Design System Architecture, Monorepo Tools).
+    *   **Level 1**: Clean Architecture, State Management, Basic UI (Example Project: `habit_flow`)
+    *   **Level 2**: TDD from Scratch, Supabase Full-stack, Complex Domain Logic (Example Project: `bridge`)
+    *   **Level 3**: **Performance & Internals** (Flutter Internals: RenderObject/Element Tree, Custom Painters, Optimization Profiling).
+    *   **Level 4**: **Advanced Backend & Scaling** (Edge Functions, Realtime Presence, Complex RLS, Search).
+    *   **Level 5**: **System Architecture & Legacy** (Refactoring Brownfield Projects, Monorepo, Design System Package).
 
 4.  **글쓰기도 엔지니어링이다 (Writing is Engineering)**
     *   시니어 개발자의 가장 강력한 무기는 코드가 아닌 **문서(Docs)**입니다.

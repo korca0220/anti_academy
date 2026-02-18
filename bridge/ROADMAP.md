@@ -34,8 +34,9 @@
 - [ ] **Profile View**: 상대방 프로필 및 매너온도(Reputation) 확인
 - [ ] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기
 - [ ] **Search**: 키워드 검색 (Supabase Full Text Search)
+   - [x] **UI/UX Polish**: 스켈레톤 UI, Empty States 적용
       🎨 Phase 6: 완성도 향상 (Polish)
 - [ ] **Onboarding**: 앱 최초 실행 시 안내 가이드
 - [ ] **Animations**: 리스트 진입, 버튼 클릭, 좋아요 인터랙션
 - [ ] **Edge Cases**: 에러 처리, 네트워크 연결 끊김 처리
-- [ ] **Deploy**: 스토어 출시 준비 (아이콘, 스플래시)
+- [ ] **Edge Cases**: 에러 처리, 네트워크 연결 끊김 처리

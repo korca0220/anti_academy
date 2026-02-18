@@ -61,11 +61,16 @@ lib/
 3.  Controller Pattern: UI 입출력은 Notifier/Controller에서 처리.
 4.  State Through Riverpod: AsyncValue 기반 상태 일관성.
 
-📌 Current Checkpoint (Phase 4 / Step 2-2)
+📌 Current Checkpoint (Phase 7 Complete)
 
-- 완료된 학습 단위: TransactionStatus 전이 규칙 테스트, 엔티티 계약 테스트, Repository 계약 테스트.
+- 상태: **Core Features & Polish Completed** (2026-02-18)
+- 완료된 기능:
+  - **Feed**: Post CRUD + Request/Offer Filtering + Realtime Updates.
+  - **Chat**: 1:1 Chat Rooms + Realtime Messages.
+  - **Transaction**: State Machine based Exchange Logic inside Chat.
+  - **Profile**: Avatar Upload (Storage RLS) + Nickname Edit.
+  - **Polish**: Skeleton Loading + Empty States.
 - 강점:
-  - 도메인 규칙을 코드화 후 테스트로 먼저 잠그고 진행.
-  - 인터페이스-구현 분리를 통해 DB/구현 없이도 회귀 위험 낮춤.
-  - room_id 기준 거래 1:1 규칙과 상태 전이 규칙을 동일 스펙으로 다루는 기반 완성.
-- 다음 포인트: Step 3에서 Supabase Repository 구현 및 chat UI에 상태 반영.
+  - **Supabase Full-stack**: Auth, DB, Realtime, Storage, Edge Functions(Triggers)를 모두 활용한 Serverless Architecture 완성.
+  - **Robust Logic**: DB Trigger와 App Domain Logic의 조화로 데이터 무결성 보장.
+  - **Clean Architecture**: 철저한 계층 분리로 유지보수성 확보.

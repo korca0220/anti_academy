@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../app/widgets/empty_state_widget.dart';
 import '../../domain/entities/chat_room.dart';
 import '../providers/chat_providers.dart';
 
@@ -20,8 +21,10 @@ class ChatRoomListScreen extends ConsumerWidget {
       body: chatRoomsAsync.when(
         data: (rooms) {
           if (rooms.isEmpty) {
-            return const Center(
-              child: Text('No active chats'),
+            return const EmptyStateWidget(
+              title: '대화가 없어요',
+              subtitle: '이웃과 거래를 시작해보세요',
+              iconData: Icons.chat_bubble_outline,
             );
           }
           return ListView.builder(

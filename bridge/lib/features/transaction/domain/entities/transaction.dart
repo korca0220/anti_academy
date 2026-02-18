@@ -6,6 +6,7 @@ part 'transaction.g.dart';
 enum TransactionStatus {
   proposed,
   accepted,
+  // ignore: constant_identifier_names
   in_progress,
   completed,
   canceled,

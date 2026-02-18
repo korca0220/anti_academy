@@ -74,3 +74,24 @@
 🔜 Next Steps
 
 - Step 3: 거래 데이터 저장소 구현 + Chat UI에서 거래 상태 반영.
+
+2026-02-18: Phase 5~7 Completion (Transactions, Profile, Polish)
+✅ Accomplishments
+
+1.  **Transaction Feature (Phase 5)**:
+    - **Realtime State Sync**: `SupabaseTransactionRepository`와 `StreamProvider`를 통해 채팅방 내 거래 상태 실시간 동기화.
+    - **Database Logic**: `validate_transaction_status_transition` 트리거로 상태 전이 규칙(Proposed -> Accepted -> In Progress -> Completed)을 DB 레벨에서 검증.
+    - **UI Integration**: `TransactionStatusWidget`을 채팅 화면 상단에 배치하여 상태별 액션(수락, 완료, 취소 등) 처리.
+2.  **Profile Image Upload (Phase 6)**:
+    - **Supabase Storage**: `avatars` 버킷 생성 및 RLS 정책(`(storage.foldername(name))[1] = auth.uid()::text`) 적용으로 보안 강화.
+    - **Image Picker**: 갤러리 연동 및 `clean_architecture` 패턴에 맞춘 `updateAvatar` 로직 구현.
+3.  **UI/UX Polish (Phase 7)**:
+    - **Skeleton Loading**: `SkeletonFeedItem` 구현 및 Shimmer 효과 적용으로 로딩 경험 개선.
+    - **Empty States**: `EmptyStateWidget` 공통 컴포넌트화 및 적용.
+
+🔑 Key Learnings
+
+- **Logic Placement**: 상태 전이 규칙 같은 핵심 비즈니스 로직은 앱(Repository)과 DB(Trigger) 양쪽에 이중으로 두어, UX 반응성과 데이터 무결성을 모두 잡음.
+- **Storage RLS**: 파일명/경로 기반의 정교한 권한 제어 패턴 습득.
+- **Skeleton Pattern**: 단순 인디케이터보다 스켈레톤 UI가 체감 속도를 높이는 효과 확인.
+
