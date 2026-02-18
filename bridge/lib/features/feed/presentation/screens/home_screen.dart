@@ -1,10 +1,14 @@
+import 'package:bridge/features/profile/presentation/providers/profile_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../app/widgets/empty_state_widget.dart';
+import '../../../auth/presentation/providers/auth_providers.dart';
 import '../providers/feed_filter_provider.dart';
 import '../providers/post_providers.dart';
 import '../widgets/feed_item.dart';
+import '../widgets/skeleton_feed_item.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -13,6 +17,8 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(postsStreamProvider);
     final feedFilter = ref.watch(feedFilterProvider);
+    final userId = ref.watch(currentUserIdProvider);
+    final avatar = ref.watch(profileFutureProvider(userId ?? ''));
 
     return Scaffold(
       appBar: AppBar(
@@ -24,9 +30,18 @@ class HomeScreen extends ConsumerWidget {
           ),
           IconButton(
             onPressed: () => context.push('/profile'),
-            icon: const CircleAvatar(
-              radius: 14,
-              child: Icon(Icons.person, size: 18),
+            icon: avatar.when(
+              loading: () => const CircularProgressIndicator(),
+              error: (error, stackTrace) => const Icon(Icons.error),
+              data: (avatar) => CircleAvatar(
+                radius: 14,
+                backgroundImage: avatar?.avatarUrl != null //
+                    ? NetworkImage(avatar?.avatarUrl ?? '')
+                    : null,
+                child: avatar?.avatarUrl != null
+                    ? null //
+                    : const Icon(Icons.person, size: 18),
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -48,20 +63,28 @@ class HomeScreen extends ConsumerWidget {
           ),
           Expanded(
             child: posts.when(
-              loading: () => Center(
-                child: const CircularProgressIndicator(),
+              loading: () => ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) => const SkeletonFeedItem(),
               ),
               error: (error, stackTrace) {
                 return Center(child: Text('Error : $error'));
               },
               data: (posts) {
                 if (posts.isEmpty) {
-                  return const Center(child: Text('No posts found'));
+                  return EmptyStateWidget(
+                    title: '게시글이 없어요',
+                    subtitle: '첫 번째 글을 작성해보세요!',
+                    iconData: Icons.feed_outlined,
+                    onActionPressed: () => context.push('/create'),
+                    actionLabel: '글쓰기',
+                  );
                 }
                 return ListView.builder(
                   itemCount: posts.length,
                   itemBuilder: (context, index) {
                     final post = posts[index];
+
                     return FeedItem(post: post);
                   },
                 );
