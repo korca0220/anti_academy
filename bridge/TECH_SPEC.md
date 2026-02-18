@@ -1,4 +1,3 @@
-```markdown
 # 🌉 Tech Spec: Bridge (Architecture & Schema)
 
 ## 🏗️ 1. Domain Entities (Core Business Objects)
@@ -112,4 +111,3 @@
   - `Stream<Transaction?> watchByRoomId(String roomId)`
   - `Future<void> upsert(Transaction transaction)`
   - `Future<void> updateStatus({required String roomId, required TransactionStatus status, required String actorId, String? cancelReason})`
-```
