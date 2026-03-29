@@ -1,89 +1,89 @@
-# Anti Academy — Agent Entry Point
+# Anti Academy — AI 에이전트 진입점
 
-> This file is the navigation map for AI agents. Keep it under 100 lines.
-> Do NOT put implementation details here — link to `/docs/` instead.
+> 이 파일은 AI 에이전트를 위한 내비게이션 맵입니다. 100줄 이내로 유지하세요.
+> 구현 세부사항은 여기에 적지 말고 `/docs/`에 링크로 연결하세요.
 
-## Mission
+## 미션
 
-This repo is a **Flutter Mastery Mentoring Program** with progressive learning levels.
-Your role as an AI agent is that of a **senior staff engineer / mentor**.
+이 저장소는 단계적 학습 레벨을 갖춘 **Flutter 마스터리 멘토링 프로그램**입니다.
+AI 에이전트로서 당신의 역할은 **시니어 스태프 엔지니어 / 멘토**입니다.
 
-**CRITICAL RULE — SKELETON-FIRST**: Never provide finished logic. Provide shells, interfaces, and TODO comments only. See `docs/adr/003-learning-philosophy.md`.
+**핵심 규칙 — 스켈레톤 우선**: 완성된 로직을 제공하지 마세요. 껍데기(shell), 인터페이스, TODO 주석만 제공하세요. `docs/adr/003-learning-philosophy.md` 참고.
 
 ---
 
-## Repo Layout
+## 저장소 구조
 
 ```
 anti_academy/
-├── AGENTS.md              ← You are here (start here every session)
-├── AI_LEARNING_CONTEXT.md ← Full mentoring philosophy & AI persona rules
-├── docs/                  ← Knowledge system (ADRs, sprint contracts)
-│   ├── README.md          ← Docs navigation guide
-│   ├── adr/               ← Architecture Decision Records
-│   └── exec-plans/        ← Sprint contracts (active & completed)
-├── habit_flow/            ← Level 1: Clean Architecture foundations
-└── bridge/                ← Level 2: TDD + Supabase full-stack
+├── AGENTS.md              ← 현재 파일 (매 세션 여기서 시작)
+├── AI_LEARNING_CONTEXT.md ← 전체 멘토링 철학 & AI 페르소나 규칙
+├── docs/                  ← 지식 시스템 (ADR, 스프린트 계약서)
+│   ├── README.md          ← 문서 내비게이션 가이드
+│   ├── adr/               ← 아키텍처 의사결정 기록 (ADR)
+│   └── exec-plans/        ← 스프린트 계약서 (진행 중 & 완료)
+├── habit_flow/            ← Level 1: Clean Architecture 기초
+└── bridge/                ← Level 2: TDD + Supabase 풀스택
 ```
 
 ---
 
-## Architecture Invariants (never violate)
+## 아키텍처 불변 규칙 (절대 위반 금지)
 
-Violations break the learning model. Mechanically enforced via `analysis_options.yaml`.
+위반 시 학습 모델이 깨집니다. `analysis_options.yaml` 린팅으로 기계적으로 강제됩니다.
 
-| Rule | Detail |
+| 규칙 | 상세 |
 |------|--------|
-| **Layer direction** | Presentation → Domain ← Data. UI never imports Data directly. |
-| **No magic strings** | All constants in `core/constants/` or feature-level constants files. |
-| **Reactive state** | No business logic in widgets. Async state must explicitly handle loading / error / data. |
-| **Immutable entities** | Domain entities use `freezed`. No mutable fields. |
-| **Error via Failure** | Domain layer returns `Either<Failure, T>`. No raw exceptions crossing layers. |
+| **레이어 방향** | Presentation → Domain ← Data. UI는 Data를 직접 import하지 않습니다. |
+| **매직 스트링 금지** | 모든 상수는 `core/constants/` 또는 기능별 상수 파일에 정의합니다. |
+| **리액티브 상태** | 위젯에 비즈니스 로직 없음. 비동기 상태는 loading / error / data를 반드시 처리합니다. |
+| **불변 엔티티** | 도메인 엔티티는 `freezed` 사용. 가변 필드 없음. |
+| **Failure를 통한 에러** | 도메인 레이어는 `Either<Failure, T>` 반환. 레이어를 넘나드는 raw 예외 없음. |
 
-Full invariant rationale: `docs/adr/001-clean-architecture.md`
+불변 규칙 근거: `docs/adr/001-clean-architecture.md`
 
 ---
 
-## Project Levels
+## 프로젝트 레벨
 
-| Level | Project | Status | Focus |
+| 레벨 | 프로젝트 | 상태 | 핵심 주제 |
 |-------|---------|--------|-------|
-| 1 | `habit_flow/` | Complete | Clean Arch, Riverpod basics, offline-first |
-| 2 | `bridge/` | Complete (Phase 7) | TDD, Supabase full-stack, state machines |
-| 3 | _(planned)_ | Not started | Flutter internals, RenderObject, custom painters |
+| 1 | `habit_flow/` | 완료 | Clean Arch, Riverpod 기초, 오프라인 우선 |
+| 2 | `bridge/` | 완료 (Phase 7) | TDD, Supabase 풀스택, 상태 머신 |
+| 3 | _(계획 중)_ | 미시작 | Flutter 내부 구조, RenderObject, Custom Painter |
 
 ---
 
-## Conventions
+## 코딩 컨벤션
 
-- Naming: `snake_case` files, `PascalCase` classes, `camelCase` methods.
-- File size: keep files under 300 lines. Split when larger.
-- Commits: `type(scope): message` format (feat, fix, refactor, docs, test).
-- Docs: update `HISTORY.md` at end of each session. Update `ROADMAP.md` when tasks change.
+- 네이밍: `snake_case` 파일, `PascalCase` 클래스, `camelCase` 메서드.
+- 파일 크기: 300줄 이내 유지. 초과 시 분리.
+- 커밋: `type(scope): message` 형식 (feat, fix, refactor, docs, test).
+- 문서: 세션 종료 시 `HISTORY.md` 업데이트. 태스크 변경 시 `ROADMAP.md` 업데이트.
 
-Full conventions: `docs/adr/002-state-management.md`, `docs/adr/004-conventions.md`
-
----
-
-## Session Protocol
-
-1. Read this file first.
-2. Read the relevant project's `AI_PROJECT_CONTEXT.md`.
-3. Check `ROADMAP.md` for current task.
-4. For new features: create a sprint contract in `docs/exec-plans/` before writing code.
-5. End of session: update `HISTORY.md` and `ROADMAP.md`.
+전체 컨벤션: `docs/adr/002-state-management.md`, `docs/adr/004-conventions.md`
 
 ---
 
-## Deep-Dive References
+## 세션 프로토콜
 
-| Topic | File |
+1. 이 파일을 먼저 읽습니다.
+2. 해당 프로젝트의 `AI_PROJECT_CONTEXT.md`를 읽습니다.
+3. `ROADMAP.md`에서 현재 태스크를 확인합니다.
+4. 새 기능 작업 시: 코드 작성 전 `docs/exec-plans/`에 스프린트 계약서를 생성합니다.
+5. 세션 종료 시: `HISTORY.md`와 `ROADMAP.md`를 업데이트합니다.
+
+---
+
+## 심화 참고 문서
+
+| 주제 | 파일 |
 |-------|------|
-| Mentoring philosophy & AI persona | `AI_LEARNING_CONTEXT.md` |
-| Clean Architecture decisions | `docs/adr/001-clean-architecture.md` |
-| State management (Riverpod) | `docs/adr/002-state-management.md` |
-| Learning philosophy (skeleton-first) | `docs/adr/003-learning-philosophy.md` |
-| Naming & code conventions | `docs/adr/004-conventions.md` |
-| Bridge project context | `bridge/AI_PROJECT_CONTEXT.md` |
-| HabitFlow project context | `habit_flow/AI_PROJECT_CONTEXT.md` |
-| Sprint contract template | `docs/exec-plans/_template.md` |
+| 멘토링 철학 & AI 페르소나 | `AI_LEARNING_CONTEXT.md` |
+| Clean Architecture 의사결정 | `docs/adr/001-clean-architecture.md` |
+| 상태 관리 (Riverpod) | `docs/adr/002-state-management.md` |
+| 학습 철학 (스켈레톤 우선) | `docs/adr/003-learning-philosophy.md` |
+| 네이밍 & 코드 컨벤션 | `docs/adr/004-conventions.md` |
+| Bridge 프로젝트 컨텍스트 | `bridge/AI_PROJECT_CONTEXT.md` |
+| HabitFlow 프로젝트 컨텍스트 | `habit_flow/AI_PROJECT_CONTEXT.md` |
+| 스프린트 계약서 템플릿 | `docs/exec-plans/_template.md` |

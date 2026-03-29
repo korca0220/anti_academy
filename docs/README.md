@@ -1,39 +1,39 @@
-# Docs — Knowledge System
+# Docs — 지식 시스템
 
-This directory is the **system of record** for all architectural decisions and sprint plans.
-Agents: start from `AGENTS.md` at the repo root, then navigate here as needed.
+이 디렉토리는 모든 아키텍처 의사결정과 스프린트 계획의 **공식 기록**입니다.
+에이전트: 저장소 루트의 `AGENTS.md`에서 시작한 후, 필요에 따라 이 디렉토리를 탐색하세요.
 
-## Structure
+## 구조
 
 ```
 docs/
-├── README.md              ← This file (navigation guide)
-├── adr/                   ← Architecture Decision Records
+├── README.md              ← 현재 파일 (내비게이션 가이드)
+├── adr/                   ← 아키텍처 의사결정 기록 (ADR)
 │   ├── 001-clean-architecture.md
 │   ├── 002-state-management.md
 │   ├── 003-learning-philosophy.md
 │   └── 004-conventions.md
-└── exec-plans/            ← Sprint contracts
-    └── _template.md       ← Template for new sprint contracts
+└── exec-plans/            ← 스프린트 계약서
+    └── _template.md       ← 새 스프린트 계약서 템플릿
 ```
 
-## ADR Index
+## ADR 인덱스
 
-| ID | Title | Status |
+| ID | 제목 | 상태 |
 |----|-------|--------|
-| 001 | Clean Architecture layer rules & invariants | Active |
-| 002 | State management — Riverpod patterns | Active |
-| 003 | Learning philosophy — skeleton-first approach | Active |
-| 004 | Naming, file, and commit conventions | Active |
+| 001 | Clean Architecture 레이어 규칙 & 불변 조건 | Active |
+| 002 | 상태 관리 — Riverpod 패턴 | Active |
+| 003 | 학습 철학 — 스켈레톤 우선 접근법 | Active |
+| 004 | 네이밍, 파일, 커밋 컨벤션 | Active |
 
-## Exec Plans Index
+## Exec Plans 인덱스
 
-| File | Sprint | Status |
+| 파일 | 스프린트 | 상태 |
 |------|--------|--------|
-| `_template.md` | Template | — |
+| `_template.md` | 템플릿 | — |
 
-## Rules
+## 규칙
 
-- ADRs are append-only. Mark superseded decisions as `[SUPERSEDED by ADR-NNN]`.
-- Sprint contracts move to `exec-plans/archive/` when completed.
-- When you update the code in a way that contradicts an ADR, update the ADR first.
+- ADR은 추가만 가능합니다. 대체된 의사결정은 `[SUPERSEDED by ADR-NNN]`으로 표기합니다.
+- 완료된 스프린트 계약서는 `exec-plans/archive/`로 이동합니다.
+- ADR과 상충하는 방식으로 코드를 수정할 경우, ADR을 먼저 업데이트합니다.

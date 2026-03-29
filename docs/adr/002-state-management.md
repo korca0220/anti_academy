@@ -1,60 +1,59 @@
-# ADR-002: State Management Principles
+# ADR-002: 상태 관리 원칙
 
-**Status**: Active
+**상태**: Active
 
 ---
 
-## Decision
+## 의사결정
 
-State management must follow reactive, unidirectional data flow.
-Business logic must not live in widgets. Async state must always represent three states: loading, error, and data.
+상태 관리는 반응형(reactive), 단방향 데이터 흐름을 따라야 합니다.
+비즈니스 로직은 위젯 안에 있어서는 안 됩니다. 비동기 상태는 항상 loading, error, data 세 가지 상태를 표현해야 합니다.
 
-The reference implementation in this repo uses **Riverpod** (code-gen variant with `@riverpod` annotations), but the underlying principles apply regardless of the chosen package.
+이 저장소의 참조 구현은 **Riverpod** (코드 생성 방식, `@riverpod` 어노테이션)을 사용하지만, 기본 원칙은 선택한 패키지에 관계없이 적용됩니다.
 
-## Patterns
+## 패턴
 
-### AsyncValue for all async state
+### 모든 비동기 상태에 AsyncValue 사용
 
 ```dart
-// Correct
+// 올바른 방식
 AsyncValue<List<Post>> postsState = const AsyncValue.loading();
 
-// Wrong — do not use raw nullable + bool pattern
+// 잘못된 방식 — raw nullable + bool 패턴 사용 금지
 List<Post>? posts;
 bool isLoading = false;
 ```
 
-`AsyncValue` provides a unified `.when(data, loading, error)` API that forces
-handling all three states in UI, preventing missed error/loading states.
+`AsyncValue`는 통합된 `.when(data, loading, error)` API를 제공하여 UI에서 세 가지 상태를 모두 처리하도록 강제합니다. 이를 통해 에러/로딩 상태를 놓치는 것을 방지합니다.
 
-### Notifier pattern (not StateNotifier)
+### Notifier 패턴 사용 (StateNotifier 사용 금지)
 
-Use `@riverpod` code-gen with `Notifier` or `AsyncNotifier`.
-`StateNotifier` is the legacy API — avoid in new code.
+`Notifier` 또는 `AsyncNotifier`와 함께 `@riverpod` 코드 생성 방식을 사용하세요.
+`StateNotifier`는 레거시 API입니다 — 새 코드에서는 사용하지 마세요.
 
 ```dart
-// Correct
+// 올바른 방식
 @riverpod
 class PostsNotifier extends _$PostsNotifier { ... }
 
-// Wrong
+// 잘못된 방식
 class PostsNotifier extends StateNotifier<PostsState> { ... }
 ```
 
-### Provider scope
+### Provider 범위
 
-- `@riverpod` (auto-dispose) for feature-scoped state
-- `@Riverpod(keepAlive: true)` only for app-global state (auth, theme)
+- `@riverpod` (auto-dispose): 기능 범위 상태
+- `@Riverpod(keepAlive: true)`: 앱 전역 상태에만 사용 (auth, theme)
 
-### No business logic in widgets
+### 위젯에 비즈니스 로직 금지
 
-Widgets call Notifier methods. They do not contain `if/else` business logic.
+위젯은 Notifier 메서드를 호출합니다. `if/else` 비즈니스 로직을 포함하지 않습니다.
 
 ```dart
-// Correct
+// 올바른 방식
 onTap: () => ref.read(postNotifierProvider.notifier).createPost(content),
 
-// Wrong
+// 잘못된 방식
 onTap: () {
   if (content.isNotEmpty && user != null) {
     supabase.from('posts').insert({...});
@@ -62,15 +61,15 @@ onTap: () {
 },
 ```
 
-## Why Riverpod
+## Riverpod을 선택한 이유
 
-- Compile-safe — missing providers are caught at compile time
-- No `BuildContext` required to read providers
-- Works well with code-gen and `freezed` immutable models
-- Testable — providers can be overridden in tests
+- 컴파일 안전성 — 누락된 provider는 컴파일 타임에 감지됨
+- Provider를 읽기 위해 `BuildContext` 불필요
+- 코드 생성 및 `freezed` 불변 모델과 잘 연동됨
+- 테스트 가능 — 테스트에서 provider 오버라이드 가능
 
-## How to Apply
+## 적용 방법
 
-When an agent proposes a `StatefulWidget` for state that persists beyond the widget,
-redirect to a Riverpod Notifier. Keep `StatefulWidget` only for ephemeral local UI state
-(e.g., `FocusNode`, `AnimationController`, `TextEditingController`).
+에이전트가 위젯을 넘어 지속되는 상태에 `StatefulWidget`을 제안할 경우,
+Riverpod Notifier로 유도하세요. `StatefulWidget`은 일시적인 로컬 UI 상태
+(예: `FocusNode`, `AnimationController`, `TextEditingController`)에만 사용하세요.
