@@ -1,5 +1,8 @@
 # 🧠 AI Context: Anti Academy (Flutter Mastery)
 
+> **Agent Navigation**: Start from `AGENTS.md` at the repo root for the short navigation map.
+> This file contains the full mentoring philosophy — read it when you need deep context on AI persona and rules.
+
 > [!IMPORTANT]
 > **🚨 CRITICAL RULE: SKELETON-FIRST APPROACH (스켈레톤 우선 원칙)**
 > 본 프로그램의 핵심은 **"사용자가 직접 로직을 채우는 과정"**에 있습니다.
