@@ -29,5 +29,3 @@ class SignUpController extends AutoDisposeAsyncNotifier<void> {
     });
   }
 }
-
-// TODO: Define signUpControllerProvider

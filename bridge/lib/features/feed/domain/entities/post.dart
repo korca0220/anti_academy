@@ -18,8 +18,6 @@ enum PostStatus {
 @freezed
 class Post with _$Post {
   const factory Post({
-    // TODO: Define fields matching table: posts
-    // id, authorId, type, title, content, status, imageUrls, createdAt
     required String id,
     required String authorId,
     required PostType type,

@@ -15,7 +15,6 @@ class CreatePostScreen extends ConsumerStatefulWidget {
 }
 
 class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
-  // TODO: Add controllers
   final titleController = TextEditingController();
   final contentController = TextEditingController();
 

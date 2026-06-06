@@ -11,11 +11,6 @@ class SupabasePostRepository implements PostRepository {
 
   @override
   Stream<List<Post>> getPosts({PostType? type}) {
-    // TODO: Implement filtering logic
-    // If [type] is provided, filter by that type.
-    // Otherwise, return all posts.
-
-    // Create query
     final builder = _supabase.from('posts').stream(primaryKey: ['id']);
 
     if (type != null) {

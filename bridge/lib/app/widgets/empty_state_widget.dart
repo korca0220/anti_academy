@@ -18,13 +18,6 @@ class EmptyStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Implement Empty State UI
-    // 1. Center content
-    // 2. Large Icon (color: disabled/grey)
-    // 3. Title (bold)
-    // 4. Subtitle (optional)
-    // 5. Action Button (optional)
-
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: Column(

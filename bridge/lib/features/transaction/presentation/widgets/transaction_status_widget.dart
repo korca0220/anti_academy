@@ -1,5 +1,6 @@
 import 'package:bridge/app/theme/app_colors.dart';
 import 'package:bridge/features/chat/domain/entities/chat_room.dart';
+import 'package:bridge/features/review/presentation/widgets/review_bottom_sheet.dart';
 import 'package:bridge/features/transaction/domain/entities/transaction.dart';
 import 'package:bridge/features/transaction/presentation/providers/transaction_providers.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +24,6 @@ class TransactionStatusWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final transactionStream = ref.watch(transactionStreamProvider(roomId));
-    // TODO 1: transactionStreamProvider를 watch하여 실시간 데이터를 가져오세요.
-    // 데이터가 로딩 중이거나 에러가 났을 때의 처리도 필요합니다.
-    // 데이터가 없으면(null) -> '거래 시작' 버튼 보여주기
-    // 데이터가 있으면 -> '거래 상태' 및 '액션 버튼' 보여주기
 
     return transactionStream.when(
         error: (error, stackTrace) => const Text('Error'),
@@ -76,11 +73,6 @@ class TransactionStatusWidget extends ConsumerWidget {
     );
   }
 
-  // TODO 3: 거래 상태별 UI (배경색, 텍스트, 버튼) 구현
-  // Proposed(제안됨) -> 수락/취소 버튼
-  // Accepted(수락됨) -> 진행 시작/취소 버튼
-  // InProgress(진행중) -> 완료/취소 버튼
-  // Completed(완료) -> 완료 텍스트
   Widget _buildTransactionStatus(BuildContext context, WidgetRef ref, Transaction tx, String myUserId) {
     return Container(
         margin: marginPadding,
@@ -255,16 +247,43 @@ class TransactionStatusWidget extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Container(
-                  padding: marginPadding,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    '리뷰 남기기',
-                    style: AppTextStyles.labelLarge.copyWith(
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    final revieweeId = _resolveRevieweeId(tx, myUserId);
+                    if (revieweeId == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('리뷰 대상 사용자를 찾을 수 없습니다.')),
+                      );
+                      return;
+                    }
+
+                    showModalBottomSheet<void>(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (_) => Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: ReviewBottomSheet(
+                          transactionId: tx.id,
+                          roomId: roomId,
+                          reviewerId: myUserId,
+                          revieweeId: revieweeId,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: marginPadding,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      '리뷰 남기기',
+                      style: AppTextStyles.labelLarge.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -305,5 +324,12 @@ class TransactionStatusWidget extends ConsumerWidget {
               ],
             ),
         });
+  }
+
+  String? _resolveRevieweeId(Transaction tx, String myUserId) {
+    if (tx.requesterId == myUserId) {
+      return tx.providerId;
+    }
+    return tx.requesterId;
   }
 }
