@@ -136,3 +136,24 @@
 
 - **View State Composition**: 새 도메인 엔티티를 만들기 전에, 기존 `ProfileRepository`와 `ReviewRepository`를 조합하는 화면 상태로 충분한지 먼저 검증한다.
 - **Skeleton First 유지**: 평균 별점 계산, 최근 리뷰 정렬, 채팅 상대 판별 로직은 TODO로 남겨 사용자가 직접 구현하도록 했다.
+
+2026-06-07: Profile View Completion
+✅ Accomplishments
+
+1. **Profile View 데이터 조합 구현**:
+   - `profileViewProvider(userId)`에서 프로필과 받은 리뷰를 조합.
+   - `ProfileViewState`에서 평균 별점과 최근 리뷰 목록을 계산.
+   - 리뷰가 없을 때 `null` 평균 별점으로 빈 상태를 안전하게 표현.
+2. **상대방 프로필 진입점 완성**:
+   - 게시글 상세 화면에서 작성자 프로필로 이동.
+   - 채팅 화면 AppBar에서 현재 사용자를 제외한 상대방 프로필로 이동.
+3. **위젯 컨벤션 정리**:
+   - ADR-004에 1파일 1위젯 클래스 원칙 추가.
+   - `ProfileViewScreen`의 보조 위젯을 `presentation/widgets/`로 분리.
+   - `ChatRoomItem`도 `presentation/widgets/` 위치로 정렬.
+
+🔑 Key Learnings
+
+- **Null as Empty Signal**: 평균 별점은 리뷰가 없을 때 `0.0`이 아니라 `null`로 표현해야 제품 의미가 정확하다.
+- **Route Parameter Discipline**: 라우트에는 객체가 아니라 명확한 식별자(`otherUser.id`)를 전달해야 한다.
+- **Small Commit Rhythm**: TODO 단위로 구현, 검증, 커밋을 반복하면 학습 흐름과 변경 추적이 모두 좋아진다.
