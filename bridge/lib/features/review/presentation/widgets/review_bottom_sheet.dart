@@ -24,6 +24,7 @@ class ReviewBottomSheet extends ConsumerStatefulWidget {
 class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
   final _commentController = TextEditingController();
   int _rating = 5;
+  String? _errorMessage;
 
   @override
   void dispose() {
@@ -37,18 +38,17 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
       next.whenOrNull(
         data: (_) {
           if (!mounted) return;
-          ScaffoldMessenger.of(context).showSnackBar(
+          final messenger = ScaffoldMessenger.of(context);
+          Navigator.of(context).pop();
+          messenger.showSnackBar(
             const SnackBar(content: Text('리뷰가 저장되었습니다.')),
           );
-          Navigator.of(context).pop();
         },
         error: (error, _) {
           if (!mounted) return;
           final message =
               error.toString().contains('23505') ? '이미 이 거래에 리뷰를 작성했습니다.' : '리뷰 저장에 실패했습니다.';
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
-          );
+          setState(() => _errorMessage = message);
         },
       );
     });
@@ -91,6 +91,15 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
                 hintText: '거래 경험을 간단히 남겨주세요.',
               ),
             ),
+            if (_errorMessage != null) ...[
+              const SizedBox(height: 12),
+              Text(
+                _errorMessage!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.red,
+                    ),
+              ),
+            ],
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
@@ -98,6 +107,7 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
                 onPressed: submitState.isLoading
                     ? null
                     : () {
+                        setState(() => _errorMessage = null);
                         ref.read(reviewSubmitControllerProvider.notifier).submit(
                               transactionId: widget.transactionId,
                               roomId: widget.roomId,

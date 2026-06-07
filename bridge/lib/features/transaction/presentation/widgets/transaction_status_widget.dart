@@ -1,5 +1,6 @@
 import 'package:bridge/app/theme/app_colors.dart';
 import 'package:bridge/features/chat/domain/entities/chat_room.dart';
+import 'package:bridge/features/review/presentation/providers/review_providers.dart';
 import 'package:bridge/features/review/presentation/widgets/review_bottom_sheet.dart';
 import 'package:bridge/features/transaction/domain/entities/transaction.dart';
 import 'package:bridge/features/transaction/presentation/providers/transaction_providers.dart';
@@ -260,60 +261,28 @@ class TransactionStatusWidget extends ConsumerWidget {
                 ),
               ],
             ),
-          TransactionStatus.completed => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          TransactionStatus.completed => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      '거래가 완료되었습니다.',
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    final revieweeId = _resolveRevieweeId(tx, myUserId);
-                    if (revieweeId == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('리뷰 대상 사용자를 찾을 수 없습니다.')),
-                      );
-                      return;
-                    }
-
-                    showModalBottomSheet<void>(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (_) => Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: ReviewBottomSheet(
-                          transactionId: tx.id,
-                          roomId: roomId,
-                          reviewerId: myUserId,
-                          revieweeId: revieweeId,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          '거래가 완료되었습니다.',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  child: Container(
-                    padding: marginPadding,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
-                      '리뷰 남기기',
-                      style: AppTextStyles.labelLarge.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                    _buildReviewAction(context, ref, tx, myUserId),
+                  ],
                 ),
+                const SizedBox(height: 12),
+                _buildReviewSummary(ref, tx.id),
               ],
             ),
           TransactionStatus.canceled => Row(
@@ -360,5 +329,115 @@ class TransactionStatusWidget extends ConsumerWidget {
       return tx.providerId;
     }
     return tx.requesterId;
+  }
+
+  Widget _buildReviewAction(
+    BuildContext context,
+    WidgetRef ref,
+    Transaction tx,
+    String myUserId,
+  ) {
+    final reviewsAsync = ref.watch(reviewsByTransactionProvider(tx.id));
+
+    return reviewsAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+      data: (reviews) {
+        final hasMyReview = reviews.any((review) => review.reviewerId == myUserId);
+        if (hasMyReview) {
+          return Container(
+            padding: marginPadding,
+            decoration: BoxDecoration(
+              color: Colors.grey[500],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '리뷰 작성 완료',
+              style: AppTextStyles.labelLarge.copyWith(
+                color: Colors.white,
+              ),
+            ),
+          );
+        }
+
+        return GestureDetector(
+          onTap: () {
+            final revieweeId = _resolveRevieweeId(tx, myUserId);
+            if (revieweeId == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('리뷰 대상 사용자를 찾을 수 없습니다.')),
+              );
+              return;
+            }
+
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: ReviewBottomSheet(
+                  transactionId: tx.id,
+                  roomId: roomId,
+                  reviewerId: myUserId,
+                  revieweeId: revieweeId,
+                ),
+              ),
+            );
+          },
+          child: Container(
+            padding: marginPadding,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '리뷰 남기기',
+              style: AppTextStyles.labelLarge.copyWith(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildReviewSummary(WidgetRef ref, String transactionId) {
+    final reviewsAsync = ref.watch(reviewsByTransactionProvider(transactionId));
+
+    return reviewsAsync.when(
+      loading: () => const Text('리뷰 불러오는 중...'),
+      error: (_, __) => const Text('리뷰를 불러오지 못했습니다.'),
+      data: (reviews) {
+        if (reviews.isEmpty) {
+          return const Text('아직 작성된 리뷰가 없습니다.');
+        }
+
+        final latestReview = reviews.first;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '최근 리뷰: ${latestReview.rating}/5',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              latestReview.comment?.trim().isNotEmpty ?? false
+                  ? latestReview.comment!
+                  : '코멘트 없음',
+              style: AppTextStyles.labelSmall.copyWith(
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
