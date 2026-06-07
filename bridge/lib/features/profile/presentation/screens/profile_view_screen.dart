@@ -120,8 +120,8 @@ class _ReputationSummary extends StatelessWidget {
             Expanded(
               child: Text(
                 averageRating == null
-                    ? 'Reputation not ready yet'
-                    : 'TODO: show formatted rating',
+                    ? '리뷰가 아직 없습니다'
+                    : '${averageRating?.toStringAsFixed(1)} / 5.0',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
