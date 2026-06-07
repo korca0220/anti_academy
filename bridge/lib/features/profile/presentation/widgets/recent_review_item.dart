@@ -13,12 +13,18 @@ class RecentReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.primary,
-      padding: const EdgeInsets.symmetric(vertical: 24),
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('${review.rating} / 5.0'),
-          Text(review.comment ?? 'No comment'),
+          Text('${review.rating} / 5.0',
+              style: Theme.of(context).textTheme.titleMedium),
+          Text(review.comment ?? 'No comment',
+              style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),
     );
