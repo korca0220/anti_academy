@@ -70,6 +70,16 @@ class SupabaseTransactionRepository implements TransactionRepository {
   }
 
   @override
+  Future<List<Transaction>> getByUserId(String userId) async {
+    final result = await _supabase
+        .from('transactions')
+        .select()
+        .or('requester_id.eq.$userId,provider_id.eq.$userId');
+
+    return result.map(Transaction.fromJson).toList();
+  }
+
+  @override
   Future<void> updateStatus({
     required String roomId,
     required TransactionStatus status,

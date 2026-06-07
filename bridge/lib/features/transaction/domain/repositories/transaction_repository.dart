@@ -4,6 +4,7 @@ abstract interface class TransactionRepository {
   Future<Transaction?> getByRoomId(String roomId);
   Stream<Transaction?> watchByRoomId(String roomId);
   Future<void> upsert(Transaction transaction);
+  Future<List<Transaction>> getByUserId(String userId);
   Future<void> updateStatus({
     required String roomId,
     required TransactionStatus status,
