@@ -65,7 +65,7 @@ class _ChatRoomItem extends StatelessWidget {
         child: partner.avatarUrl == null ? Text(partner.nickname[0]) : null,
       ),
       title: Text(partner.nickname),
-      subtitle: Text('Last message placeholder'), // 나중에 '마지막 메시지'도 가져와야 함
+      subtitle: const Text('Last message placeholder'), // 나중에 '마지막 메시지'도 가져와야 함
       onTap: () {
         context.push('/chats/${room.id}', extra: room);
       },
