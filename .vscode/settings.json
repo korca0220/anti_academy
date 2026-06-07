@@ -1,0 +1,11 @@
+{
+    "cmake.ignoreCMakeListsMissing": true,  
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    },
+    "cSpell.words": [
+      "reviewee"
+    ]
+  }
+  
