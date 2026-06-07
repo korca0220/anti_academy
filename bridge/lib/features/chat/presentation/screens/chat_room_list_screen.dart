@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/widgets/empty_state_widget.dart';
 import '../providers/chat_providers.dart';
-import 'widgets/chat_room_item.dart';
+import '../widgets/chat_room_item.dart';
 
 class ChatRoomListScreen extends ConsumerWidget {
   const ChatRoomListScreen({super.key});
