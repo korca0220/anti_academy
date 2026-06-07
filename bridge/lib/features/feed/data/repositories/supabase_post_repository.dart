@@ -18,12 +18,12 @@ class SupabasePostRepository implements PostRepository {
           .eq('type', type.name)
           .order('created_at', ascending: false)
           .map(
-            (event) => event.map((e) => Post.fromJson(e)).toList(),
+            (event) => event.map(Post.fromJson).toList(),
           );
     }
 
     return builder.order('created_at', ascending: false).map(
-          (event) => event.map((e) => Post.fromJson(e)).toList(),
+          (event) => event.map(Post.fromJson).toList(),
         );
   }
 
@@ -32,6 +32,17 @@ class SupabasePostRepository implements PostRepository {
     final postJson = post.toJson()..remove('id');
 
     await _supabase.from('posts').insert(postJson);
+  }
+
+  @override
+  Future<List<Post>> getByUserId(String userId) async {
+    final result = await _supabase
+        .from('posts')
+        .select()
+        .eq('author_id', userId)
+        .order('created_at', ascending: false);
+
+    return result.map(Post.fromJson).toList();
   }
 
   @override
