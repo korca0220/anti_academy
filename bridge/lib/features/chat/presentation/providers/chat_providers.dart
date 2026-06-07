@@ -19,7 +19,8 @@ final chatRoomsFutureProvider = FutureProvider<List<ChatRoom>>((ref) async {
 });
 
 // Chat Messages Stream Provider (Family by Room ID)
-final chatMessagesStreamProvider = StreamProvider.autoDispose.family<List<ChatMessage>, String>((ref, roomId) {
+final chatMessagesStreamProvider =
+    StreamProvider.autoDispose.family<List<ChatMessage>, String>((ref, roomId) {
   final repository = ref.watch(chatRepositoryProvider);
   return repository.getMessages(roomId);
 });

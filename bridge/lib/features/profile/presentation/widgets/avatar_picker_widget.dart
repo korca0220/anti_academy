@@ -29,7 +29,9 @@ class _AvatarPickerWidgetState extends ConsumerState<AvatarPickerWidget> {
       setState(() => _isLoading = true);
 
       try {
-        await ref.read(profileRepositoryProvider).updateAvatar(File(image.path), userId);
+        await ref
+            .read(profileRepositoryProvider)
+            .updateAvatar(File(image.path), userId);
 
         ref.invalidate(profileFutureProvider(userId));
 
@@ -96,7 +98,8 @@ class _AvatarPickerWidgetState extends ConsumerState<AvatarPickerWidget> {
                 color: Colors.blue,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.camera_alt, size: 16, color: Colors.white),
+              child:
+                  const Icon(Icons.camera_alt, size: 16, color: Colors.white),
             ),
           ),
         ],

@@ -71,9 +71,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     final isMyMessage = message.senderId == myUserId;
 
                     return Align(
-                      alignment: isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
+                      alignment: isMyMessage
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: isMyMessage ? Colors.blue : Colors.grey[300],

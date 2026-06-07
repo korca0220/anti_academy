@@ -20,9 +20,13 @@ class SupabaseChatRepository implements ChatRepository {
 
     try {
       // 1. 내가 속한 방 ID 찾기
-      final myRoomsResponse = await _supabase.from('chat_participants').select('room_id').eq('user_id', myUserId);
+      final myRoomsResponse = await _supabase
+          .from('chat_participants')
+          .select('room_id')
+          .eq('user_id', myUserId);
 
-      final myRoomIds = List<String>.from(myRoomsResponse.map((e) => e['room_id']));
+      final myRoomIds =
+          List<String>.from(myRoomsResponse.map((e) => e['room_id']));
 
       if (myRoomIds.isEmpty) return [];
 

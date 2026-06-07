@@ -92,7 +92,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!isAuthenticated && !isLoggingIn && !isSigningUp) return '/signin';
 
       // 로그인 했는데 로그인/회원가입/스플래쉬면 -> 홈으로
-      if (isAuthenticated && (isLoggingIn || isSigningUp || isSplash)) return '/';
+      if (isAuthenticated && (isLoggingIn || isSigningUp || isSplash))
+        return '/';
 
       return null;
     },

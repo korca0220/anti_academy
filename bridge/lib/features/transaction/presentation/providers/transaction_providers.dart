@@ -9,7 +9,8 @@ final transactionRepositoryProvider = Provider<TransactionRepository>((ref) {
   return SupabaseTransactionRepository(Supabase.instance.client);
 });
 
-final transactionStreamProvider = StreamProvider.family<Transaction?, String>((ref, roomId) {
+final transactionStreamProvider =
+    StreamProvider.family<Transaction?, String>((ref, roomId) {
   final repository = ref.watch(transactionRepositoryProvider);
   return repository.watchByRoomId(roomId);
 });

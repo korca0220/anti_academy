@@ -34,7 +34,8 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AsyncValue<void>>(reviewSubmitControllerProvider, (previous, next) {
+    ref.listen<AsyncValue<void>>(reviewSubmitControllerProvider,
+        (previous, next) {
       next.whenOrNull(
         data: (_) {
           if (!mounted) return;
@@ -46,8 +47,9 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
         },
         error: (error, _) {
           if (!mounted) return;
-          final message =
-              error.toString().contains('23505') ? '이미 이 거래에 리뷰를 작성했습니다.' : '리뷰 저장에 실패했습니다.';
+          final message = error.toString().contains('23505')
+              ? '이미 이 거래에 리뷰를 작성했습니다.'
+              : '리뷰 저장에 실패했습니다.';
           setState(() => _errorMessage = message);
         },
       );
@@ -108,7 +110,9 @@ class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
                     ? null
                     : () {
                         setState(() => _errorMessage = null);
-                        ref.read(reviewSubmitControllerProvider.notifier).submit(
+                        ref
+                            .read(reviewSubmitControllerProvider.notifier)
+                            .submit(
                               transactionId: widget.transactionId,
                               roomId: widget.roomId,
                               reviewerId: widget.reviewerId,

@@ -13,7 +13,11 @@ class SupabaseTransactionRepository implements TransactionRepository {
   @override
   Future<Transaction?> getByRoomId(String roomId) async {
     try {
-      final result = await _supabase.from('transactions').select().eq('room_id', roomId).maybeSingle();
+      final result = await _supabase
+          .from('transactions')
+          .select()
+          .eq('room_id', roomId)
+          .maybeSingle();
 
       if (result == null) return null;
 
@@ -28,7 +32,9 @@ class SupabaseTransactionRepository implements TransactionRepository {
   @override
   Stream<Transaction?> watchByRoomId(String roomId) {
     try {
-      final response = _supabase.from('transactions').stream(primaryKey: ['id']).eq('room_id', roomId);
+      final response = _supabase
+          .from('transactions')
+          .stream(primaryKey: ['id']).eq('room_id', roomId);
 
       return response.map((event) {
         if (event.isEmpty) return null;
@@ -45,13 +51,15 @@ class SupabaseTransactionRepository implements TransactionRepository {
   @override
   Future<void> upsert(Transaction transaction) async {
     try {
-      final resolvedPostId = transaction.postId ?? await _resolvePostIdByRoomId(transaction.roomId);
+      final resolvedPostId = transaction.postId ??
+          await _resolvePostIdByRoomId(transaction.roomId);
       if (resolvedPostId == null) {
         throw StateError(
           'Cannot create transaction without post_id. Re-open chat from a post detail screen or backfill chat_rooms.post_id.',
         );
       }
-      final transactionJson = transaction.copyWith(postId: resolvedPostId).toJson();
+      final transactionJson =
+          transaction.copyWith(postId: resolvedPostId).toJson();
 
       await _supabase.from('transactions').upsert(transactionJson);
     } catch (e) {
@@ -90,7 +98,11 @@ class SupabaseTransactionRepository implements TransactionRepository {
   }
 
   Future<String?> _resolvePostIdByRoomId(String roomId) async {
-    final room = await _supabase.from('chat_rooms').select('post_id').eq('id', roomId).maybeSingle();
+    final room = await _supabase
+        .from('chat_rooms')
+        .select('post_id')
+        .eq('id', roomId)
+        .maybeSingle();
     return room?['post_id'] as String?;
   }
 }

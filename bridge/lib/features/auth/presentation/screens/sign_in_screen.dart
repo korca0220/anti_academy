@@ -80,7 +80,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       )
                     : const Text(
                         'Sign in',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
               ),
             ),

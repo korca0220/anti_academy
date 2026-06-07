@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:bridge/features/auth/presentation/providers/auth_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final signUpControllerProvider = AsyncNotifierProvider.autoDispose<SignUpController, void>(
+final signUpControllerProvider =
+    AsyncNotifierProvider.autoDispose<SignUpController, void>(
   () => SignUpController(),
 );
 

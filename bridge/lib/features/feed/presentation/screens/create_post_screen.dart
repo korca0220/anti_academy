@@ -59,7 +59,9 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                 );
 
                 try {
-                  await ref.read(createPostControllerProvider.notifier).createPost(post: newPost);
+                  await ref
+                      .read(createPostControllerProvider.notifier)
+                      .createPost(post: newPost);
 
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(

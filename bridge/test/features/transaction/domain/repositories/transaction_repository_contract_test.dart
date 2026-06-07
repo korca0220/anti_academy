@@ -43,7 +43,8 @@ void main() {
         closedAt: null,
       );
 
-      when(repository.watchByRoomId(roomId)).thenAnswer((_) => Stream.value(tx));
+      when(repository.watchByRoomId(roomId))
+          .thenAnswer((_) => Stream.value(tx));
       final result = repository.watchByRoomId(roomId);
       expect(await result.first, equals(tx));
       verify(repository.watchByRoomId(roomId)).called(1);
@@ -66,28 +67,49 @@ void main() {
       await repository.upsert(tx);
       verify(repository.upsert(tx)).called(1);
     });
-    test('updateStatus() should pass roomId/status/actorId (and optional reason)', () async {
+    test(
+        'updateStatus() should pass roomId/status/actorId (and optional reason)',
+        () async {
       when(repository.updateStatus(
-              roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null))
+              roomId: roomId,
+              status: TransactionStatus.in_progress,
+              actorId: actorId,
+              cancelReason: null))
           .thenAnswer((_) async {});
 
       await repository.updateStatus(
-          roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null);
+          roomId: roomId,
+          status: TransactionStatus.in_progress,
+          actorId: actorId,
+          cancelReason: null);
 
       verify(
         repository.updateStatus(
-            roomId: roomId, status: TransactionStatus.in_progress, actorId: actorId, cancelReason: null),
+            roomId: roomId,
+            status: TransactionStatus.in_progress,
+            actorId: actorId,
+            cancelReason: null),
       ).called(1);
     });
-    test('updateStatus() with canceled should carry cancel reason parameter', () async {
+    test('updateStatus() with canceled should carry cancel reason parameter',
+        () async {
       when(repository.updateStatus(
-              roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason'))
+              roomId: roomId,
+              status: TransactionStatus.canceled,
+              actorId: actorId,
+              cancelReason: 'cancel reason'))
           .thenAnswer((_) async {});
       await repository.updateStatus(
-          roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason');
+          roomId: roomId,
+          status: TransactionStatus.canceled,
+          actorId: actorId,
+          cancelReason: 'cancel reason');
       verify(
         repository.updateStatus(
-            roomId: roomId, status: TransactionStatus.canceled, actorId: actorId, cancelReason: 'cancel reason'),
+            roomId: roomId,
+            status: TransactionStatus.canceled,
+            actorId: actorId,
+            cancelReason: 'cancel reason'),
       ).called(1);
     });
   });

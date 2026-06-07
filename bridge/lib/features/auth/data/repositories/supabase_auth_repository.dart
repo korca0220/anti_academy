@@ -30,7 +30,8 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithEmail({required String email, required String password}) async {
+  Future<void> signInWithEmail(
+      {required String email, required String password}) async {
     await _supabase.auth.signInWithPassword(
       password: password,
       email: email,

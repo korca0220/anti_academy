@@ -60,7 +60,8 @@ class _ChatRoomItem extends StatelessWidget {
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: partner.avatarUrl != null ? NetworkImage(partner.avatarUrl!) : null,
+        backgroundImage:
+            partner.avatarUrl != null ? NetworkImage(partner.avatarUrl!) : null,
         child: partner.avatarUrl == null ? Text(partner.nickname[0]) : null,
       ),
       title: Text(partner.nickname),

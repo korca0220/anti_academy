@@ -18,11 +18,13 @@ bool canTransition(TransactionStatus from, TransactionStatus to) {
   }
 
   if (from == TransactionStatus.accepted) {
-    return to == TransactionStatus.in_progress || to == TransactionStatus.canceled;
+    return to == TransactionStatus.in_progress ||
+        to == TransactionStatus.canceled;
   }
 
   if (from == TransactionStatus.in_progress) {
-    return to == TransactionStatus.completed || to == TransactionStatus.canceled;
+    return to == TransactionStatus.completed ||
+        to == TransactionStatus.canceled;
   }
 
   return false;
@@ -44,5 +46,6 @@ class Transaction with _$Transaction {
     DateTime? closedAt,
   }) = _Transaction;
 
-  factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
 }

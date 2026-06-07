@@ -64,7 +64,8 @@ void main() {
     });
     test('nullable 필드를 nullable 상태로 보관할 수 있어야 한다', () {
       // TODO: nullable 필드 null/값 케이스를 분리해서 검증
-      final withoutOptionals = fixture(providerId: null, cancelReason: null, closedAt: null);
+      final withoutOptionals =
+          fixture(providerId: null, cancelReason: null, closedAt: null);
       final withOptionals = fixture(
         providerId: 'provider-001',
         cancelReason: 'User canceled',

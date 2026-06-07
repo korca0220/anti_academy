@@ -13,5 +13,6 @@ class ChatRoom with _$ChatRoom {
     @Default([]) List<Profile> participants,
   }) = _ChatRoom;
 
-  factory ChatRoom.fromJson(Map<String, dynamic> json) => _$ChatRoomFromJson(json);
+  factory ChatRoom.fromJson(Map<String, dynamic> json) =>
+      _$ChatRoomFromJson(json);
 }

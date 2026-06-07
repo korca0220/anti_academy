@@ -83,7 +83,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   : Center(
                       child: Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
             ),

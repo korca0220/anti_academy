@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('FeedItem displays post details correctly', (WidgetTester tester) async {
+  testWidgets('FeedItem displays post details correctly',
+      (WidgetTester tester) async {
     // 1. Arrange: Create a sample post
     final post = Post(
       id: '1',
@@ -28,7 +29,8 @@ void main() {
 
     // 3. Assert (Should fail initially)
     expect(find.text('Need Help Moving'), findsOneWidget); // Title check
-    expect(find.text('Can someone help me move a sofa?'), findsOneWidget); // Content check
+    expect(find.text('Can someone help me move a sofa?'),
+        findsOneWidget); // Content check
 
     // Type Badge Check (New Requirement!)
     // We expect 'Request' text to be present for PostType.request

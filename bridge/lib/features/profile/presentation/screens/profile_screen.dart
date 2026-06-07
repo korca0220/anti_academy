@@ -33,8 +33,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     super.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     final userId = ref.watch(currentUserIdProvider);

@@ -13,7 +13,8 @@ final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
 
 // 2. Profile Future Provider (Family)
 // UI에서 ref.watch(profileFutureProvider(userId))로 쉽게 사용 가능
-final profileFutureProvider = FutureProvider.family<Profile?, String>((ref, userId) async {
+final profileFutureProvider =
+    FutureProvider.family<Profile?, String>((ref, userId) async {
   final repository = ref.watch(profileRepositoryProvider);
   return repository.getProfile(userId);
 });

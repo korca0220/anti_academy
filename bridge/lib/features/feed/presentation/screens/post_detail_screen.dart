@@ -66,7 +66,10 @@ class PostDetailScreen extends ConsumerWidget {
                         ),
                         Text(
                           dateStr,
-                          style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.grey),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(color: Colors.grey),
                         ),
                       ],
                     ),
@@ -78,7 +81,10 @@ class PostDetailScreen extends ConsumerWidget {
               ),
               Text(
                 post.content,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(height: 1.6),
               ),
               const SizedBox(height: 48),
               if (post.authorId != ref.read(currentUserIdProvider))
@@ -86,7 +92,9 @@ class PostDetailScreen extends ConsumerWidget {
                   width: double.infinity,
                   child: FilledButton.icon(
                     onPressed: () async {
-                      final chatRoomId = await ref.read(chatRepositoryProvider).createOrGetChatRoom(
+                      final chatRoomId = await ref
+                          .read(chatRepositoryProvider)
+                          .createOrGetChatRoom(
                             otherUserId: post.authorId,
                             postId: post.id,
                           );

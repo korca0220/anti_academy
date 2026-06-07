@@ -7,7 +7,8 @@ class SkeletonFeedItem extends StatefulWidget {
   State<SkeletonFeedItem> createState() => _SkeletonFeedItemState();
 }
 
-class _SkeletonFeedItemState extends State<SkeletonFeedItem> with SingleTickerProviderStateMixin {
+class _SkeletonFeedItemState extends State<SkeletonFeedItem>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -59,7 +60,10 @@ class _SkeletonFeedItemState extends State<SkeletonFeedItem> with SingleTickerPr
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8,
                 children: [
-                  Container(width: double.infinity, height: 16, color: Colors.grey[300]),
+                  Container(
+                      width: double.infinity,
+                      height: 16,
+                      color: Colors.grey[300]),
                   Container(width: 150, height: 12, color: Colors.grey[300]),
                 ],
               ),

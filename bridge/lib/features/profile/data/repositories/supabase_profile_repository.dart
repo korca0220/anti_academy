@@ -14,7 +14,11 @@ class SupabaseProfileRepository implements ProfileRepository {
   @override
   Future<Profile?> getProfile(String userId) async {
     try {
-      final data = await supabaseClient.from('profiles').select().eq('id', userId).maybeSingle();
+      final data = await supabaseClient
+          .from('profiles')
+          .select()
+          .eq('id', userId)
+          .maybeSingle();
 
       if (data == null) return null;
 
@@ -29,7 +33,10 @@ class SupabaseProfileRepository implements ProfileRepository {
   @override
   Future<void> updateProfile(Profile profile) async {
     try {
-      await supabaseClient.from('profiles').update(profile.toJson()).eq('id', profile.id);
+      await supabaseClient
+          .from('profiles')
+          .update(profile.toJson())
+          .eq('id', profile.id);
     } catch (e) {
       log('Failed to update profile: $e');
 
@@ -50,7 +57,8 @@ class SupabaseProfileRepository implements ProfileRepository {
             ),
           );
 
-      final avatarUrl = supabaseClient.storage.from('avatars').getPublicUrl(path);
+      final avatarUrl =
+          supabaseClient.storage.from('avatars').getPublicUrl(path);
 
       await supabaseClient.from('profiles').update({
         'avatar_url': avatarUrl,

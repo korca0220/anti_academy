@@ -7,12 +7,16 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     # Treat these as errors (not warnings) to enforce hard boundaries
-    invalid_use_of_protected_member: error
-    invalid_override_of_non_virtual_class_member: error
+    invalid_use_of_protected_member: error    
     missing_return: error
     dead_code: warning
     unused_import: error
     unused_local_variable: warning
+    # Strengthen const-related diagnostics so Fix All on Save applies consistently.
+    prefer_const_constructors: warning
+    prefer_const_constructors_in_immutables: warning
+    prefer_const_declarations: warning
+    prefer_const_literals_to_create_immutables: warning
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
@@ -88,8 +92,7 @@ linter:
     noop_primitive_operations: true
     null_check_on_nullable_type_parameter: true
     only_throw_errors: true
-    overridden_fields: true
-    package_api_docs: false
+    overridden_fields: true    
     parameter_assignments: false
     prefer_asserts_in_initializer_lists: true
     prefer_const_constructors: true
@@ -102,8 +105,7 @@ linter:
     prefer_final_locals: false
     prefer_for_elements_to_map_fromIterable: true
     prefer_if_elements_to_conditional_expressions: false
-    prefer_if_null_operators: true
-    prefer_inlined_final_fields: true
+    prefer_if_null_operators: true    
     prefer_interpolation_to_compose_strings: true
     prefer_is_empty: true
     prefer_is_not_empty: true

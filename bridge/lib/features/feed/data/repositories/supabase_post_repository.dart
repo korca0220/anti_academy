@@ -14,7 +14,10 @@ class SupabasePostRepository implements PostRepository {
     final builder = _supabase.from('posts').stream(primaryKey: ['id']);
 
     if (type != null) {
-      return builder.eq('type', type.name).order('created_at', ascending: false).map(
+      return builder
+          .eq('type', type.name)
+          .order('created_at', ascending: false)
+          .map(
             (event) => event.map((e) => Post.fromJson(e)).toList(),
           );
     }

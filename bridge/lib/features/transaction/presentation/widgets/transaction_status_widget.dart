@@ -343,7 +343,8 @@ class TransactionStatusWidget extends ConsumerWidget {
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
       data: (reviews) {
-        final hasMyReview = reviews.any((review) => review.reviewerId == myUserId);
+        final hasMyReview =
+            reviews.any((review) => review.reviewerId == myUserId);
         if (hasMyReview) {
           return Container(
             padding: marginPadding,

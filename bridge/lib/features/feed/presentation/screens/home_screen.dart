@@ -58,7 +58,8 @@ class HomeScreen extends ConsumerWidget {
               ButtonSegment(value: FeedFilter.offer, label: Text('Offer')),
             ],
             onSelectionChanged: (value) {
-              ref.read(feedFilterProvider.notifier).state = value.firstOrNull ?? FeedFilter.all;
+              ref.read(feedFilterProvider.notifier).state =
+                  value.firstOrNull ?? FeedFilter.all;
             },
           ),
           Expanded(

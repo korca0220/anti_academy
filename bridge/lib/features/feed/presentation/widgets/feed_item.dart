@@ -44,8 +44,10 @@ class FeedItem extends ConsumerWidget {
         ],
       ),
       leading: switch (post.type) {
-        PostType.request => Badge(label: Text('Request'), backgroundColor: Colors.blue),
-        PostType.offer => Badge(label: Text('Offer'), backgroundColor: Colors.green),
+        PostType.request =>
+          Badge(label: Text('Request'), backgroundColor: Colors.blue),
+        PostType.offer =>
+          Badge(label: Text('Offer'), backgroundColor: Colors.green),
       },
     );
   }
