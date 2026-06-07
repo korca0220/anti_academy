@@ -45,7 +45,13 @@ class SupabaseTransactionRepository implements TransactionRepository {
   @override
   Future<void> upsert(Transaction transaction) async {
     try {
-      final transactionJson = transaction.toJson();
+      final resolvedPostId = transaction.postId ?? await _resolvePostIdByRoomId(transaction.roomId);
+      if (resolvedPostId == null) {
+        throw StateError(
+          'Cannot create transaction without post_id. Re-open chat from a post detail screen or backfill chat_rooms.post_id.',
+        );
+      }
+      final transactionJson = transaction.copyWith(postId: resolvedPostId).toJson();
 
       await _supabase.from('transactions').upsert(transactionJson);
     } catch (e) {
@@ -63,10 +69,17 @@ class SupabaseTransactionRepository implements TransactionRepository {
     String? cancelReason,
   }) async {
     try {
+      final resolvedPostId = await _resolvePostIdByRoomId(roomId);
+      if (resolvedPostId == null) {
+        throw StateError(
+          'Cannot update transaction status without post_id. Backfill chat_rooms.post_id for this room first.',
+        );
+      }
       await _supabase.from('transactions').update({
         'status': status.name,
         'updated_by': actorId,
         'cancel_reason': cancelReason,
+        'post_id': resolvedPostId,
         'updated_at': DateTime.now().toIso8601String(),
       }).eq('room_id', roomId);
     } catch (e) {
@@ -74,5 +87,10 @@ class SupabaseTransactionRepository implements TransactionRepository {
 
       throw Exception('Failed to update transaction status: $e');
     }
+  }
+
+  Future<String?> _resolvePostIdByRoomId(String roomId) async {
+    final room = await _supabase.from('chat_rooms').select('post_id').eq('id', roomId).maybeSingle();
+    return room?['post_id'] as String?;
   }
 }

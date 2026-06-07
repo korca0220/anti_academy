@@ -5,6 +5,7 @@ import 'package:bridge/features/transaction/domain/entities/transaction.dart';
 import 'package:bridge/features/transaction/presentation/providers/transaction_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../app/theme/app_text_styles.dart';
@@ -25,18 +26,20 @@ class TransactionStatusWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final transactionStream = ref.watch(transactionStreamProvider(roomId));
+    final myUserId = Supabase.instance.client.auth.currentUser?.id;
+    if (myUserId == null || myUserId.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     return transactionStream.when(
         error: (error, stackTrace) => const Text('Error'),
         loading: SizedBox.shrink,
         data: (transaction) {
           if (transaction == null) {
-            return _buildCreateTransactionButton(
-                context, ref, room.participants.first.id);
+            return _buildCreateTransactionButton(context, ref, myUserId);
           }
 
-          return _buildTransactionStatus(
-              context, ref, transaction, room.participants.first.id);
+          return _buildTransactionStatus(context, ref, transaction, myUserId);
         });
   }
 

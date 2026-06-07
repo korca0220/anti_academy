@@ -33,25 +33,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     super.dispose();
   }
 
-  Future<void> _saveProfile(Profile updatedProfile) async {
-    try {
-      await ref.read(profileRepositoryProvider).updateProfile(updatedProfile);
-
-      ref.invalidate(profileFutureProvider(updatedProfile.id));
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Profile updated successfully')),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to update profile')),
-        );
-      }
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +41,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final profileAsync = ref.watch(profileFutureProvider(userId ?? ''));
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Profile')),
+      appBar: AppBar(
+        title: const Text('My Profile'),
+        actions: [
+          IconButton(
+            onPressed: _signOut,
+            tooltip: '로그아웃',
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: profileAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error: $err')),
@@ -83,12 +74,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   const SizedBox(height: 24),
                   TextFormField(
                     controller: _nicknameController,
-                    decoration: InputDecoration(labelText: 'Nickname'),
+                    decoration: const InputDecoration(labelText: 'Nickname'),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: _bioController,
-                    decoration: InputDecoration(labelText: 'Bio'),
+                    decoration: const InputDecoration(labelText: 'Bio'),
                   ),
                   const SizedBox(height: 32),
                   ElevatedButton(
@@ -113,5 +104,36 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _saveProfile(Profile updatedProfile) async {
+    try {
+      await ref.read(profileRepositoryProvider).updateProfile(updatedProfile);
+
+      ref.invalidate(profileFutureProvider(updatedProfile.id));
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile updated successfully')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to update profile')),
+        );
+      }
+    }
+  }
+
+  Future<void> _signOut() async {
+    try {
+      await ref.read(authRepositoryProvider).signOut();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('로그아웃에 실패했습니다.')),
+      );
+    }
   }
 }

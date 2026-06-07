@@ -16,6 +16,8 @@ final authStateChangesProvider = StreamProvider((ref) {
 });
 
 final currentUserIdProvider = Provider<String?>((ref) {
+  // auth state stream을 watch해 로그인/로그아웃/계정 전환 시 재계산되도록 합니다.
+  ref.watch(authStateChangesProvider);
   final supabase = ref.watch(supabaseClientProvider);
 
   return supabase.auth.currentUser?.id;
