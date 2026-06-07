@@ -42,6 +42,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       appBar: AppBar(
         title: const Text('My Profile'),
         actions: [
+          // TODO: '내 활동' 버튼(Icons.list_alt)을 추가하고 context.push('/activity')로 이동하세요.
           IconButton(
             onPressed: _signOut,
             tooltip: '로그아웃',
