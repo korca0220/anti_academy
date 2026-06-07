@@ -104,11 +104,17 @@ class SupabaseChatRepository implements ChatRepository {
   }
 
   @override
-  Future<String> createOrGetChatRoom(String otherUserId) async {
+  Future<String> createOrGetChatRoom({
+    required String otherUserId,
+    required String postId,
+  }) async {
     try {
       final response = await _supabase.rpc(
         'create_or_get_chat_room',
-        params: {'other_user_id': otherUserId},
+        params: {
+          'other_user_id': otherUserId,
+          'post_id': postId,
+        },
       );
 
       return response as String;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ReviewBottomSheet extends StatefulWidget {
+import '../providers/review_providers.dart';
+
+class ReviewBottomSheet extends ConsumerStatefulWidget {
   const ReviewBottomSheet({
     super.key,
     required this.transactionId,
@@ -15,10 +18,10 @@ class ReviewBottomSheet extends StatefulWidget {
   final String revieweeId;
 
   @override
-  State<ReviewBottomSheet> createState() => _ReviewBottomSheetState();
+  ConsumerState<ReviewBottomSheet> createState() => _ReviewBottomSheetState();
 }
 
-class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
+class _ReviewBottomSheetState extends ConsumerState<ReviewBottomSheet> {
   final _commentController = TextEditingController();
   int _rating = 5;
 
@@ -30,6 +33,28 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue<void>>(reviewSubmitControllerProvider, (previous, next) {
+      next.whenOrNull(
+        data: (_) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('리뷰가 저장되었습니다.')),
+          );
+          Navigator.of(context).pop();
+        },
+        error: (error, _) {
+          if (!mounted) return;
+          final message =
+              error.toString().contains('23505') ? '이미 이 거래에 리뷰를 작성했습니다.' : '리뷰 저장에 실패했습니다.';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message)),
+          );
+        },
+      );
+    });
+
+    final submitState = ref.watch(reviewSubmitControllerProvider);
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -70,12 +95,25 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  // TODO: reviewRepositoryProvider를 통해 createReview 호출
-                  // TODO: 중복 리뷰/실패 케이스 UI 처리
-                  Navigator.of(context).pop();
-                },
-                child: const Text('저장'),
+                onPressed: submitState.isLoading
+                    ? null
+                    : () {
+                        ref.read(reviewSubmitControllerProvider.notifier).submit(
+                              transactionId: widget.transactionId,
+                              roomId: widget.roomId,
+                              reviewerId: widget.reviewerId,
+                              revieweeId: widget.revieweeId,
+                              rating: _rating,
+                              comment: _commentController.text.trim(),
+                            );
+                      },
+                child: submitState.isLoading
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('저장'),
               ),
             ),
           ],

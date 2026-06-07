@@ -16,7 +16,8 @@ class TransactionStatusWidget extends ConsumerWidget {
     required this.room,
   });
 
-  static const EdgeInsets marginPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+  static const EdgeInsets marginPadding =
+      EdgeInsets.symmetric(horizontal: 16, vertical: 8);
 
   final String roomId;
   final ChatRoom room;
@@ -27,23 +28,28 @@ class TransactionStatusWidget extends ConsumerWidget {
 
     return transactionStream.when(
         error: (error, stackTrace) => const Text('Error'),
-        loading: () => SizedBox.shrink(),
+        loading: SizedBox.shrink,
         data: (transaction) {
           if (transaction == null) {
-            return _buildCreateTransactionButton(context, ref, room.participants.first.id);
+            return _buildCreateTransactionButton(
+                context, ref, room.participants.first.id);
           }
 
-          return _buildTransactionStatus(context, ref, transaction, room.participants.first.id);
+          return _buildTransactionStatus(
+              context, ref, transaction, room.participants.first.id);
         });
   }
 
-  Widget _buildCreateTransactionButton(BuildContext context, WidgetRef ref, String myUserId) {
-    final providerId = room.participants.firstWhere((participant) => participant.id != myUserId).id;
+  Widget _buildCreateTransactionButton(
+      BuildContext context, WidgetRef ref, String myUserId) {
+    final providerId = room.participants
+        .firstWhere((participant) => participant.id != myUserId)
+        .id;
 
     return GestureDetector(
       onTap: () async {
         final newTransaction = Transaction(
-          id: Uuid().v4(),
+          id: const Uuid().v4(),
           roomId: roomId,
           requesterId: myUserId,
           providerId: providerId,
@@ -73,7 +79,8 @@ class TransactionStatusWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildTransactionStatus(BuildContext context, WidgetRef ref, Transaction tx, String myUserId) {
+  Widget _buildTransactionStatus(
+      BuildContext context, WidgetRef ref, Transaction tx, String myUserId) {
     return Container(
         margin: marginPadding,
         padding: marginPadding,
@@ -81,7 +88,9 @@ class TransactionStatusWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(16),
           color: switch (tx.status) {
             TransactionStatus.proposed => Colors.orange[100],
-            TransactionStatus.accepted || TransactionStatus.in_progress => Colors.lightBlue,
+            TransactionStatus.accepted ||
+            TransactionStatus.in_progress =>
+              Colors.lightBlue,
             TransactionStatus.completed => Colors.grey[300],
             _ => Colors.white,
           },
@@ -104,7 +113,9 @@ class TransactionStatusWidget extends ConsumerWidget {
                 if (tx.requesterId == myUserId) ...[
                   GestureDetector(
                     onTap: () async {
-                      await ref.read(transactionRepositoryProvider).updateStatus(
+                      await ref
+                          .read(transactionRepositoryProvider)
+                          .updateStatus(
                             roomId: roomId,
                             status: TransactionStatus.canceled,
                             actorId: myUserId,
@@ -118,7 +129,8 @@ class TransactionStatusWidget extends ConsumerWidget {
                       ),
                       child: Text(
                         '취소',
-                        style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                        style: AppTextStyles.labelLarge
+                            .copyWith(color: Colors.white),
                       ),
                     ),
                   ),
@@ -128,7 +140,9 @@ class TransactionStatusWidget extends ConsumerWidget {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref.read(transactionRepositoryProvider).updateStatus(
+                          await ref
+                              .read(transactionRepositoryProvider)
+                              .updateStatus(
                                 roomId: roomId,
                                 status: TransactionStatus.accepted,
                                 actorId: myUserId,
@@ -142,14 +156,17 @@ class TransactionStatusWidget extends ConsumerWidget {
                           ),
                           child: Text(
                             '수락',
-                            style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                            style: AppTextStyles.labelLarge
+                                .copyWith(color: Colors.white),
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () async {
-                          await ref.read(transactionRepositoryProvider).updateStatus(
+                          await ref
+                              .read(transactionRepositoryProvider)
+                              .updateStatus(
                                 roomId: roomId,
                                 status: TransactionStatus.canceled,
                                 actorId: myUserId,
@@ -163,7 +180,8 @@ class TransactionStatusWidget extends ConsumerWidget {
                           ),
                           child: Text(
                             '거절',
-                            style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                            style: AppTextStyles.labelLarge
+                                .copyWith(color: Colors.white),
                           ),
                         ),
                       ),
@@ -190,7 +208,9 @@ class TransactionStatusWidget extends ConsumerWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        await ref.read(transactionRepositoryProvider).updateStatus(
+                        await ref
+                            .read(transactionRepositoryProvider)
+                            .updateStatus(
                               roomId: roomId,
                               status: TransactionStatus.completed,
                               actorId: myUserId,
@@ -204,14 +224,17 @@ class TransactionStatusWidget extends ConsumerWidget {
                         ),
                         child: Text(
                           '거래 완료',
-                          style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                          style: AppTextStyles.labelLarge
+                              .copyWith(color: Colors.white),
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () async {
-                        await ref.read(transactionRepositoryProvider).updateStatus(
+                        await ref
+                            .read(transactionRepositoryProvider)
+                            .updateStatus(
                               roomId: roomId,
                               status: TransactionStatus.canceled,
                               actorId: myUserId,
@@ -225,7 +248,8 @@ class TransactionStatusWidget extends ConsumerWidget {
                         ),
                         child: Text(
                           '취소',
-                          style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                          style: AppTextStyles.labelLarge
+                              .copyWith(color: Colors.white),
                         ),
                       ),
                     ),
@@ -296,8 +320,9 @@ class TransactionStatusWidget extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       '거래가 취소되었습니다.',
-                      style:
-                          AppTextStyles.bodyMedium.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -317,7 +342,8 @@ class TransactionStatusWidget extends ConsumerWidget {
                     ),
                     child: Text(
                       '다시 거래 제안하기',
-                      style: AppTextStyles.labelLarge.copyWith(color: Colors.white),
+                      style: AppTextStyles.labelLarge
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),

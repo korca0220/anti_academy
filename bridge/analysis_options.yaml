@@ -59,7 +59,6 @@ linter:
     # --- Convention: Imports & structure ---
     directives_ordering: true
     implementation_imports: true
-    avoid_relative_lib_imports: true
 
     # --- Convention: Dart best practices ---
     annotate_overrides: true

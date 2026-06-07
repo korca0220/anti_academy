@@ -12,7 +12,10 @@ abstract interface class ChatRepository {
   /// 메시지를 전송합니다.
   Future<void> sendMessage(String roomId, String content);
 
-  /// 상대방과의 1:1 채팅방을 생성하거나 기존 방을 가져옵니다.
+  /// 게시글 컨텍스트 기준으로 상대방과의 채팅방을 생성하거나 기존 방을 가져옵니다.
   /// (RPC 함수 create_or_get_chat_room 사용)
-  Future<String> createOrGetChatRoom(String otherUserId);
+  Future<String> createOrGetChatRoom({
+    required String otherUserId,
+    required String postId,
+  });
 }

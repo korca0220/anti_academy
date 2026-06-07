@@ -86,10 +86,13 @@ class PostDetailScreen extends ConsumerWidget {
                   width: double.infinity,
                   child: FilledButton.icon(
                     onPressed: () async {
-                      final chatRoomId = await ref.read(chatRepositoryProvider).createOrGetChatRoom(post.authorId);
+                      final chatRoomId = await ref.read(chatRepositoryProvider).createOrGetChatRoom(
+                            otherUserId: post.authorId,
+                            postId: post.id,
+                          );
 
                       if (context.mounted) {
-                        context.push('/chats/$chatRoomId');
+                        await context.push('/chats/$chatRoomId');
                       }
                     },
                     icon: const Icon(Icons.chat_bubble_outline),

@@ -1,9 +1,11 @@
 import 'package:bridge/features/auth/presentation/providers/auth_providers.dart';
 import 'package:bridge/features/auth/presentation/screens/splash_screen.dart';
 import 'package:bridge/features/chat/domain/entities/chat_room.dart';
+import 'package:bridge/features/chat/presentation/providers/chat_providers.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
 import 'package:bridge/features/profile/presentation/screens/profile_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,7 +45,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: 'post/:postId',
             builder: (context, state) {
-              final post = state.extra as Post;
+              final post = state.extra;
+              if (post is! Post) {
+                return const HomeScreen();
+              }
 
               return PostDetailScreen(post: post);
             },
@@ -57,10 +62,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
               path: ':roomId',
               builder: (context, state) {
-                final room = state.extra as ChatRoom;
+                final room = state.extra;
+                final roomId = state.pathParameters['roomId'] ?? '';
+                if (room is ChatRoom) {
+                  return ChatScreen(room: room);
+                }
 
-                return ChatScreen(
-                  room: room,
+                return _ChatRoomRouteLoader(
+                  roomId: roomId,
                 );
               }),
         ],
@@ -89,3 +98,36 @@ final routerProvider = Provider<GoRouter>((ref) {
     },
   );
 });
+
+class _ChatRoomRouteLoader extends ConsumerWidget {
+  const _ChatRoomRouteLoader({required this.roomId});
+
+  final String roomId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final roomsAsync = ref.watch(chatRoomsFutureProvider);
+
+    return roomsAsync.when(
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      error: (error, _) => const ChatRoomListScreen(),
+      data: (rooms) {
+        ChatRoom? matchedRoom;
+        for (final room in rooms) {
+          if (room.id == roomId) {
+            matchedRoom = room;
+            break;
+          }
+        }
+
+        if (matchedRoom == null) {
+          return const ChatRoomListScreen();
+        }
+
+        return ChatScreen(room: matchedRoom);
+      },
+    );
+  }
+}

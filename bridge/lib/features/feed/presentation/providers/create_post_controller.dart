@@ -17,7 +17,7 @@ class CreatePostController extends AutoDisposeAsyncNotifier<void> {
   Future<void> createPost({
     required Post post,
   }) async {
-    state = AsyncValue.loading();
+    state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() {
       return ref.read(postRepositoryProvider).createPost(post);
@@ -25,6 +25,7 @@ class CreatePostController extends AutoDisposeAsyncNotifier<void> {
   }
 }
 
-final createPostControllerProvider = AsyncNotifierProvider.autoDispose<CreatePostController, void>(
-  () => CreatePostController(),
+final createPostControllerProvider =
+    AsyncNotifierProvider.autoDispose<CreatePostController, void>(
+  CreatePostController.new,
 );

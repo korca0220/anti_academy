@@ -1,6 +1,7 @@
 -- 1. Create chat_rooms table
 create table public.chat_rooms (
   id uuid default gen_random_uuid() primary key,
+  post_id uuid references public.posts(id) on delete set null,
   created_at timestamptz default now()
 );
 
@@ -74,8 +75,8 @@ create policy "Users can insert messages in their rooms"
   );
 
 -- 6. Helper Function: create_or_get_chat_room
--- Finds an existing 1:1 room or creates a new one
-create or replace function public.create_or_get_chat_room(other_user_id uuid)
+-- Finds an existing 1:1 room for a specific post, or creates a new one
+create or replace function public.create_or_get_chat_room(other_user_id uuid, post_id uuid)
 returns uuid
 language plpgsql
 security definer
@@ -84,13 +85,14 @@ declare
   room_id_found uuid;
   current_user_id uuid := auth.uid();
 begin
-  -- 1. Check if room exists between these two users
+  -- 1. Check if room exists between these two users for the same post
   select r.id into room_id_found
   from chat_rooms r
   join chat_participants p1 on r.id = p1.room_id
-join chat_participants p2 on r.id = p2.room_id
+  join chat_participants p2 on r.id = p2.room_id
   where p1.user_id = current_user_id
-  and p2.user_id = other_user_id;
+  and p2.user_id = other_user_id
+  and r.post_id = create_or_get_chat_room.post_id;
 
   -- 2. If exists, return it
   if room_id_found is not null then
@@ -98,7 +100,7 @@ join chat_participants p2 on r.id = p2.room_id
   end if;
 
   -- 3. If not, create new room and add participants
-  insert into chat_rooms (id) values (default) returning id into room_id_found;
+  insert into chat_rooms (id, post_id) values (default, create_or_get_chat_room.post_id) returning id into room_id_found;
   
   insert into chat_participants (room_id, user_id) values 
     (room_id_found, current_user_id),

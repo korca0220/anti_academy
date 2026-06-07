@@ -1,25 +1,21 @@
-class Review {
-  const Review({
-    required this.id,
-    required this.transactionId,
-    required this.roomId,
-    required this.reviewerId,
-    required this.revieweeId,
-    required this.rating,
-    this.comment,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String id;
-  final String transactionId;
-  final String roomId;
-  final String reviewerId;
-  final String revieweeId;
-  final int rating;
-  final String? comment;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+part 'review.freezed.dart';
+part 'review.g.dart';
 
-  // TODO: freezed + fromJson/toJson 매핑 도입
+@freezed
+class Review with _$Review {
+  const factory Review({
+    required String id,
+    required String transactionId,
+    required String roomId,
+    required String reviewerId,
+    required String revieweeId,
+    required int rating,
+    String? comment,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) = _Review;
+
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 }
