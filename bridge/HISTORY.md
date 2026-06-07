@@ -118,3 +118,21 @@
 - **DB 제약 + UI 가드 이중 방어**: 중복 리뷰는 DB 제약으로 막고, UI에서는 CTA를 숨겨 사용자의 불필요한 재시도를 줄이는 것이 효과적임.
 - **세션 전환 신뢰성**: 인증 상태 스트림을 provider에 연결하지 않으면 계정 전환 UX가 쉽게 어긋남.
 
+2026-06-07: Profile View Sprint Kickoff
+✅ Accomplishments
+
+1. **Sprint Contract 작성**:
+   - `docs/exec-plans/bridge-profile-view.md` 생성.
+   - 상대방 프로필 보기의 범위, 완료 기준, 제외 범위, 스켈레톤 계획을 확정.
+2. **Profile View 스켈레톤 생성**:
+   - `/users/:userId` 라우트 추가.
+   - `ProfileViewScreen` 화면 스켈레톤 생성.
+   - `ProfileViewState`와 `profileViewProvider(userId)` 스켈레톤 생성.
+3. **진입점 연결**:
+   - 게시글 상세 화면의 작성자 영역에서 상대방 프로필 화면으로 이동하도록 연결.
+   - 채팅 화면 AppBar에 상대방 프로필 진입 TODO 버튼 추가.
+
+🔑 Key Learnings
+
+- **View State Composition**: 새 도메인 엔티티를 만들기 전에, 기존 `ProfileRepository`와 `ReviewRepository`를 조합하는 화면 상태로 충분한지 먼저 검증한다.
+- **Skeleton First 유지**: 평균 별점 계산, 최근 리뷰 정렬, 채팅 상대 판별 로직은 TODO로 남겨 사용자가 직접 구현하도록 했다.

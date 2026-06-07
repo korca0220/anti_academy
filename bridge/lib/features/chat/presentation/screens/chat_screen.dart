@@ -46,7 +46,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final myUserId = Supabase.instance.client.auth.currentUser?.id;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat')),
+      appBar: AppBar(
+        title: const Text('Chat'),
+        actions: [
+          IconButton(
+            tooltip: 'View profile',
+            onPressed: () {
+              // TODO: find the other participant from widget.room.participants.
+              // TODO: navigate with context.push('/users/$otherUserId').
+            },
+            icon: const Icon(Icons.person_outline),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           TransactionStatusWidget(roomId: widget.room.id, room: widget.room),

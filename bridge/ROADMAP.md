@@ -31,7 +31,7 @@
 - [x] **Transaction Actions**: 버튼 기반 상태 전이 액션 (수락/진행/완료/취소)
 - [x] **Review System**: 거래 완료 후 상호 평가 및 별점
       🔍 Phase 5: 탐색 및 프로필 (Discover)
-- [ ] **Profile View**: 상대방 프로필 및 매너온도(Reputation) 확인
+- [ ] **Profile View**: 상대방 프로필 및 매너온도(Reputation) 확인 — 진행 중
 - [ ] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기
 - [ ] **Search**: 키워드 검색 (Supabase Full Text Search)
    - [x] **UI/UX Polish**: 스켈레톤 UI, Empty States 적용

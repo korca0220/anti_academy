@@ -37,41 +37,48 @@ class PostDetailScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  profile.when(
-                    data: (profile) => CircleAvatar(
-                      backgroundImage: profile?.avatarUrl != null //
-                          ? NetworkImage(profile?.avatarUrl ?? '')
-                          : null,
-                      child: profile?.avatarUrl != null //
-                          ? null
-                          : Icon(Icons.person),
+                  InkWell(
+                    onTap: () => context.push('/users/${post.authorId}'),
+                    borderRadius: BorderRadius.circular(24),
+                    child: profile.when(
+                      data: (profile) => CircleAvatar(
+                        backgroundImage: profile?.avatarUrl != null //
+                            ? NetworkImage(profile?.avatarUrl ?? '')
+                            : null,
+                        child: profile?.avatarUrl != null //
+                            ? null
+                            : Icon(Icons.person),
+                      ),
+                      error: (_, __) => SizedBox.shrink(),
+                      loading: () => SizedBox.shrink(),
                     ),
-                    error: (_, __) => SizedBox.shrink(),
-                    loading: () => SizedBox.shrink(),
                   ),
                   SizedBox(width: 12),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        profile.when(
-                          data: (profile) => Text(
-                            'By ${profile?.nickname ?? 'Unknown'}',
-                            style: Theme.of(context).textTheme.labelLarge,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                    child: InkWell(
+                      onTap: () => context.push('/users/${post.authorId}'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          profile.when(
+                            data: (profile) => Text(
+                              'By ${profile?.nickname ?? 'Unknown'}',
+                              style: Theme.of(context).textTheme.labelLarge,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            error: (_, __) => SizedBox.shrink(),
+                            loading: () => SizedBox.shrink(),
                           ),
-                          error: (_, __) => SizedBox.shrink(),
-                          loading: () => SizedBox.shrink(),
-                        ),
-                        Text(
-                          dateStr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(color: Colors.grey),
-                        ),
-                      ],
+                          Text(
+                            dateStr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(color: Colors.grey),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

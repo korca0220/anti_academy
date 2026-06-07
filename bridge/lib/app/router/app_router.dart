@@ -5,6 +5,7 @@ import 'package:bridge/features/chat/presentation/providers/chat_providers.dart'
 import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
 import 'package:bridge/features/profile/presentation/screens/profile_screen.dart';
+import 'package:bridge/features/profile/presentation/screens/profile_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -24,19 +25,19 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/splash',
-        builder: (context, state) => SplashScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: '/signin',
-        builder: (context, state) => SignInScreen(),
+        builder: (context, state) => const SignInScreen(),
       ),
       GoRoute(
         path: '/signup',
-        builder: (context, state) => SignUpScreen(),
+        builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
         path: '/',
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => const HomeScreen(),
         routes: [
           GoRoute(
             path: 'create',
@@ -77,6 +78,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile',
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/users/:userId',
+        builder: (context, state) {
+          final userId = state.pathParameters['userId'] ?? '';
+
+          return ProfileViewScreen(userId: userId);
+        },
       ),
     ],
     redirect: (context, state) {
