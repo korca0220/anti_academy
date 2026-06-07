@@ -13,10 +13,10 @@ analyzer:
     unused_import: error
     unused_local_variable: warning
     # Strengthen const-related diagnostics so Fix All on Save applies consistently.
-    prefer_const_constructors: warning
-    prefer_const_constructors_in_immutables: warning
-    prefer_const_declarations: warning
-    prefer_const_literals_to_create_immutables: warning
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
