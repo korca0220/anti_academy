@@ -29,7 +29,7 @@
 - [x] **Repository Contract**: `getByRoomId`, `watchByRoomId`, `upsert`, `updateStatus` 계약 테스트 완료
 - [x] **Transaction UI**: 채팅방 내 거래 상태 표시 (System Message)
 - [x] **Transaction Actions**: 버튼 기반 상태 전이 액션 (수락/진행/완료/취소)
-- [ ] **Review System**: 거래 완료 후 상호 평가 및 별점
+- [x] **Review System**: 거래 완료 후 상호 평가 및 별점
       🔍 Phase 5: 탐색 및 프로필 (Discover)
 - [ ] **Profile View**: 상대방 프로필 및 매너온도(Reputation) 확인
 - [ ] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기
@@ -38,5 +38,4 @@
       🎨 Phase 6: 완성도 향상 (Polish)
 - [ ] **Onboarding**: 앱 최초 실행 시 안내 가이드
 - [ ] **Animations**: 리스트 진입, 버튼 클릭, 좋아요 인터랙션
-- [ ] **Edge Cases**: 에러 처리, 네트워크 연결 끊김 처리
 - [ ] **Edge Cases**: 에러 처리, 네트워크 연결 끊김 처리

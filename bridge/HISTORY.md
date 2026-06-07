@@ -95,3 +95,26 @@
 - **Storage RLS**: 파일명/경로 기반의 정교한 권한 제어 패턴 습득.
 - **Skeleton Pattern**: 단순 인디케이터보다 스켈레톤 UI가 체감 속도를 높이는 효과 확인.
 
+2026-06-07: Review System Completion & Cross-user Flow Hardening
+✅ Accomplishments
+
+1. **Review Feature End-to-End 연결**:
+   - `review` feature 계층(Domain/Data/Presentation) 스캐폴딩 완료 후 저장 로직 구현.
+   - `ReviewBottomSheet`를 `Riverpod @riverpod` 기반 submit 흐름에 연결.
+   - 중복 작성(UNIQUE 제약) 실패 시 사용자 피드백을 시트 내부 에러 메시지로 처리.
+2. **Completed 거래 UX 보강**:
+   - 거래 완료 카드에서 리뷰 요약(최근 리뷰 별점/코멘트) 표시.
+   - 현재 로그인 사용자가 이미 리뷰를 작성한 경우 `리뷰 남기기` 버튼 숨김 + `리뷰 작성 완료` 배지 노출.
+3. **Post-Chat-Transaction 연결 안정화**:
+   - 채팅방을 `post_id` 컨텍스트로 생성하도록 RPC 시그니처/호출부 정합성 강화.
+   - `transactions.post_id` 누락 시 상태 동기화가 깨지는 문제를 방어 로직으로 차단.
+4. **멀티 유저 검증 대응**:
+   - 계정 전환 후에도 `currentUserId`가 즉시 반영되도록 provider 반응성 수정.
+   - 프로필 화면에 로그아웃 UX 추가하여 교차 유저 테스트 경로 확보.
+
+🔑 Key Learnings
+
+- **Context Binding 중요성**: 메시지/거래 흐름은 사용자뿐 아니라 `post_id` 맥락까지 함께 묶어야 도메인 정합성이 유지됨.
+- **DB 제약 + UI 가드 이중 방어**: 중복 리뷰는 DB 제약으로 막고, UI에서는 CTA를 숨겨 사용자의 불필요한 재시도를 줄이는 것이 효과적임.
+- **세션 전환 신뢰성**: 인증 상태 스트림을 provider에 연결하지 않으면 계정 전환 UX가 쉽게 어긋남.
+
