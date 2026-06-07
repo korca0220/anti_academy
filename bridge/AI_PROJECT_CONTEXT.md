@@ -60,6 +60,7 @@ lib/
 2.  No Magic Strings: 문자열/색상/상수는 중앙 관리.
 3.  Controller Pattern: UI 입출력은 Notifier/Controller에서 처리.
 4.  State Through Riverpod: AsyncValue 기반 상태 일관성.
+5.  Widget File Rule: Flutter 위젯은 1파일 1위젯 클래스를 원칙으로 하며, 보조 위젯은 `widgets/`로 분리한다.
 
 📌 Current Checkpoint (Phase 7 Complete)
 
