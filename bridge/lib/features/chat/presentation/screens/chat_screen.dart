@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../transaction/presentation/widgets/transaction_status_widget.dart';
@@ -52,8 +54,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           IconButton(
             tooltip: 'View profile',
             onPressed: () {
-              // TODO: find the other participant from widget.room.participants.
-              // TODO: navigate with context.push('/users/$otherUserId').
+              final otherUser = widget.room.participants.firstWhereOrNull(
+                (user) => user.id != myUserId,
+              );
+
+              if (otherUser == null) return;
+
+              context.push('/users/${otherUser.id}');
             },
             icon: const Icon(Icons.person_outline),
           ),
