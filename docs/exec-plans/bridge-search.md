@@ -3,7 +3,7 @@
 **날짜**: 2026-06-08
 **프로젝트**: bridge
 **스프린트**: Phase 5 — Search
-**상태**: active
+**상태**: completed
 
 ---
 

@@ -33,7 +33,7 @@
       🔍 Phase 5: 탐색 및 프로필 (Discover)
 - [x] **Profile View**: 상대방 프로필 및 받은 리뷰 요약 확인
 - [x] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기
-- [ ] **Search**: 키워드 검색 (Supabase Full Text Search)
+- [x] **Search**: 키워드 검색 (ilike 부분 일치)
    - [x] **UI/UX Polish**: 스켈레톤 UI, Empty States 적용
       🎨 Phase 6: 완성도 향상 (Polish)
 - [ ] **Onboarding**: 앱 최초 실행 시 안내 가이드

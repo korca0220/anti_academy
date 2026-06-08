@@ -137,6 +137,26 @@
 - **View State Composition**: 새 도메인 엔티티를 만들기 전에, 기존 `ProfileRepository`와 `ReviewRepository`를 조합하는 화면 상태로 충분한지 먼저 검증한다.
 - **Skeleton First 유지**: 평균 별점 계산, 최근 리뷰 정렬, 채팅 상대 판별 로직은 TODO로 남겨 사용자가 직접 구현하도록 했다.
 
+2026-06-08: Search Sprint — 완료
+✅ Accomplishments
+
+1. **Domain & Data 확장**:
+   - `PostRepository.search(String query)` 인터페이스 + `ilike` OR 쿼리 구현.
+   - empty query guard — 빈 문자열이면 DB 호출 없이 즉시 빈 리스트 반환.
+2. **Provider**:
+   - `@riverpod` family function provider `searchPostsProvider(query)` 추가.
+   - `post_providers.dart`에 통합 (feed 도메인 응집도 유지).
+3. **UI**:
+   - `SearchScreen` — AppBar TextField + listener 패턴으로 query 상태 관리.
+   - 빈 query / 결과 없음 / 결과 있음 세 가지 상태 모두 처리.
+   - HomeScreen AppBar 검색 아이콘 + `/search` 라우트 연결.
+
+🔑 Key Learnings
+
+- **`ref.watch` vs `ref.read` in providers**: provider 함수 본문에서는 항상 `ref.watch`. `ref.read`는 Notifier 메서드와 이벤트 핸들러에서만 사용.
+- **ilike vs FTS**: 한국어 환경에서는 FTS 사전 설정 없이 `ilike`가 현실적. 데이터 증가 시 FTS 인덱스 도입을 기술 부채로 기록.
+- **query 상태 로컬 관리**: 검색어는 화면 외부에서 참조할 일이 없으므로 전역 provider 없이 위젯 로컬 `setState`로 충분.
+
 2026-06-08: My Activity Sprint — 완료
 ✅ Accomplishments
 
