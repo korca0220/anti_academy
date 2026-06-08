@@ -23,9 +23,9 @@ final postsStreamProvider = StreamProvider.autoDispose<List<Post>>((ref) {
   return repository.getPosts(type: filter.toPostType);
 });
 
-// TODO: searchPostsProvider를 구현하세요.
-// query가 비어있으면 빈 리스트를 반환하고, 아니면 repository.search(query)를 호출하세요.
 @riverpod
 Future<List<Post>> searchPosts(Ref ref, String query) async {
-  throw UnimplementedError();
+  final repository = ref.watch(postRepositoryProvider);
+
+  return repository.search(query);
 }
