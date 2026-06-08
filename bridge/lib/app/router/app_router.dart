@@ -17,6 +17,7 @@ import '../../features/feed/domain/entities/post.dart';
 import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 import '../../features/feed/presentation/screens/post_detail_screen.dart';
+import '../../features/feed/presentation/screens/search_screen.dart';
 import '../../features/profile/presentation/screens/my_activity_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -76,6 +77,10 @@ final routerProvider = Provider<GoRouter>((ref) {
                 );
               }),
         ],
+      ),
+      GoRoute(
+        path: '/search',
+        builder: (context, state) => const SearchScreen(),
       ),
       GoRoute(
         path: '/profile',

@@ -25,6 +25,10 @@ class HomeScreen extends ConsumerWidget {
         title: const Text('Bridge'),
         actions: [
           IconButton(
+            onPressed: () => context.push('/search'),
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
             onPressed: () => context.push('/chats'),
             icon: const Icon(Icons.mail_outline_rounded),
           ),
@@ -52,7 +56,7 @@ class HomeScreen extends ConsumerWidget {
           SegmentedButton(
             expandedInsets: const EdgeInsets.symmetric(horizontal: 16),
             selected: {feedFilter},
-            segments: [
+            segments: const [
               ButtonSegment(value: FeedFilter.all, label: Text('All')),
               ButtonSegment(value: FeedFilter.request, label: Text('Request')),
               ButtonSegment(value: FeedFilter.offer, label: Text('Offer')),
