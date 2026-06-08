@@ -5,6 +5,7 @@ import 'package:bridge/features/chat/presentation/providers/chat_providers.dart'
 import 'package:bridge/features/chat/presentation/screens/chat_room_list_screen.dart';
 import 'package:bridge/features/chat/presentation/screens/chat_screen.dart';
 import 'package:bridge/features/profile/presentation/screens/profile_screen.dart';
+
 import 'package:bridge/features/profile/presentation/screens/profile_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,7 @@ import '../../features/feed/domain/entities/post.dart';
 import '../../features/feed/presentation/screens/create_post_screen.dart';
 import '../../features/feed/presentation/screens/home_screen.dart';
 import '../../features/feed/presentation/screens/post_detail_screen.dart';
+import '../../features/profile/presentation/screens/my_activity_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -80,6 +82,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
+        path: '/activity',
+        builder: (context, state) => const MyActivityScreen(),
+      ),
+      GoRoute(
         path: '/users/:userId',
         builder: (context, state) {
           final userId = state.pathParameters['userId'] ?? '';
@@ -101,8 +107,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!isAuthenticated && !isLoggingIn && !isSigningUp) return '/signin';
 
       // 로그인 했는데 로그인/회원가입/스플래쉬면 -> 홈으로
-      if (isAuthenticated && (isLoggingIn || isSigningUp || isSplash))
+      if (isAuthenticated && (isLoggingIn || isSigningUp || isSplash)) {
         return '/';
+      }
 
       return null;
     },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../domain/entities/profile.dart';
@@ -42,7 +43,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       appBar: AppBar(
         title: const Text('My Profile'),
         actions: [
-          // TODO: '내 활동' 버튼(Icons.list_alt)을 추가하고 context.push('/activity')로 이동하세요.
+          IconButton(
+            onPressed: () => context.push('/activity'),
+            tooltip: '내 활동',
+            icon: const Icon(Icons.list_alt),
+          ),
           IconButton(
             onPressed: _signOut,
             tooltip: '로그아웃',
