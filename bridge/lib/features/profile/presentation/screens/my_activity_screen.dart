@@ -17,24 +17,23 @@ class MyActivityScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: DefaultTabController로 감싸고 두 개의 탭('내 게시글', '거래 내역')을 구성하세요.
-    // 힌트: TabBar는 AppBar의 bottom에, TabBarView는 body에 배치합니다.
     return DefaultTabController(
         length: MyActivityTab.values.length,
         initialIndex: MyActivityTab.values.indexOf(MyActivityTab.posts),
-        child: Column(
-          children: [
-            TabBar(
-                tabs: MyActivityTab.values
-                    .map((e) => Tab(text: e.label))
-                    .toList()),
-            const TabBarView(
-              children: [
-                MyPostsTab(),
-                MyTransactionsTab(),
-              ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('My Activity'),
+            bottom: TabBar(
+              tabs:
+                  MyActivityTab.values.map((e) => Tab(text: e.label)).toList(),
             ),
-          ],
+          ),
+          body: const TabBarView(
+            children: [
+              MyPostsTab(),
+              MyTransactionsTab(),
+            ],
+          ),
         ));
   }
 }
