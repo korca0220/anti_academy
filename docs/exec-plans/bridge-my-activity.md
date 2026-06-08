@@ -3,7 +3,7 @@
 **날짜**: 2026-06-07
 **프로젝트**: bridge
 **스프린트**: Phase 5 — My Activity
-**상태**: active (5/8 완료)
+**상태**: completed
 
 ---
 

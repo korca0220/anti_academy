@@ -32,7 +32,7 @@
 - [x] **Review System**: 거래 완료 후 상호 평가 및 별점
       🔍 Phase 5: 탐색 및 프로필 (Discover)
 - [x] **Profile View**: 상대방 프로필 및 받은 리뷰 요약 확인
-- [ ] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기 *(진행 중 — 5/8 완료)*
+- [x] **My Activity**: 내가 쓴 글, 나의 거래 내역 모아보기
 - [ ] **Search**: 키워드 검색 (Supabase Full Text Search)
    - [x] **UI/UX Polish**: 스켈레톤 UI, Empty States 적용
       🎨 Phase 6: 완성도 향상 (Polish)

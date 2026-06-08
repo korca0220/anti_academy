@@ -137,7 +137,7 @@
 - **View State Composition**: 새 도메인 엔티티를 만들기 전에, 기존 `ProfileRepository`와 `ReviewRepository`를 조합하는 화면 상태로 충분한지 먼저 검증한다.
 - **Skeleton First 유지**: 평균 별점 계산, 최근 리뷰 정렬, 채팅 상대 판별 로직은 TODO로 남겨 사용자가 직접 구현하도록 했다.
 
-2026-06-07: My Activity Sprint — 진행 중 (5/8)
+2026-06-08: My Activity Sprint — 완료
 ✅ Accomplishments
 
 1. **워크플로우 & 컨벤션 정립**:
@@ -154,17 +154,13 @@
    - `MyPostsTab` — `AsyncValue.when` + Empty State + ListView.
    - `MyTransactionsTab` — `AsyncValue.when` + Empty State + ListView.
 
-🔜 Next Steps (다음 세션)
-
-- `MyActivityScreen` TabBar 구현 (스텝 6)
-- 라우트 `/activity` 추가 + ProfileScreen 진입 버튼 연결 (스텝 7)
-- `flutter analyze` 통과 + 최종 커밋 (스텝 8)
-
 🔑 Key Learnings
 
 - **Provider 배치 기준**: 단일 화면 전용 provider는 `my_activity_providers.dart`처럼 화면 단위 파일로 묶는 게 import 응집도가 높다.
 - **`_` prefix ≠ 같은 파일**: private 위젯도 1파일 1클래스 원칙에서 예외가 없다. 규칙에 명시적으로 추가했다.
 - **반성보다 규칙**: 실수 발생 시 반성보다 규칙 보완이 재발 방지에 효과적이다.
+- **TabBarView 레이아웃**: `Column` 안에서는 `Expanded`가 필수. `AppBar.bottom` 패턴이 더 간결하다.
+- **Provider 파일 통합**: 단일 화면 전용 provider는 화면 단위 파일(`my_activity_providers.dart`)로 묶으면 import 응집도가 높아진다.
 
 2026-06-07: Profile View Completion
 ✅ Accomplishments
