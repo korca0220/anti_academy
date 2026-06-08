@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/widgets/empty_state_widget.dart';
 import '../providers/post_providers.dart';
 import '../widgets/feed_item.dart';
 
@@ -14,21 +15,58 @@ class SearchScreen extends ConsumerStatefulWidget {
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final _controller = TextEditingController();
 
-  // TODO: 검색어 상태를 관리할 변수를 선언하세요. (예: String _query = '')
-  // 힌트: _controller에 addListener를 달거나 onChanged를 활용하세요.
+  String _query = '';
+
+  @override
+  void initState() {
+    _controller.addListener(_onQueryChanged);
+
+    super.initState();
+  }
+
+  void _onQueryChanged() {
+    setState(() {
+      _query = _controller.text;
+    });
+  }
 
   @override
   void dispose() {
+    _controller.removeListener(_onQueryChanged);
     _controller.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: 아래 구조로 화면을 구성하세요.
-    // Scaffold
-    //   appBar: AppBar with SearchBar (TextField)
-    //   body: _query가 비어있으면 안내 문구, 아니면 searchPostsProvider(_query).when(...)
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          controller: _controller,
+          decoration: const InputDecoration(
+            hintText: 'Search',
+          ),
+        ),
+      ),
+      body: _query.isEmpty
+          ? const Center(child: Text('Enter a search term'))
+          : ref.watch(searchPostsProvider(_query)).when(
+                error: (error, stackTrace) =>
+                    Center(child: Text('Error: $error')),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                data: (posts) => posts.isEmpty
+                    ? const EmptyStateWidget(
+                        title: 'No results found',
+                        subtitle: 'Try a different search term',
+                        iconData: Icons.search,
+                      )
+                    : ListView.builder(
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) =>
+                            FeedItem(post: posts[index]),
+                      ),
+              ),
+    );
   }
 }
