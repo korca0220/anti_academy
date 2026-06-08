@@ -3,8 +3,11 @@ import 'package:bridge/features/feed/data/repositories/supabase_post_repository.
 import 'package:bridge/features/feed/domain/repositories/post_repository.dart';
 import 'package:bridge/features/feed/presentation/providers/feed_filter_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../domain/entities/post.dart';
+
+part 'post_providers.g.dart';
 
 // 1. Repository Provider
 final postRepositoryProvider = Provider<PostRepository>((ref) {
@@ -19,3 +22,10 @@ final postsStreamProvider = StreamProvider.autoDispose<List<Post>>((ref) {
 
   return repository.getPosts(type: filter.toPostType);
 });
+
+// TODO: searchPostsProvider를 구현하세요.
+// query가 비어있으면 빈 리스트를 반환하고, 아니면 repository.search(query)를 호출하세요.
+@riverpod
+Future<List<Post>> searchPosts(Ref ref, String query) async {
+  throw UnimplementedError();
+}
