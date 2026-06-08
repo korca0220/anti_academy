@@ -62,4 +62,22 @@ class MockPostRepository extends _i1.Mock implements _i2.PostRepository {
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<List<_i4.Post>> getByUserId(String? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #getByUserId,
+          [userId],
+        ),
+        returnValue: _i3.Future<List<_i4.Post>>.value(<_i4.Post>[]),
+      ) as _i3.Future<List<_i4.Post>>);
+
+  @override
+  _i3.Future<List<_i4.Post>> search(String? query) => (super.noSuchMethod(
+        Invocation.method(
+          #search,
+          [query],
+        ),
+        returnValue: _i3.Future<List<_i4.Post>>.value(<_i4.Post>[]),
+      ) as _i3.Future<List<_i4.Post>>);
 }

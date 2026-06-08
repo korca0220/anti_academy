@@ -13,8 +13,6 @@ ReviewRepository reviewRepository(Ref ref) {
   return SupabaseReviewRepository(supabaseClient: Supabase.instance.client);
 }
 
-// TODO: 작성/조회 상태를 관리할 AsyncNotifier 또는 Notifier provider 추가
-
 @riverpod
 class ReviewSubmitController extends _$ReviewSubmitController {
   @override
