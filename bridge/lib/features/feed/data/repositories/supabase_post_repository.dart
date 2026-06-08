@@ -47,10 +47,17 @@ class SupabasePostRepository implements PostRepository {
 
   @override
   Future<List<Post>> search(String query) async {
-    // TODO: query가 비어있으면 빈 리스트를 즉시 반환하세요.
-    // TODO: Supabase 'posts' 테이블에서 title 또는 content에 query가 포함된 게시글을 조회하세요.
-    // 힌트: .or('title.ilike.%$query%,content.ilike.%$query%').order('created_at', ascending: false)
-    throw UnimplementedError();
+    if (query.isEmpty) {
+      return [];
+    }
+
+    final result = await _supabase
+        .from('posts')
+        .select()
+        .or('title.ilike.%$query%,content.ilike.%$query%')
+        .order('created_at', ascending: false);
+
+    return result.map(Post.fromJson).toList();
   }
 
   @override
